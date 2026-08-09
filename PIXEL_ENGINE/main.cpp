@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <string>
-#include "Input/SystemInput/SystemInputs.h"
+#include "Input/SystemInputs.h"
 
 using namespace std;
 

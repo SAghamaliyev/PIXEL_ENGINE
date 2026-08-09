@@ -134,7 +134,7 @@
     <ClCompile Include="AnotherMain.cpp" />
     <ClCompile Include="dependencies\glad\src\glad.c" />
     <ClCompile Include="Input\InputManager.cpp" />
-    <ClCompile Include="Input\SystemInput\SystemInputs.cpp" />
+    <ClCompile Include="Input\SystemInputs.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
@@ -151,7 +151,7 @@
     <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
     <ClInclude Include="Input\InputManager.h" />
-    <ClInclude Include="Input\SystemInput\SystemInputs.h" />
+    <ClInclude Include="Input\SystemInputs.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
     <ClInclude Include="UI\Materials\imconfig.h" />
