@@ -30,9 +30,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="AnotherMain.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -60,11 +57,14 @@
     <ClCompile Include="dependencies\glad\src\glad.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Render\ReaderOBJ.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Meshing.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnotherMain.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -110,8 +110,17 @@
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\ReaderOBJ.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Meshing.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="imgui.ini" />
+    <Object Include="src\Objects\Triangle.obj" />
   </ItemGroup>
 </Project>

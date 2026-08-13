@@ -131,11 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnotherMain.cpp" />
     <ClCompile Include="dependencies\glad\src\glad.c" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\SystemInputs.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Render\Meshing.cpp" />
+    <ClCompile Include="Render\ReaderOBJ.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
@@ -144,7 +145,6 @@
     <ClCompile Include="UI\Materials\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnotherMain.h" />
     <ClInclude Include="dependencies\glad\include\glad\glad.h" />
     <ClInclude Include="dependencies\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
@@ -152,8 +152,11 @@
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\SystemInputs.h" />
+    <ClInclude Include="Render\Meshing.h" />
+    <ClInclude Include="Render\ReaderOBJ.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="UI\Materials\imconfig.h" />
     <ClInclude Include="UI\Materials\imgui.h" />
     <ClInclude Include="UI\Materials\imgui_internal.h" />
@@ -162,7 +165,7 @@
     <ClInclude Include="UI\Materials\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="imgui.ini" />
+    <Object Include="src\Objects\Triangle.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,6 @@
 ﻿#include <glad/glad.h> 
 #include <GLFW/glfw3.h>
+
 #include <iostream>
 #include <string>
 #include "Input/SystemInputs.h"
@@ -7,7 +8,7 @@
 using namespace std;
 
 void runEditMode();
-void runPlayMode();
+
 
 int main(int argc, char** argv) {
     bool isEditorMode = true;
@@ -21,8 +22,6 @@ int main(int argc, char** argv) {
 
     if (isEditorMode)
         runEditMode();
-    if (!isEditorMode)
-        runPlayMode();
 
     return 0;
 }
@@ -38,8 +37,13 @@ void runEditMode() {
     // А теперь хотим ли мы поддержку старых версий и функций opengl(нет)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE /*означает что ток современные хотим*/);
 
-    // Теперь создаем обьект для окна
-    GLFWwindow* window = glfwCreateWindow(1920, 1080, "PIXEL Engine beta 3.1", NULL, NULL/*нулы говорят что мы не делимся данными этими*/);
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+
+    // 2. Получаем текущий видеорежим (разрешение и частоту обновления)
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+    // 3. Передаем ширину и высоту монитора
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "PixelEngine", monitor, NULL);
 
 
     if (window == NULL) {
@@ -80,50 +84,7 @@ void runEditMode() {
     glfwTerminate();
     return;
 }
-
-void runPlayMode() {
-    glfwInit(); // запуск библиотеки
-
-    // Сейчас будем говорить версию какую хотим(а хотим мы 3.3)
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);  // главная цифра(3)
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);  // доп цифра(0.3) 
-
-    // А теперь хотим ли мы поддержку старых версий и функций opengl(нет)
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE /*означает что ток современные хотим*/);
-
-    // Теперь создаем обьект для окна
-    GLFWwindow* window = glfwCreateWindow(1920, 1080, "PIXEL Engine beta 3.1", NULL, NULL/*нулы говорят что мы не делимся данными этими*/);
-
-
-    if (window == NULL) {
-        cout << "Failed to load a window\n";
-        glfwTerminate();
-        return;
-    }
-    glfwMakeContextCurrent(window);
-
-    // Чтобы связать новые функции со старыми из 1997 видеокарте необходимо местоположение этих функций 
-    // Вручную это трудно так что мы юзаем glad
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        cout << "Failed to load GLAD\n";
-        return;
-    }
-
-    // Отрисовка рендеринг крч
-    glViewport(0, 0, 800, 600); // первые 2 параметра это координаты(0 и 0 это опенгл рисует с нижнего левого поля на 800 и 600 пх
-
-
-
-    while (!glfwWindowShouldClose(window)) {
-        glfwSwapBuffers(window);    // у нас есть буффер для всех пикселей где какой цвет и вот его надо обновлять
-        glfwPollEvents();   // чекает изменения в системе(инпут оутпут и тд)
-
-    }
-
-    glfwTerminate();
-    return;
-}
+//
 //#include "imgui.h"
 //#include "imgui_impl_glfw.h"
 //#include "imgui_impl_opengl3.h"
@@ -132,7 +93,14 @@ void runPlayMode() {
 //int main() {
 //    // 1. Инициализация GLFW и создание окна (стандартный код OpenGL)
 //    glfwInit();
-//    GLFWwindow* window = glfwCreateWindow(1280, 720, "ImGui Example", NULL, NULL);
+//    // 1. Получаем главный монитор
+//    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+//
+//    // 2. Получаем текущий видеорежим (разрешение и частоту обновления)
+//    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+//
+//    // 3. Передаем ширину и высоту монитора
+//    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "ImGui Example", monitor, NULL);
 //    glfwMakeContextCurrent(window);
 //
 //    // 2. Инициализация контекста ImGui
@@ -157,14 +125,10 @@ void runPlayMode() {
 //        // ==========================================
 //        // ЗДЕСЬ ВЫ ПИШЕТЕ КОД ВАШЕГО ИНТЕРФЕЙСА
 //
-//        ImGui::Begin("My first window"); // Создаем окно
-//        ImGui::Text("Hello");      // Добавляем текст
+//        ImGui::Begin("Inspector");
 //
-//        if (ImGui::Button("Press me")) { // Добавляем кнопку
-//            // Код, который выполнится при нажатии
-//        }
-//
-//        ImGui::End(); // Заканчиваем работу с окном
+//        
+//        ImGui::End();
 //        // ==========================================
 //
 //        // Рендеринг ImGui

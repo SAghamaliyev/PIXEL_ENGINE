@@ -96,6 +96,7 @@ int InputManager::glfwKeys[100] = {
     GLFW_KEY_GRAVE_ACCENT
 };
 
+
 int InputManager::glfwMouseButtons[100] = {GLFW_MOUSE_BUTTON_1,GLFW_MOUSE_BUTTON_2,
                                 GLFW_MOUSE_BUTTON_3,GLFW_MOUSE_BUTTON_4,GLFW_MOUSE_BUTTON_5};
 
@@ -105,7 +106,9 @@ int InputManager::KeysPrevStates[100] = {0};
 int InputManager::MouseButtonsCurrentStates[100] = {0};
 int InputManager::MouseButtonsPrevStates[100] = {0};
 
+
 void InputManager::Update(GLFWwindow* window) {
+
 
     std::memcpy(KeysPrevStates, KeysCurrentStates, sizeof(KeysCurrentStates));
     for (int i = 0; i <= (int)Keys::Tilde; i++) {
