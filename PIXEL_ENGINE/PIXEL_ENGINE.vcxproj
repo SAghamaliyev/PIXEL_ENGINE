@@ -136,7 +136,8 @@
     <ClCompile Include="Input\SystemInputs.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Render\Meshing.cpp" />
-    <ClCompile Include="Render\ReaderOBJ.cpp" />
+    <ClCompile Include="Render\ObjectReader\ReaderOBJ.cpp" />
+    <ClCompile Include="Render\Shader.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
@@ -153,7 +154,8 @@
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\SystemInputs.h" />
     <ClInclude Include="Render\Meshing.h" />
-    <ClInclude Include="Render\ReaderOBJ.h" />
+    <ClInclude Include="Render\ObjectReader\ReaderOBJ.h" />
+    <ClInclude Include="Render\Shader.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
@@ -166,6 +168,10 @@
   </ItemGroup>
   <ItemGroup>
     <Object Include="src\Objects\Triangle.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Objects\Triangle.mtl" />
+    <None Include="src\Shaders\MainVertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -57,10 +57,13 @@
     <ClCompile Include="dependencies\glad\src\glad.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Render\ReaderOBJ.cpp">
+    <ClCompile Include="Render\ObjectReader\ReaderOBJ.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Render\Meshing.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Shader.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,14 +116,21 @@
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Render\ReaderOBJ.h">
+    <ClInclude Include="Render\ObjectReader\ReaderOBJ.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Render\Meshing.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Render\Shader.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Object Include="src\Objects\Triangle.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Objects\Triangle.mtl" />
+    <None Include="src\Shaders\MainVertexShader.vert" />
   </ItemGroup>
 </Project>

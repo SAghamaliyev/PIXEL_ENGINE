@@ -1,7 +1,9 @@
 ﻿#include "Meshing.h"
-#include "ReaderOBJ.h"
+#include "ObjectReader/ReaderOBJ.h"
 
-MeshInfo Mesh::getVAO(const string& path) {
+
+
+MeshInfo MeshManager::makeMesh(const string& path) {
     vector <float> vertices;
     vector <int> indices;
 
@@ -34,4 +36,25 @@ MeshInfo Mesh::getVAO(const string& path) {
     result = { VAO,VBO,EBO,(unsigned int)indices.size()};
 
     return result;
+}
+
+MeshInfo MeshManager::getMesh(const string& path, const string& name) {
+
+    // Nothing was found
+    if (MeshMap.find(name) == MeshMap.end()) {
+        MeshInfo result = makeMesh(path);
+        MeshMap[name] = result;
+        return result;
+    }
+    else {
+        return MeshMap[name];
+    }
+}
+
+MeshManager::~MeshManager() {
+    for (auto it = MeshMap.begin(); it != MeshMap.end(); ++it) {
+        glDeleteVertexArrays(1, &(it->second.VAO));
+        glDeleteBuffers(1, &(it->second.VBO));
+        glDeleteBuffers(1, &(it->second.EBO));
+    }
 }
