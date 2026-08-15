@@ -21,7 +21,7 @@ void ReaderOBJ::ObjectReader(const string& path, vector <float> &vertices, vecto
     ifstream file(path);
 
     if (!file.is_open()) {
-        cout << "something went wrong blyat" << endl;
+        throw std::runtime_error("Can't open shader in ReaderOBJ ");
         return;
     }
 

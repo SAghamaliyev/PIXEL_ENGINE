@@ -1,5 +1,12 @@
 ﻿#include <glad/glad.h> 
 #include <GLFW/glfw3.h>
+#include <unordered_map>
+#include <string>
+#include <filesystem>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 enum MaterialType {
     Default = 0,     // Серый/белый дефолтный материал для отладки
@@ -14,5 +21,9 @@ enum MaterialType {
 };
 
 class ShaderManager {
-
+private:
+    unordered_map <MaterialType, unsigned int> ShaderMap;
+public:
+    ShaderManager();
+    unsigned int getShader(MaterialType Material);
 };

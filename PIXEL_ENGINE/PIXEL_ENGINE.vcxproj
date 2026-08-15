@@ -103,6 +103,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)dependencies\include;$(ProjectDir)UI\Materials\Backends;$(ProjectDir)UI\Materials;$(ProjectDir)dependencies\glad\include;$(ProjectDir)dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +123,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)dependencies\include;$(ProjectDir)UI\Materials\Backends;$(ProjectDir)UI\Materials;$(ProjectDir)dependencies\glad\include;$(ProjectDir)dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +142,8 @@
     <ClCompile Include="Render\Meshing.cpp" />
     <ClCompile Include="Render\ObjectReader\ReaderOBJ.cpp" />
     <ClCompile Include="Render\Shader.cpp" />
+    <ClCompile Include="Scene\Object.cpp" />
+    <ClCompile Include="src\Shaders\MainVFragmentShader.frag" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
@@ -156,6 +162,7 @@
     <ClInclude Include="Render\Meshing.h" />
     <ClInclude Include="Render\ObjectReader\ReaderOBJ.h" />
     <ClInclude Include="Render\Shader.h" />
+    <ClInclude Include="Scene\Object.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
