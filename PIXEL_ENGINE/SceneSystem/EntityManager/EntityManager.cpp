@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "EntityManager.h"
 
 Object::Object(const string& path) {
 	Path = path;

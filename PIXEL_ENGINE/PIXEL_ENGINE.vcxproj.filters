@@ -57,19 +57,19 @@
     <ClCompile Include="dependencies\glad\src\glad.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Render\ObjectReader\ReaderOBJ.cpp">
+    <ClCompile Include="RenderSystem\MeshManager\MeshReader\MeshReader.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Render\Meshing.cpp">
+    <ClCompile Include="RenderSystem\MeshManager\MeshManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Render\Shader.cpp">
+    <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shaders\MainVFragmentShader.frag">
+    <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Object.cpp">
+    <ClCompile Include="RenderSystem\RenderSystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,16 +122,19 @@
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Render\ObjectReader\ReaderOBJ.h">
+    <ClInclude Include="RenderSystem\MeshManager\MeshReader\MeshReader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Render\Meshing.h">
+    <ClInclude Include="RenderSystem\MeshManager\MeshManager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Render\Shader.h">
+    <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Object.h">
+    <ClInclude Include="SceneSystem\EntityManager\EntityManager.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem\RenderSystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

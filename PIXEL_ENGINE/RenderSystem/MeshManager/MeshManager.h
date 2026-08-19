@@ -16,10 +16,10 @@ struct MeshInfo {
 class MeshManager {
 public:
     MeshManager() = default;
-	MeshInfo getMesh(const string& path, const string& name);
+	MeshInfo getMesh(const string& path, unsigned int MeshID);
 
     ~MeshManager();
 private:
-	unordered_map <const string /*Name*/, MeshInfo /*OurMesh*/> MeshMap;
+	unordered_map <unsigned int /*Name*/, MeshInfo /*OurMesh*/> MeshMap;
 	MeshInfo makeMesh(const string& path);
 };

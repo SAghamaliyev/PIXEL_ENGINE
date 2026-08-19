@@ -1,5 +1,5 @@
-﻿#include "Meshing.h"
-#include "ObjectReader/ReaderOBJ.h"
+﻿#include "MeshManager.h"
+#include "MeshReader/MeshReader.h"
 
 
 
@@ -38,16 +38,16 @@ MeshInfo MeshManager::makeMesh(const string& path) {
     return result;
 }
 
-MeshInfo MeshManager::getMesh(const string& path, const string& name) {
+MeshInfo MeshManager::getMesh(const string& path, unsigned int MeshID) {
 
     // Nothing was found
-    if (MeshMap.find(name) == MeshMap.end()) {
+    if (MeshMap.find(MeshID) == MeshMap.end()) {
         MeshInfo result = makeMesh(path);
-        MeshMap[name] = result;
+        MeshMap[MeshID] = result;
         return result;
     }
     else {
-        return MeshMap[name];
+        return MeshMap[MeshID];
     }
 }
 

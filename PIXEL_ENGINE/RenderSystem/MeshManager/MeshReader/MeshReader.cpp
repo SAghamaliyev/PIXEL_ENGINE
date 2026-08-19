@@ -1,4 +1,4 @@
-﻿#include "ReaderOBJ.h"
+﻿#include "MeshReader.h"
 
 void ReaderOBJ::IndicesParse(const string& line, vector <int> &indices) {
     istringstream iss(line);
