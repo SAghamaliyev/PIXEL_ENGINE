@@ -1,6 +1,5 @@
 #include <string>
-#include "../../../RenderSystem/MeshManager/MeshManager.h"
-#include "../../../RenderSystem/ShaderManager/ShaderManager.h"
+#include <unordered_map>
 
 using namespace std;
 
@@ -16,6 +15,13 @@ enum MaterialType {
     Custom           // ???????? ??? ????????????/????????? ???????
 };
 
+struct MeshInfo {
+	unsigned int VAO = 0;
+	unsigned int VBO = 0;
+	unsigned int EBO = 0;
+	unsigned int indexcount = 0;
+};
+
 struct EntityUnit {
 	int MeshID;
 	MaterialType MaterialID;
@@ -25,12 +31,9 @@ struct EntityUnit {
 
 class EntityManager {
 private:
-	int MeshID;
-	int MaterialID;
-
-	string Name;
-	string Path;
+	EntityUnit Entity;
 	static unsigned int counter;
+
 public:
 	EntityManager();
 

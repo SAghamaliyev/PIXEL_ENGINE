@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "Input/SystemInputs.h"
+#include "RenderSystem/RenderSystem.h"
 
 using namespace std;
 
@@ -74,6 +75,9 @@ void runEditMode() {
         //-----------------------------------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Запоминает этот цвет, чтобы после очищение ею залить
         glClear(GL_COLOR_BUFFER_BIT);   // Очищает весь буффер
+
+        RenderSystem OurRender;
+        OurRender.renderScene();
 
         //-----------------------------------
         glfwSwapBuffers(window);    // у нас есть буффер для всех пикселей где какой цвет и вот его надо обновлять
