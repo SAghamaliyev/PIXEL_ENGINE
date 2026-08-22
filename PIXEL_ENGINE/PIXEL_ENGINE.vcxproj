@@ -144,6 +144,7 @@
     <ClCompile Include="RenderSystem\RenderSystem.cpp" />
     <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
+    <ClCompile Include="SceneSystem\SceneSystem.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="RenderSystem\RenderSystem.h" />
     <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h" />
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
+    <ClInclude Include="SceneSystem\SceneSystem.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
