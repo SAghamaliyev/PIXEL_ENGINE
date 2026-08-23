@@ -38,18 +38,40 @@ MeshInfo MeshManager::makeMesh(const string& path) {
     return result;
 }
 
-MeshInfo MeshManager::getMesh(const string& path, unsigned int MeshID) {
+MeshInfo MeshManager::getMesh(const string& path, unsigned int MeshID, bool isActive) {
 
-    // Nothing was found
-    if (MeshMap.find(MeshID) == MeshMap.end()) {
-        MeshInfo result = makeMesh(path);
-        MeshMap[MeshID] = result;
-        return result;
+    // If Entity is active
+    if (isActive) {
+
+        // Nothing was found
+        if (MeshMap.find(MeshID) == MeshMap.end()) {
+            MeshInfo result = makeMesh(path);
+            MeshMap[MeshID] = result;
+            return result;
+        }
+        // Entity was found
+        else {
+            return MeshMap[MeshID];
+        }
     }
+
+    // If Entity is deactivated 
     else {
-        return MeshMap[MeshID];
+        MeshInfo result = {};
+        result.indexcount = -2007;
+
+        // If Entity is already not in map
+        if (MeshMap.find(MeshID) == MeshMap.end()) {
+            return result;
+        }
+        // If Entity is still in map
+        else {
+            MeshMap.erase(MeshID);
+            return result;
+        }
     }
 }
+
 
 MeshManager::~MeshManager() {
     for (auto it = MeshMap.begin(); it != MeshMap.end(); ++it) {

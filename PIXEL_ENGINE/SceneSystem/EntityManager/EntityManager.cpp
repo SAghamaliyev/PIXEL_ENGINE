@@ -23,7 +23,7 @@ void EntityManager::createEntity(const string& Path, MaterialType Type, const st
 	++counter;
 }
 
-void EntityManager::deleteEntity(unsigned int EntityID) {
+void EntityManager::deactivateEntity(unsigned int EntityID) {
 	EntityList[EntityID].isActive = false;
 	DeactivatedList.push_back(EntityID);
 }

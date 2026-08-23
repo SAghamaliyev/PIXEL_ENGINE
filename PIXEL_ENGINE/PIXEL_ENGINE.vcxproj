@@ -145,6 +145,9 @@
     <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
     <ClCompile Include="SceneSystem\SceneSystem.cpp" />
+    <Text Include="src\Shaders\MainFragmentShader.frag">
+      <FileType>Document</FileType>
+    </Text>
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
@@ -166,6 +169,7 @@
     <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h" />
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
     <ClInclude Include="SceneSystem\SceneSystem.h" />
+    <ClInclude Include="src\Definitions.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
@@ -177,7 +181,9 @@
     <ClInclude Include="UI\Materials\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="src\Objects\Triangle.obj" />
+    <Text Include="src\Objects\Triangle.obj">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Objects\Triangle.mtl" />

@@ -5,6 +5,8 @@
 #include <string>
 #include "Input/SystemInputs.h"
 #include "RenderSystem/RenderSystem.h"
+#include "SceneSystem/SceneSystem.h"
+#include "src/Definitions.h"
 
 using namespace std;
 
@@ -66,8 +68,12 @@ void runEditMode() {
 
     // Отрисовка рендеринг крч
     glViewport(0, 0, 800, 600); // первые 2 параметра это координаты(0 и 0 это опенгл рисует с нижнего левого поля на 800 и 600 пх
+    
+    SceneSystem OurSceneSystem;
+    RenderSystem OurRenderSystem;
 
-
+    OurSceneSystem.SceneCreateEntity("C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/src/Objects/Triangle.obj",
+        Default);    
 
     while (!glfwWindowShouldClose(window)) {
         if (isEditMode)
@@ -76,9 +82,7 @@ void runEditMode() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Запоминает этот цвет, чтобы после очищение ею залить
         glClear(GL_COLOR_BUFFER_BIT);   // Очищает весь буффер
 
-        RenderSystem OurRender;
-        OurRender.renderScene();
-
+        OurRenderSystem.renderScene(OurSceneSystem.getSceneInfo());
         //-----------------------------------
         glfwSwapBuffers(window);    // у нас есть буффер для всех пикселей где какой цвет и вот его надо обновлять
         glfwPollEvents();   // чекает изменения в системе(инпут оутпут и тд)

@@ -11,7 +11,7 @@ void SceneSystem::SceneCreateEntity(const string& Path, MaterialType Type, const
 }
 
 void SceneSystem::SceneDeleteEntity(unsigned int EntityID) {
-	OurEntityManager.deleteEntity(EntityID);
+	OurEntityManager.deactivateEntity(EntityID);
 }
 
 EntityUnit& SceneSystem::SceneGetEntity(unsigned int EntityID) {

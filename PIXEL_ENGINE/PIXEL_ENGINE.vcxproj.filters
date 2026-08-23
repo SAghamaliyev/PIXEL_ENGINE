@@ -143,12 +143,18 @@
     <ClInclude Include="SceneSystem\SceneSystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="src\Objects\Triangle.obj" />
+    <ClInclude Include="src\Definitions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Objects\Triangle.mtl" />
     <None Include="src\Shaders\MainVertexShader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Shaders\MainFragmentShader.frag">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="src\Objects\Triangle.obj" />
   </ItemGroup>
 </Project>
