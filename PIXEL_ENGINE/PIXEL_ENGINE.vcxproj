@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\glad\src\glad.c" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\SystemInputs.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,6 +149,7 @@
     <Text Include="src\Shaders\MainFragmentShader.frag">
       <FileType>Document</FileType>
     </Text>
+    <ClCompile Include="UI\EditorUI.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
@@ -161,6 +163,7 @@
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\SystemInputs.h" />
     <ClInclude Include="RenderSystem\MeshManager\MeshManager.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
     <ClInclude Include="SceneSystem\SceneSystem.h" />
     <ClInclude Include="src\Definitions.h" />
+    <ClInclude Include="UI\EditorUI.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />

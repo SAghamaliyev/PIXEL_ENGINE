@@ -3,7 +3,7 @@
 void callSystemInputs(GLFWwindow* window) {
 	InputManager::Update(window);
 
-	if (InputManager::IsMouseButtonJustReleased(InputManager::MouseLeft)) {
+	if (InputManager::IsKeyJustPressed(InputManager::Escape)) {
 		glfwSetWindowShouldClose(window, true);
 	}
 	
