@@ -488,20 +488,17 @@ void EditorUI::drawContentBrowser() {
     ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x * 0.5f);
     ImGui::InputTextWithHint("##Search", "Search...", m_SearchBuffer, sizeof(m_SearchBuffer));
     ImGui::SameLine();
-
-    // --- Кнопка сброса пути ---
     if (ImGui::Button("Reset")) {
-        // TODO: Сбросить m_CurrentDirectory на корневую папку "Assets"
-        m_CurrentDirectory = "Assets";
-        m_SelectedFileIndex = -1;
+        m_CurrentDirectory = "src";
+        m_SelectedFilePath = "";
     }
-
     ImGui::SameLine();
-
-    // --- Кнопка создания папки ---
-    if (ImGui::Button("Folder")) {
-        // TODO: Создать новую папку внутри m_CurrentDirectory
-        //       Показать popup для ввода имени папки, затем std::filesystem::create_directory()
+    if (ImGui::Button("Up")) {
+        std::filesystem::path current(m_CurrentDirectory);
+        if (current.has_parent_path()) {
+            m_CurrentDirectory = current.parent_path().string();
+            m_SelectedFilePath = "";
+        }
     }
 
     ImGui::Separator();
