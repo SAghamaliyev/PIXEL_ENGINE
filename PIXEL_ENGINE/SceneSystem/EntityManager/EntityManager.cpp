@@ -24,8 +24,18 @@ void EntityManager::createEntity(const string& Path, MaterialType Type, const st
 }
 
 void EntityManager::deactivateEntity(unsigned int EntityID) {
+	if (EntityList.find(EntityID) == EntityList.end()) {
+		return;
+	}
+
 	EntityList[EntityID].isActive = false;
 	DeactivatedList.push_back(EntityID);
+}
+
+void EntityManager::clearEntityList() {
+	EntityList.clear();
+	DeactivatedList.clear();
+	counter = 0;
 }
 
 EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
@@ -37,8 +47,33 @@ EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
 	return it->second;
 }
 
-const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() {
+const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
 	return EntityList;
+}
+
+bool EntityManager::hasEntity(unsigned int EntityID) const {
+	auto it = EntityList.find(EntityID);
+	return it != EntityList.end() && it->second.isActive;
+}
+
+bool EntityManager::renameEntity(unsigned int EntityID, const string& Name) {
+	auto it = EntityList.find(EntityID);
+	if (it == EntityList.end()) {
+		return false;
+	}
+
+	it->second.name = Name;
+	return true;
+}
+
+bool EntityManager::setEntityMaterial(unsigned int EntityID, MaterialType Type) {
+	auto it = EntityList.find(EntityID);
+	if (it == EntityList.end()) {
+		return false;
+	}
+
+	it->second.MaterialID = Type;
+	return true;
 }
 
 void EntityManager::Update() {
@@ -46,4 +81,6 @@ void EntityManager::Update() {
 	for (auto element : DeactivatedList) {
 		EntityList.erase(element);
 	}
+
+	DeactivatedList.clear();
 }

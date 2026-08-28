@@ -1,6 +1,6 @@
 #include "RenderSystem.h"
 
-void RenderSystem::renderScene(SceneInfo& OurSceneInfo) {
+void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 	
 	for (auto Entity : OurSceneInfo.EntityList) {
 		MeshInfo OurMesh = OurMeshManager.getMesh(Entity.second.path,

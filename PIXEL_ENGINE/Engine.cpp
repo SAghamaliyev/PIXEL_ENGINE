@@ -35,32 +35,25 @@ bool Engine::initailize() {
         return false;
     }
 
-    // Отрисовка рендеринг крч
-    glViewport(0, 0, 800, 600); // первые 2 параметра это координаты(0 и 0 это опенгл рисует с нижнего левого поля на 800 и 600 пх
-
-    //---------------------------------------------------------
-    // ИНИЦИАЛИЗАЦИЯ UI (передаем SceneSystem чтобы UI мог с ним работать)
-    //---------------------------------------------------------
     OurRenderSystem = new RenderSystem();
     OurSceneSystem = new SceneSystem();
 
     OurEditorUI = new EditorUI();
     OurEditorUI->init(OurWindow, OurSceneSystem);
-    //---------------------------------------------------------
 
     return true;
 }
 
 void Engine::run() {
-    OurSceneSystem->SceneCreateEntity("src/Objects/Triangle.obj",
-        Default);
 
     while (!glfwWindowShouldClose(OurWindow)) {
+
+        if (OurEditorUI->WindowShouldClose()) {
+            return;
+        }
+
         callSystemInputs(OurWindow);
         
-        //---------------------------------------------------------
-        // ЛОГИКА РЕНДЕРА С UI И КАРМАНОМ ДЛЯ СЦЕНЫ
-        //---------------------------------------------------------
         // 1. Очищаем экран общим цветом (фон под UI)
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f); 
         glClear(GL_COLOR_BUFFER_BIT);
@@ -72,6 +65,7 @@ void Engine::run() {
 
         // 3. Рисуем сцену ТОЛЬКО в этом кармане! Твой треугольник будет здесь
         OurRenderSystem->renderScene(OurSceneSystem->getSceneInfo());
+        OurSceneSystem->SceneUpdate();
 
         // 4. Возвращаем Viewport обратно на ВЕСЬ экран, чтобы UI рисовался правильно
         int screenW, screenH;

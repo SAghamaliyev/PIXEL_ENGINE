@@ -146,10 +146,15 @@
     <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
     <ClCompile Include="SceneSystem\SceneSystem.cpp" />
+    <ClCompile Include="UI\EditorTheme.cpp" />
+    <ClCompile Include="UI\EditorUI.cpp" />
+    <ClCompile Include="UI\Panels\ConsolePanel.cpp" />
+    <ClCompile Include="UI\Panels\ContentBrowserPanel.cpp" />
+    <ClCompile Include="UI\Panels\InspectorPanel.cpp" />
+    <ClCompile Include="UI\Panels\SceneHierarchyPanel.cpp" />
     <Text Include="src\Shaders\MainFragmentShader.frag">
       <FileType>Document</FileType>
     </Text>
-    <ClCompile Include="UI\EditorUI.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
@@ -173,6 +178,8 @@
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
     <ClInclude Include="SceneSystem\SceneSystem.h" />
     <ClInclude Include="src\Definitions.h" />
+    <ClInclude Include="UI\EditorLayout.h" />
+    <ClInclude Include="UI\EditorTheme.h" />
     <ClInclude Include="UI\EditorUI.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
@@ -183,6 +190,10 @@
     <ClInclude Include="UI\Materials\imstb_rectpack.h" />
     <ClInclude Include="UI\Materials\imstb_textedit.h" />
     <ClInclude Include="UI\Materials\imstb_truetype.h" />
+    <ClInclude Include="UI\Panels\ConsolePanel.h" />
+    <ClInclude Include="UI\Panels\ContentBrowserPanel.h" />
+    <ClInclude Include="UI\Panels\InspectorPanel.h" />
+    <ClInclude Include="UI\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\Objects\Triangle.obj">

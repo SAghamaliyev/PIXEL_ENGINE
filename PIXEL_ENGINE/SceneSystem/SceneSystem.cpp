@@ -6,6 +6,10 @@ SceneSystem::SceneSystem()
 {
 }
 
+void SceneSystem::SceneClearEntityList() {
+	OurEntityManager.clearEntityList();
+}
+
 void SceneSystem::SceneCreateEntity(const string& Path, MaterialType Type, const string& Name) {
 	OurEntityManager.createEntity(Path, Type, Name);
 }
@@ -18,8 +22,20 @@ EntityUnit& SceneSystem::SceneGetEntity(unsigned int EntityID) {
 	return OurEntityManager.getEntity(EntityID);
 }
 
-SceneInfo& SceneSystem::getSceneInfo() {
+const SceneInfo& SceneSystem::getSceneInfo() const {
 	return OurSceneInfo;
+}
+
+bool SceneSystem::SceneHasEntity(unsigned int EntityID) const {
+	return OurEntityManager.hasEntity(EntityID);
+}
+
+bool SceneSystem::SceneRenameEntity(unsigned int EntityID, const string& Name) {
+	return OurEntityManager.renameEntity(EntityID, Name);
+}
+
+bool SceneSystem::SceneSetEntityMaterial(unsigned int EntityID, MaterialType Type) {
+	return OurEntityManager.setEntityMaterial(EntityID, Type);
 }
 
 void SceneSystem::SceneUpdate() {

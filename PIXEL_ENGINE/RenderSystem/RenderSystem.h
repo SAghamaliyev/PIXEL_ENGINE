@@ -16,5 +16,5 @@ private:
 	//MeshInfo getMesh(const string& path, unsigned int MeshID);
 public:
 	RenderSystem() = default;
-	void renderScene(SceneInfo& OurSceneInfo);
+	void renderScene(const SceneInfo& OurSceneInfo);
 };

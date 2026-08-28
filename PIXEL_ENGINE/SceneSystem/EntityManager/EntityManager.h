@@ -27,9 +27,13 @@ public:
 
 	void createEntity(const string& Path, MaterialType Type, const string& Name = "Object");
 	void deactivateEntity(unsigned int EntityID);
+	void clearEntityList();
 	void Update();
+	bool hasEntity(unsigned int EntityID) const;
+	bool renameEntity(unsigned int EntityID, const string& Name);
+	bool setEntityMaterial(unsigned int EntityID, MaterialType Type);
 
-	const unordered_map <unsigned int, EntityUnit>& getEntityList();
+	const unordered_map <unsigned int, EntityUnit>& getEntityList() const;
 	EntityUnit& getEntity(unsigned int EntityID);
 
 };
