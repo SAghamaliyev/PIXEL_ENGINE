@@ -14,6 +14,10 @@ void SceneSystem::SceneCreateEntity(const string& Path, MaterialType Type, const
 	OurEntityManager.createEntity(Path, Type, Name);
 }
 
+//void SceneSystem::SceneCreateEntity(MaterialType Type, const string& Name) {
+//	OurEntityManager.createEntity(Type, Name);
+//}
+
 void SceneSystem::SceneDeleteEntity(unsigned int EntityID) {
 	OurEntityManager.deactivateEntity(EntityID);
 }

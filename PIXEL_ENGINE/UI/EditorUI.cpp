@@ -1,5 +1,7 @@
 #include "EditorUI.h"
+#include "EditorUI.h"
 #include "EditorTheme.h"
+#include "../Logger/Logger.h"
 
 #include "Materials/imgui.h"
 #include "Materials/Backends/imgui_impl_glfw.h"
@@ -29,7 +31,7 @@ void EditorUI::init(GLFWwindow* window, SceneSystem* sceneSystem) {
     m_contentBrowser.setSceneSystem(m_sceneSystem);
     m_contentBrowser.setConsole(&m_console);
 
-    addLog(ConsolePanel::LogEntry::LOG_INFO, "Engine initialized");
+    Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Engine initialized");
     // TODO: add logs through addLog() from the engine DONE!!!!
 }
 
@@ -74,14 +76,6 @@ void EditorUI::getViewportRect(int& outX, int& outY, int& outW, int& outH) {
     outY = layout.viewportY;
     outW = layout.viewportW;
     outH = layout.viewportH;
-}
-
-void EditorUI::addLog(ConsolePanel::LogEntry::Type type, const std::string& message) {
-    m_console.addLog(type, message);
-}
-
-void EditorUI::clearLogs() {
-    m_console.clearLogs();
 }
 
 void EditorUI::updateLayout() {
@@ -174,7 +168,7 @@ void EditorUI::drawMainMenuBar() {
 
     if (ImGui::BeginMenu("Help")) {
         if (ImGui::MenuItem("About")) {
-            addLog(ConsolePanel::LogEntry::LOG_INFO, "Hello, this is  Pixel Engine,"
+            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Hello, this is  Pixel Engine,"
                 " i am glad you downloaded it.\n If you want to add something or noticed some problems\n"
                 " please dont be hesitated to contact me: saidaghamaliyev@gmail.com\n"
                 " Please ENJOY, Said Aghamaliyev");

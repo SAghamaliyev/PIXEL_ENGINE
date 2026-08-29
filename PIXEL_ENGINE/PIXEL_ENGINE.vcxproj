@@ -139,6 +139,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\SystemInputs.cpp" />
+    <ClCompile Include="Logger\Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderSystem\MeshManager\MeshManager.cpp" />
     <ClCompile Include="RenderSystem\MeshManager\MeshReader\MeshReader.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\SystemInputs.h" />
+    <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="RenderSystem\MeshManager\MeshManager.h" />
     <ClInclude Include="RenderSystem\MeshManager\MeshReader\MeshReader.h" />
     <ClInclude Include="RenderSystem\RenderSystem.h" />

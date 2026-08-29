@@ -23,6 +23,25 @@ void EntityManager::createEntity(const string& Path, MaterialType Type, const st
 	++counter;
 }
 
+//void EntityManager::createEntity(MaterialType Type, const string& Name) {
+//	EntityUnit OurEntity;
+//	OurEntity.EntityID = counter;
+//	OurEntity.path = "null";
+//
+//	if (Name == "Object") {
+//		OurEntity.name = "Object";
+//		OurEntity.name += to_string(OurEntity.EntityID);
+//	}
+//	else { OurEntity.name = Name; }
+//
+//	OurEntity.MaterialID = Type;
+//	OurEntity.isActive = true;
+//
+//	EntityList[OurEntity.EntityID] = OurEntity;
+//
+//	++counter;
+//}
+
 void EntityManager::deactivateEntity(unsigned int EntityID) {
 	if (EntityList.find(EntityID) == EntityList.end()) {
 		return;

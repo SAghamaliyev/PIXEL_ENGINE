@@ -41,7 +41,4 @@ public:
 
     int getSelectedEntityID() const;
     void getViewportRect(int& outX, int& outY, int& outW, int& outH);
-
-    void addLog(ConsolePanel::LogEntry::Type type, const std::string& message);
-    void clearLogs();
 };

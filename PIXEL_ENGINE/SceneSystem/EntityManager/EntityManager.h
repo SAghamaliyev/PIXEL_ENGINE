@@ -26,6 +26,7 @@ public:
 	EntityManager();
 
 	void createEntity(const string& Path, MaterialType Type, const string& Name = "Object");
+	/*void createEntity(MaterialType Type, const string& Name = "Object");*/
 	void deactivateEntity(unsigned int EntityID);
 	void clearEntityList();
 	void Update();

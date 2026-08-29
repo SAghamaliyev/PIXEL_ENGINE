@@ -20,6 +20,7 @@ public:
 	// EntityManager connection
 	void SceneClearEntityList();
 	void SceneCreateEntity(const string& Path, MaterialType Type, const string& Name = "Object");
+	//void SceneCreateEntity(MaterialType Type, const string& Name = "Object");
 	void SceneDeleteEntity(unsigned int EntityID);
 
 	bool SceneHasEntity(unsigned int EntityID) const;

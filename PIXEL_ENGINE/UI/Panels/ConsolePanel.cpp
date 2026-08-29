@@ -1,10 +1,14 @@
 #include "ConsolePanel.h"
+#include "ConsolePanel.h"
 #include "../Materials/imgui.h"
+#include "../../Logger/Logger.h"
 
 void ConsolePanel::draw(const EditorLayout& layout) {
     if (!m_visible) {
         return;
     }
+
+    updateLogsFromBuffer();
 
     applyPanelRect(layout.console);
     ImGui::Begin("Console", nullptr, kEditorPanelWindowFlags);
@@ -26,14 +30,6 @@ void ConsolePanel::draw(const EditorLayout& layout) {
 
     const float footerHeight = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
     ImGui::BeginChild("LogScrollRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
-
-    /*
-        TODO:
-        Connect this panel to the engine Logger when that API exists.
-
-        Example:
-        const std::vector<LogEntry>& logs = m_logger->GetLogs();
-    */
 
     for (const LogEntry& log : m_logs) {
         if (log.type == LogEntry::LOG_INFO && !m_filterInfo) continue;
@@ -80,9 +76,7 @@ void ConsolePanel::draw(const EditorLayout& layout) {
     ImGui::SetNextItemWidth(-1);
     if (ImGui::InputText("##ConsoleInput", m_commandBuffer, sizeof(m_commandBuffer), inputFlags)) {
         if (m_commandBuffer[0] != '\0') {
-            // TODO: parse and execute the command through the engine.
-            // Example: m_logger->Info(std::string("> ") + m_commandBuffer);
-            addLog(LogEntry::LOG_INFO, std::string("> ") + m_commandBuffer);
+            Logger::getInstance().addLog(LogEntry::LOG_INFO, std::string("> ") + m_commandBuffer);
             m_commandBuffer[0] = '\0';
             reclaimFocus = true;
             m_scrollToBottom = true;
@@ -96,9 +90,14 @@ void ConsolePanel::draw(const EditorLayout& layout) {
     ImGui::End();
 }
 
-void ConsolePanel::addLog(LogEntry::Type type, const std::string& message) {
-    m_logs.push_back({ type, message });
-    m_scrollToBottom = true;
+void ConsolePanel::updateLogsFromBuffer() {
+    auto newLogs = Logger::getInstance().flushLogs();
+    for (const auto& log : newLogs) {
+        m_logs.push_back(log);
+    }
+    if (!newLogs.empty()) {
+        m_scrollToBottom = true;
+    }
 }
 
 void ConsolePanel::clearLogs() {

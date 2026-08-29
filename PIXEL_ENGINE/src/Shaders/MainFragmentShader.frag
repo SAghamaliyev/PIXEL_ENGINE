@@ -1,10 +1,10 @@
-﻿#version 330 core
+#version 330 core
 
-// Выходной цвет пикселя, который пойдет на экран
 out vec4 FragColor;
+
+in vec4 vertexColor;
 
 void main()
 {
-    // Закрашиваем каждый пиксель в сплошной красный цвет (RGBA)
-    FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    FragColor = vertexColor;
 }

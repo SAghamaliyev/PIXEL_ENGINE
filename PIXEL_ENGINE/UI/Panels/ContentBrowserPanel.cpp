@@ -1,5 +1,7 @@
 #include "ContentBrowserPanel.h"
+#include "ContentBrowserPanel.h"
 #include "ConsolePanel.h"
+#include "../../Logger/Logger.h"
 
 #include "../../SceneSystem/SceneSystem.h"
 #include "../Materials/imgui.h"
@@ -98,17 +100,18 @@ void ContentBrowserPanel::drawFileView() {
     ImGui::TextDisabled("Path: %s", m_currentDirectory.c_str());
     ImGui::Separator();
 
-    const float buttonSize = 72.0f;
-    const float panelWidth = ImGui::GetContentRegionAvail().x;
-    int columns = (int)(panelWidth / (buttonSize + 8.0f));
-    if (columns < 1) {
-        columns = 1;
-    }
-
+    const float iconSize = 32.0f;
+    const float rowHeight = iconSize + 8.0f;
     int i = 0;
+
     try {
         for (const auto& entry : std::filesystem::directory_iterator(m_currentDirectory)) {
             if (entry.is_directory()) {
+                continue;
+            }
+
+            // ?????????? ?????? .obj ?????
+            if (!isModelExtension(entry.path())) {
                 continue;
             }
 
@@ -117,20 +120,34 @@ void ContentBrowserPanel::drawFileView() {
                 continue;
             }
 
-            ImGui::PushID(i++);
-
             const std::string filePath = entry.path().string();
             const bool isSelected = (m_selectedFilePath == filePath);
+
+            ImGui::PushID(i++);
+
+            // ??? ??? ?????????? ????????
             if (isSelected) {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.3f, 0.5f, 0.8f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.3f, 0.5f, 0.8f, 0.3f));
             }
 
-            if (ImGui::Button(filename.c_str(), ImVec2(buttonSize, buttonSize))) {
+            ImGui::BeginChild(("##item" + std::to_string(i)).c_str(), ImVec2(ImGui::GetContentRegionAvail().x, rowHeight), true);
+
+            ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 4.0f);
+
+            // ?????? (????????? ??????)
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.7f, 0.9f, 1.0f, 1.0f));
+            ImGui::Text("[OBJ]");
+            ImGui::PopStyleColor();
+            ImGui::SameLine(0, 12.0f);
+
+            // ???????? ?????
+            ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 6.0f);
+            ImGui::Text("%s", filename.c_str());
+
+            ImGui::EndChild();
+
+            if (ImGui::IsItemClicked()) {
                 m_selectedFilePath = filePath;
-            }
-
-            if (isSelected) {
-                ImGui::PopStyleColor();
             }
 
             if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
@@ -144,8 +161,8 @@ void ContentBrowserPanel::drawFileView() {
                 ImGui::EndPopup();
             }
 
-            if (i % columns != 0) {
-                ImGui::SameLine();
+            if (isSelected) {
+                ImGui::PopStyleColor();
             }
 
             ImGui::PopID();
@@ -177,7 +194,5 @@ void ContentBrowserPanel::tryAddToScene(const std::string& path, const std::stri
         m_sceneSystem->SceneCreateEntity(pathString, Default, stem);
     }
 
-    if (m_console) {
-        m_console->addLog(ConsolePanel::LogEntry::LOG_INFO, "Added " + filename + " to scene.");
-    }
+    Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Added " + filename + " to scene.");
 }

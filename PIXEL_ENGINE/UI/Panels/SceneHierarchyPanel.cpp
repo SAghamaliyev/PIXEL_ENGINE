@@ -2,7 +2,7 @@
 
 #include "../../SceneSystem/SceneSystem.h"
 #include "../Materials/imgui.h"
-
+#include "../../Logger/Logger.h"
 #include <cstring>
 
 void SceneHierarchyPanel::setSceneSystem(SceneSystem* sceneSystem) {
@@ -19,7 +19,8 @@ void SceneHierarchyPanel::draw(const EditorLayout& layout) {
 
     if (ImGui::Button("Add Entity")) {
         if (m_sceneSystem) {
-            m_sceneSystem->SceneCreateEntity("src/Objects/Triangle.obj", Default, "NewObject");
+            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "We are working on this button");
+            /*m_sceneSystem->SceneCreateEntity("src/Objects/Triangle.obj", Default, "NewObject");*/
         }
     }
 
