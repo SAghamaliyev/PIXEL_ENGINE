@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../EditorLayout.h"
+#include "../EditorEvents.h"
 #include "../../Logger/Logger.h"
 
 #include <string>
@@ -10,6 +11,8 @@ class ConsolePanel {
 public:
     using LogEntry = Logger::LogEntry;
 
+    void setEventQueue(std::vector<EditorEvent>* events);
+
     void draw(const EditorLayout& layout);
 
     bool isVisible() const { return m_visible; }
@@ -18,6 +21,7 @@ public:
     void clearLogs();
 
 private:
+    std::vector<EditorEvent>* m_events = nullptr;
     bool m_visible = true;
     std::vector<LogEntry> m_logs;
     char m_commandBuffer[256] = "";
@@ -28,4 +32,5 @@ private:
     bool m_scrollToBottom = true;
 
     void updateLogsFromBuffer();
+    void pushEvent(const EditorEvent& event);
 };

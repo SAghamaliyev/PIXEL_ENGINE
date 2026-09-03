@@ -9,6 +9,7 @@ void EntityManager::createEntity(const string& Path, MaterialType Type, const st
 	OurEntity.EntityID = counter;
 	OurEntity.path = Path;
 	
+	
 	if (Name == "Object") {
 		OurEntity.name = "Object";
 		OurEntity.name += to_string(OurEntity.EntityID);
@@ -73,6 +74,16 @@ const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() c
 bool EntityManager::hasEntity(unsigned int EntityID) const {
 	auto it = EntityList.find(EntityID);
 	return it != EntityList.end() && it->second.isActive;
+}
+
+bool EntityManager::changeColor(unsigned int EntityID, Color targetColor) {
+	auto it = EntityList.find(EntityID);
+	if (it == EntityList.end()) {
+		return false;
+	}
+
+	EntityList[EntityID].color = targetColor;
+	return true;
 }
 
 bool EntityManager::renameEntity(unsigned int EntityID, const string& Name) {

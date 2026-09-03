@@ -1,7 +1,10 @@
 #include "ConsolePanel.h"
-#include "ConsolePanel.h"
 #include "../Materials/imgui.h"
 #include "../../Logger/Logger.h"
+
+void ConsolePanel::setEventQueue(std::vector<EditorEvent>* events) {
+    m_events = events;
+}
 
 void ConsolePanel::draw(const EditorLayout& layout) {
     if (!m_visible) {
@@ -14,6 +17,8 @@ void ConsolePanel::draw(const EditorLayout& layout) {
     ImGui::Begin("Console", nullptr, kEditorPanelWindowFlags);
 
     if (ImGui::Button("Clear")) {
+        // /FLAG ClearConsole: UI requests clearing console output.
+        pushEvent(EditorEvent{ EditorEventType::ClearConsole });
         clearLogs();
     }
 
@@ -76,7 +81,15 @@ void ConsolePanel::draw(const EditorLayout& layout) {
     ImGui::SetNextItemWidth(-1);
     if (ImGui::InputText("##ConsoleInput", m_commandBuffer, sizeof(m_commandBuffer), inputFlags)) {
         if (m_commandBuffer[0] != '\0') {
-            Logger::getInstance().addLog(LogEntry::LOG_INFO, std::string("> ") + m_commandBuffer);
+            const std::string command = m_commandBuffer;
+
+            // /FLAG SubmitConsoleCommand: UI requests command execution outside the UI layer.
+            EditorEvent event;
+            event.type = EditorEventType::SubmitConsoleCommand;
+            event.message = command;
+            pushEvent(event);
+
+            Logger::getInstance().addLog(LogEntry::LOG_INFO, std::string("> ") + command);
             m_commandBuffer[0] = '\0';
             reclaimFocus = true;
             m_scrollToBottom = true;
@@ -102,4 +115,12 @@ void ConsolePanel::updateLogsFromBuffer() {
 
 void ConsolePanel::clearLogs() {
     m_logs.clear();
+    Logger::getInstance().clearLogs();
+}
+
+void ConsolePanel::pushEvent(const EditorEvent& event) {
+    if (m_events) {
+        // /FLAG Stores the event flag for the engine-side event processor.
+        m_events->push_back(event);
+    }
 }

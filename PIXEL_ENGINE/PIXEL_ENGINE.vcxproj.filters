@@ -182,6 +182,9 @@
     <ClInclude Include="UI\EditorLayout.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="UI\EditorEvents.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
     <ClInclude Include="UI\Panels\SceneHierarchyPanel.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

@@ -1,15 +1,16 @@
 #pragma once
 
 #include "../EditorLayout.h"
+#include "../EditorEvents.h"
 
 #include <string>
+#include <vector>
 
-class SceneSystem;
 class ConsolePanel;
 
 class ContentBrowserPanel {
 public:
-    void setSceneSystem(SceneSystem* sceneSystem);
+    void setEventQueue(std::vector<EditorEvent>* events);
     void setConsole(ConsolePanel* console);
 
     void draw(const EditorLayout& layout);
@@ -18,7 +19,7 @@ public:
     void setVisible(bool visible) { m_visible = visible; }
 
 private:
-    SceneSystem* m_sceneSystem = nullptr;
+    std::vector<EditorEvent>* m_events = nullptr;
     ConsolePanel* m_console = nullptr;
     bool m_visible = true;
 
@@ -29,5 +30,6 @@ private:
     void drawToolbar();
     void drawFolderTree();
     void drawFileView();
-    void tryAddToScene(const std::string& path, const std::string& filename, const std::string& stem);
+    void queueAddObjectEvent(const std::string& path, const std::string& filename, const std::string& stem);
+    void pushEvent(const EditorEvent& event);
 };

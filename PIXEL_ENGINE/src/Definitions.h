@@ -11,6 +11,13 @@ enum MaterialType {
     Custom           // Заглушка под динамические/кастомные шейдеры
 };
 
+struct Color {
+    float r = 0.0f;
+    float g = 1.0f;
+    float b = 1.0f;
+    float a = 1.0f;
+};
+
 struct MeshInfo {
     unsigned int VAO = 0;
     unsigned int VBO = 0;

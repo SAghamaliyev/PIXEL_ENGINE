@@ -181,6 +181,7 @@
     <ClInclude Include="SceneSystem\SceneSystem.h" />
     <ClInclude Include="src\Definitions.h" />
     <ClInclude Include="UI\EditorLayout.h" />
+    <ClInclude Include="UI\EditorEvents.h" />
     <ClInclude Include="UI\EditorTheme.h" />
     <ClInclude Include="UI\EditorUI.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />

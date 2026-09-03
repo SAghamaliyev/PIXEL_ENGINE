@@ -1,12 +1,14 @@
 #pragma once
 
 #include "../EditorLayout.h"
+#include "../EditorEvents.h"
 
-class SceneSystem;
+#include <vector>
 
 class InspectorPanel {
 public:
-    void setSceneSystem(SceneSystem* sceneSystem);
+    void setEventQueue(std::vector<EditorEvent>* events);
+    void setEntityViews(const std::vector<EditorEntityView>* entityViews);
     void setSelectedEntityID(int entityID);
 
     void draw(const EditorLayout& layout);
@@ -15,7 +17,8 @@ public:
     void setVisible(bool visible) { m_visible = visible; }
 
 private:
-    SceneSystem* m_sceneSystem = nullptr;
+    std::vector<EditorEvent>* m_events = nullptr;
+    const std::vector<EditorEntityView>* m_entityViews = nullptr;
     bool m_visible = true;
     int m_selectedEntityID = -1;
 
@@ -24,4 +27,7 @@ private:
     float m_rotation[3] = { 0.0f, 0.0f, 0.0f };
     float m_scale[3] = { 1.0f, 1.0f, 1.0f };
     int m_currentMaterial = 0;
+
+    const EditorEntityView* findSelectedEntity() const;
+    void pushEvent(const EditorEvent& event);
 };

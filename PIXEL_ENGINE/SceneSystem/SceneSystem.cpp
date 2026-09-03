@@ -30,6 +30,10 @@ const SceneInfo& SceneSystem::getSceneInfo() const {
 	return OurSceneInfo;
 }
 
+bool SceneSystem::ChangeColorEntity(unsigned int EntityID, Color targetColor) {
+	return OurEntityManager.changeColor(EntityID, targetColor);
+}
+
 bool SceneSystem::SceneHasEntity(unsigned int EntityID) const {
 	return OurEntityManager.hasEntity(EntityID);
 }

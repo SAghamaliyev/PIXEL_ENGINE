@@ -1,12 +1,16 @@
 #include "SceneHierarchyPanel.h"
 
-#include "../../SceneSystem/SceneSystem.h"
 #include "../Materials/imgui.h"
 #include "../../Logger/Logger.h"
+
 #include <cstring>
 
-void SceneHierarchyPanel::setSceneSystem(SceneSystem* sceneSystem) {
-    m_sceneSystem = sceneSystem;
+void SceneHierarchyPanel::setEventQueue(std::vector<EditorEvent>* events) {
+    m_events = events;
+}
+
+void SceneHierarchyPanel::setEntityViews(const std::vector<EditorEntityView>* entityViews) {
+    m_entityViews = entityViews;
 }
 
 void SceneHierarchyPanel::draw(const EditorLayout& layout) {
@@ -18,17 +22,17 @@ void SceneHierarchyPanel::draw(const EditorLayout& layout) {
     ImGui::Begin("Scene Hierarchy", nullptr, kEditorPanelWindowFlags);
 
     if (ImGui::Button("Add Entity")) {
-        if (m_sceneSystem) {
-            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "We are working on this button");
-            /*m_sceneSystem->SceneCreateEntity("src/Objects/Triangle.obj", Default, "NewObject");*/
-        }
+        // /FLAG AddObject: UI requests an entity from a default asset path.
+        pushEvent(EditorEvent{ EditorEventType::AddObject, 0, "src/Objects/Triangle.obj", "NewObject" });
+        Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Add Entity event queued.");
     }
 
     ImGui::SameLine();
 
     if (ImGui::Button("Delete")) {
-        if (m_sceneSystem && m_selectedEntityID >= 0) {
-            m_sceneSystem->SceneDeleteEntity((unsigned int)m_selectedEntityID);
+        if (m_selectedEntityID >= 0) {
+            // /FLAG DeleteObject: UI requests deleting the selected entity.
+            pushEvent(EditorEvent{ EditorEventType::DeleteObject, (unsigned int)m_selectedEntityID });
             m_selectedEntityID = -1;
         }
     }
@@ -40,19 +44,17 @@ void SceneHierarchyPanel::draw(const EditorLayout& layout) {
 }
 
 void SceneHierarchyPanel::drawEntityList() {
-    if (!m_sceneSystem) {
+    if (!m_entityViews) {
         return;
     }
 
-    const auto& entityList = m_sceneSystem->getSceneInfo().EntityList;
-    if (entityList.empty()) {
+    if (m_entityViews->empty()) {
         ImGui::TextDisabled("(empty - add entities via Add Entity or Content Browser)");
         return;
     }
 
-    for (const auto& pair : entityList) {
-        const EntityUnit& entity = pair.second;
-        const unsigned int id = entity.EntityID;
+    for (const EditorEntityView& entity : *m_entityViews) {
+        const unsigned int id = entity.entityID;
         const bool isSelected = (m_selectedEntityID == (int)id);
 
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
@@ -73,14 +75,23 @@ void SceneHierarchyPanel::drawEntityList() {
             }
 
             if (ImGui::MenuItem("Delete")) {
-                m_sceneSystem->SceneDeleteEntity(id);
+                // /FLAG DeleteObject: UI requests deleting the context-menu entity.
+                pushEvent(EditorEvent{ EditorEventType::DeleteObject, id });
                 if (m_selectedEntityID == (int)id) {
                     m_selectedEntityID = -1;
                 }
             }
 
             if (ImGui::MenuItem("Duplicate")) {
-                m_sceneSystem->SceneCreateEntity(entity.path, entity.MaterialID, entity.name + "_copy");
+                // /FLAG DuplicateObject: UI requests duplicating an entity by current view data.
+                EditorEvent event;
+                event.type = EditorEventType::DuplicateObject;
+                event.entityID = id;
+                event.path = entity.path;
+                event.name = entity.name + "_copy";
+                event.materialType = entity.materialType;
+                event.color = entity.color;
+                pushEvent(event);
             }
 
             ImGui::EndPopup();
@@ -104,12 +115,14 @@ void SceneHierarchyPanel::drawRenamePopup() {
 
         if (ImGui::Button("OK", ImVec2(120, 0))) {
 
-            if (m_sceneSystem && m_renamingEntityID >= 0) {
-
-                m_sceneSystem->SceneRenameEntity((unsigned int)m_renamingEntityID,
-                                                                 m_renameBuffer);
+            if (m_renamingEntityID >= 0) {
+                // /FLAG RenameObject: UI requests renaming an entity from the popup input.
+                EditorEvent event;
+                event.type = EditorEventType::RenameObject;
+                event.entityID = (unsigned int)m_renamingEntityID;
+                event.name = m_renameBuffer;
+                pushEvent(event);
             }
-            // TODO: apply the new name through SceneSystem DONE!!!!
 
             m_renamingEntity = false;
             ImGui::CloseCurrentPopup();
@@ -123,5 +136,12 @@ void SceneHierarchyPanel::drawRenamePopup() {
         }
 
         ImGui::EndPopup();
+    }
+}
+
+void SceneHierarchyPanel::pushEvent(const EditorEvent& event) {
+    if (m_events) {
+        // /FLAG Stores the event flag for the engine-side event processor.
+        m_events->push_back(event);
     }
 }

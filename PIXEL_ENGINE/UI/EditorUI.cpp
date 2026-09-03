@@ -1,5 +1,4 @@
 #include "EditorUI.h"
-#include "EditorUI.h"
 #include "EditorTheme.h"
 #include "../Logger/Logger.h"
 
@@ -9,9 +8,9 @@
 
 #include <GLFW/glfw3.h>
 
-void EditorUI::init(GLFWwindow* window, SceneSystem* sceneSystem) {
+void EditorUI::init(GLFWwindow* window, void* engineEventTarget) {
     m_window = window;
-    m_sceneSystem = sceneSystem;
+    (void)engineEventTarget;
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -26,13 +25,15 @@ void EditorUI::init(GLFWwindow* window, SceneSystem* sceneSystem) {
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-    m_hierarchy.setSceneSystem(m_sceneSystem);
-    m_inspector.setSceneSystem(m_sceneSystem);
-    m_contentBrowser.setSceneSystem(m_sceneSystem);
+    m_hierarchy.setEventQueue(&m_events);
+    m_hierarchy.setEntityViews(&m_entityViews);
+    m_inspector.setEventQueue(&m_events);
+    m_inspector.setEntityViews(&m_entityViews);
+    m_contentBrowser.setEventQueue(&m_events);
+    m_console.setEventQueue(&m_events);
     m_contentBrowser.setConsole(&m_console);
 
     Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Engine initialized");
-    // TODO: add logs through addLog() from the engine DONE!!!!
 }
 
 void EditorUI::beginFrame() {
@@ -60,6 +61,18 @@ void EditorUI::shutdown() {
 
 int EditorUI::getSelectedEntityID() const {
     return m_hierarchy.getSelectedEntityID();
+}
+
+void EditorUI::setEntityViews(const std::vector<EditorEntityView>& entityViews) {
+    m_entityViews = entityViews;
+    m_hierarchy.setEntityViews(&m_entityViews);
+    m_inspector.setEntityViews(&m_entityViews);
+}
+
+std::vector<EditorEvent> EditorUI::consumeEvents() {
+    std::vector<EditorEvent> events = m_events;
+    m_events.clear();
+    return events;
 }
 
 void EditorUI::getViewportRect(int& outX, int& outY, int& outW, int& outH) {
@@ -92,18 +105,20 @@ void EditorUI::drawMainMenuBar() {
 
     if (ImGui::BeginMenu("File")) {
         if (ImGui::MenuItem("New Scene", "Ctrl+N")) {
-
-            m_sceneSystem->SceneClearEntityList();
-            // TODO: create a new empty scene through SceneSystem. DONE!!!!
+            // /FLAG ClearScene: UI asks the engine to clear the active scene.
+            m_events.push_back(EditorEvent{ EditorEventType::ClearScene });
         }
         if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {
-            // TODO: open a scene file dialog and load it through SceneSystem.
+            // /FLAG OpenScene: UI asks the engine to open a scene picker/load flow.
+            m_events.push_back(EditorEvent{ EditorEventType::OpenScene });
         }
         if (ImGui::MenuItem("Save Scene", "Ctrl+S")) {
-            // TODO: save the current scene through SceneSystem.
+            // /FLAG SaveScene: UI asks the engine to save the current scene.
+            m_events.push_back(EditorEvent{ EditorEventType::SaveScene });
         }
         if (ImGui::MenuItem("Save Scene As...", "Ctrl+Shift+S")) {
-            // TODO: save the scene with a new path through SceneSystem.
+            // /FLAG SaveSceneAs: UI asks the engine to save the scene with a new path.
+            m_events.push_back(EditorEvent{ EditorEventType::SaveSceneAs });
         }
         ImGui::Separator();
         if (ImGui::MenuItem("Exit", "Alt+F4")) {
@@ -168,10 +183,16 @@ void EditorUI::drawMainMenuBar() {
 
     if (ImGui::BeginMenu("Help")) {
         if (ImGui::MenuItem("About")) {
-            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Hello, this is  Pixel Engine,"
-                " i am glad you downloaded it.\n If you want to add something or noticed some problems\n"
-                " please dont be hesitated to contact me: saidaghamaliyev@gmail.com\n"
-                " Please ENJOY, Said Aghamaliyev");
+            // /FLAG ShowAbout: UI asks the engine/app layer to show or log the about message.
+            EditorEvent event;
+            event.type = EditorEventType::ShowAbout;
+            event.message = "Hello, this is Pixel Engine, i am glad you downloaded it.\n"
+                "If you want to add something or noticed some problems\n"
+                "please dont be hesitated to contact me: saidaghamaliyev@gmail.com\n"
+                "Please ENJOY, Said Aghamaliyev";
+            m_events.push_back(event);
+
+            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, event.message);
         }
         ImGui::EndMenu();
     }

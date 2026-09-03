@@ -1,9 +1,7 @@
 #include "ContentBrowserPanel.h"
-#include "ContentBrowserPanel.h"
 #include "ConsolePanel.h"
 #include "../../Logger/Logger.h"
 
-#include "../../SceneSystem/SceneSystem.h"
 #include "../Materials/imgui.h"
 
 #include <algorithm>
@@ -18,8 +16,8 @@ bool isModelExtension(const std::filesystem::path& path) {
 
 }
 
-void ContentBrowserPanel::setSceneSystem(SceneSystem* sceneSystem) {
-    m_sceneSystem = sceneSystem;
+void ContentBrowserPanel::setEventQueue(std::vector<EditorEvent>* events) {
+    m_events = events;
 }
 
 void ContentBrowserPanel::setConsole(ConsolePanel* console) {
@@ -151,12 +149,12 @@ void ContentBrowserPanel::drawFileView() {
             }
 
             if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
-                tryAddToScene(filePath, filename, entry.path().stem().string());
+                queueAddObjectEvent(filePath, filename, entry.path().stem().string());
             }
 
             if (ImGui::BeginPopupContextItem()) {
                 if (ImGui::MenuItem("Add to Scene")) {
-                    tryAddToScene(filePath, filename, entry.path().stem().string());
+                    queueAddObjectEvent(filePath, filename, entry.path().stem().string());
                 }
                 ImGui::EndPopup();
             }
@@ -174,7 +172,7 @@ void ContentBrowserPanel::drawFileView() {
     ImGui::EndChild();
 }
 
-void ContentBrowserPanel::tryAddToScene(const std::string& path, const std::string& filename, const std::string& stem) {
+void ContentBrowserPanel::queueAddObjectEvent(const std::string& path, const std::string& filename, const std::string& stem) {
     const std::filesystem::path filePath(path);
     if (!isModelExtension(filePath)) {
         return;
@@ -183,16 +181,19 @@ void ContentBrowserPanel::tryAddToScene(const std::string& path, const std::stri
     std::string pathString = path;
     std::replace(pathString.begin(), pathString.end(), '\\', '/');
 
-    // TODO: pass the selected asset path through AssetSystem once that API exists. DONE !!! I GUESS
-    
-    /*
-        Example:
-        m_assetSystem->LoadAsset(pathString);
-    */
+    // /FLAG AddObject: UI requests adding a model asset by path and display name.
+    EditorEvent event;
+    event.type = EditorEventType::AddObject;
+    event.path = pathString;
+    event.name = stem;
+    pushEvent(event);
 
-    if (m_sceneSystem) {
-        m_sceneSystem->SceneCreateEntity(pathString, Default, stem);
+    Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Add object event queued for " + filename + ".");
+}
+
+void ContentBrowserPanel::pushEvent(const EditorEvent& event) {
+    if (m_events) {
+        // /FLAG Stores the event flag for the engine-side event processor.
+        m_events->push_back(event);
     }
-
-    Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Added " + filename + " to scene.");
 }

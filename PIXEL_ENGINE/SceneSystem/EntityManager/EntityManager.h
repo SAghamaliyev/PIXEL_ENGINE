@@ -11,6 +11,7 @@ using namespace std;
 struct EntityUnit {
 	unsigned int EntityID;
 	MaterialType MaterialID;
+	Color color;
 
 	string path;
 	string name;
@@ -31,6 +32,7 @@ public:
 	void clearEntityList();
 	void Update();
 	bool hasEntity(unsigned int EntityID) const;
+	bool changeColor(unsigned int EntityID, Color targetColor);
 	bool renameEntity(unsigned int EntityID, const string& Name);
 	bool setEntityMaterial(unsigned int EntityID, MaterialType Type);
 

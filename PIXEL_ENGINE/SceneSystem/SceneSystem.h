@@ -22,6 +22,7 @@ public:
 	void SceneCreateEntity(const string& Path, MaterialType Type, const string& Name = "Object");
 	//void SceneCreateEntity(MaterialType Type, const string& Name = "Object");
 	void SceneDeleteEntity(unsigned int EntityID);
+	bool ChangeColorEntity(unsigned int EntityID, Color targetColor);
 
 	bool SceneHasEntity(unsigned int EntityID) const;
 	bool SceneRenameEntity(unsigned int EntityID, const string& Name);
