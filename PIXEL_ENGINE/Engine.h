@@ -8,6 +8,8 @@
 #include "SceneSystem/SceneSystem.h"
 #include "src/Definitions.h"
 #include "UI/EditorUI.h"
+#include"Logger/Logger.h"
+#include <vector>
 
 class Engine {
 private:
@@ -16,6 +18,9 @@ private:
 	EditorUI* OurEditorUI;
 	GLFWwindow* OurWindow;
 
+
+	void processEditorEvents();
+	void visualizeEditorEvents();
 public:
 	bool initailize();
 	void run();

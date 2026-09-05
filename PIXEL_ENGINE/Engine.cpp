@@ -1,5 +1,65 @@
 #include "Engine.h"
 
+void Engine::visualizeEditorEvents() {
+    vector<EditorEntityView> EntityViews;
+    const auto& TempList = OurSceneSystem->getSceneInfo().EntityList;
+
+    for (const auto& element : TempList) {
+        const auto& entity = element.second;
+        EditorEntityView view;
+
+        if (!entity.isActive) continue;
+
+        view.entityID = entity.EntityID;
+        view.color = entity.color;
+        view.materialType = entity.MaterialID;
+        view.name = entity.name;
+        view.path = entity.path;
+
+        EntityViews.push_back(view);
+    }
+    OurEditorUI->setEntityViews(EntityViews);
+}
+
+void Engine::processEditorEvents() {
+    const vector <EditorEvent> events = OurEditorUI->consumeEvents();
+
+    for (const EditorEvent& event : events) {
+        switch (event.type) {
+
+        case EditorEventType::AddObject:
+            OurSceneSystem->SceneCreateEntity(event.path, event.materialType, event.name);
+            /*OurEditorUI->setEntityViews()*/
+            continue;
+
+        case EditorEventType::ChangeEntityColor:
+            OurSceneSystem->ChangeColorEntity(event.entityID, event.color);
+            continue;
+
+        case EditorEventType::ClearScene:
+            OurSceneSystem->SceneClearEntityList();
+            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Scene was cleared successfully\n");
+            continue;
+
+        case EditorEventType::ShowAbout:
+            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, event.message);
+            continue;
+
+        case EditorEventType::DeleteObject:
+            OurSceneSystem->SceneDeleteEntity(event.entityID);
+            continue;
+
+        case EditorEventType::RenameObject:
+            OurSceneSystem->SceneRenameEntity(event.entityID, event.name);
+            continue;
+
+        case EditorEventType::DuplicateObject:
+            OurSceneSystem->SceneCreateEntity(event.path, event.materialType, event.name);
+            continue;
+        }
+    }
+}
+
 bool Engine::initailize() {
     glfwInit(); // запуск библиотеки
 
@@ -62,6 +122,10 @@ void Engine::run() {
         int vX, vY, vW, vH;
         OurEditorUI->getViewportRect(vX, vY, vW, vH);
         glViewport(vX, vY, vW, vH);
+
+        // Проверяем флаги на события и отображаем их
+        processEditorEvents();
+        visualizeEditorEvents();
 
         // 3. Рисуем сцену ТОЛЬКО в этом кармане! Твой треугольник будет здесь
         OurRenderSystem->renderScene(OurSceneSystem->getSceneInfo());

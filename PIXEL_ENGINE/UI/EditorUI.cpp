@@ -191,8 +191,6 @@ void EditorUI::drawMainMenuBar() {
                 "please dont be hesitated to contact me: saidaghamaliyev@gmail.com\n"
                 "Please ENJOY, Said Aghamaliyev";
             m_events.push_back(event);
-
-            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, event.message);
         }
         ImGui::EndMenu();
     }
