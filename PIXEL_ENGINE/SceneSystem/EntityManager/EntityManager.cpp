@@ -1,5 +1,7 @@
 #include "EntityManager.h"
 
+#include <filesystem>
+
 EntityManager::EntityManager() {
 	counter = 0;
 }
@@ -93,6 +95,36 @@ bool EntityManager::renameEntity(unsigned int EntityID, const string& Name) {
 	}
 
 	it->second.name = Name;
+	return true;
+}
+
+bool EntityManager::renameEntityFile(unsigned int EntityID, const string& Name) {
+	auto it = EntityList.find(EntityID);
+	if (it == EntityList.end() || Name.empty()) {
+		return false;
+	}
+
+	const std::filesystem::path oldPath(it->second.path);
+	const std::filesystem::path newPath = oldPath.parent_path() / (Name + oldPath.extension().string());
+	if (oldPath == newPath) {
+		return true;
+	}
+
+	std::error_code error;
+	if (!std::filesystem::exists(oldPath, error)) {
+		return true;
+	}
+
+	if (std::filesystem::exists(newPath, error)) {
+		return false;
+	}
+
+	std::filesystem::rename(oldPath, newPath, error);
+	if (error) {
+		return false;
+	}
+
+	it->second.path = newPath.string();
 	return true;
 }
 

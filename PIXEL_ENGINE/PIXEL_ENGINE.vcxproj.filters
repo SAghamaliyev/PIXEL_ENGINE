@@ -99,6 +99,9 @@
     <ClCompile Include="Logger\Logger.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h">
@@ -200,9 +203,14 @@
     <ClInclude Include="Logger\Logger.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="RenderSystem\TextureManager\TextureManager.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\stb_image.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Objects\Triangle.mtl" />
     <None Include="src\Shaders\MainVertexShader.vert" />
   </ItemGroup>
   <ItemGroup>

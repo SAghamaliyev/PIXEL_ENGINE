@@ -1,5 +1,19 @@
 #include "SceneSystem.h"
 
+#include <algorithm>
+#include <cctype>
+#include <filesystem>
+
+namespace {
+
+bool isObjectAsset(const std::filesystem::path& path) {
+	string extension = path.extension().string();
+	transform(extension.begin(), extension.end(), extension.begin(),
+		[](unsigned char character) { return static_cast<char>(tolower(character)); });
+	return extension == ".obj" || extension == ".fbx";
+}
+
+}
 
 SceneSystem::SceneSystem()
 	:OurSceneInfo{OurEntityManager.getEntityList()}
@@ -39,6 +53,19 @@ bool SceneSystem::SceneHasEntity(unsigned int EntityID) const {
 }
 
 bool SceneSystem::SceneRenameEntity(unsigned int EntityID, const string& Name) {
+   if (!OurEntityManager.hasEntity(EntityID) || Name.empty()) {
+		return false;
+	}
+
+	EntityUnit& entity = OurEntityManager.getEntity(EntityID);
+	const std::filesystem::path oldPath(entity.path);
+
+	if (isObjectAsset(oldPath)) {
+        if (!OurEntityManager.renameEntityFile(EntityID, Name)) {
+			return false;
+		}
+	}
+
 	return OurEntityManager.renameEntity(EntityID, Name);
 }
 

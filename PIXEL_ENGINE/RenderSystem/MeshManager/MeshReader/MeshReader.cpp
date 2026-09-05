@@ -17,7 +17,7 @@ void ReaderOBJ::IndicesParse(const string& line, vector <int> &indices) {
     return;
 }
 
-void ReaderOBJ::ObjectReader(const string& path, vector <float> &vertices, vector <int> &indices) {
+void ReaderOBJ::ObjectReader(const string& path, vector <float> &vertices, vector <int> &indices, vector <float>& textures) {
     ifstream file(path);
 
     if (!file.is_open()) {
@@ -30,7 +30,8 @@ void ReaderOBJ::ObjectReader(const string& path, vector <float> &vertices, vecto
     while (getline(file, line)) {
         istringstream iss(line);
         string type;
-        float x, y, z;
+        float x, y, z;  // for vertex
+        float a, b; // for textures
 
         if (iss >> type) {
             if (type == "v") {
@@ -42,6 +43,13 @@ void ReaderOBJ::ObjectReader(const string& path, vector <float> &vertices, vecto
             }
             else if (type == "f") {
                 IndicesParse(line, indices);
+            }
+            else if (type == "vt") {
+                if (iss >> a >> b) {
+                    textures.push_back(a);
+                    textures.push_back(b);
+       
+                }
             }
         }
     }

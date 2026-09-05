@@ -34,6 +34,7 @@ public:
 	bool hasEntity(unsigned int EntityID) const;
 	bool changeColor(unsigned int EntityID, Color targetColor);
 	bool renameEntity(unsigned int EntityID, const string& Name);
+   bool renameEntityFile(unsigned int EntityID, const string& Name);
 	bool setEntityMaterial(unsigned int EntityID, MaterialType Type);
 
 	const unordered_map <unsigned int, EntityUnit>& getEntityList() const;
