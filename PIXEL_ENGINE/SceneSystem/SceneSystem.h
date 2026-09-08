@@ -19,14 +19,14 @@ public:
 
 	// EntityManager connection
 	void SceneClearEntityList();
-	void SceneCreateEntity(const string& Path, MaterialType Type, const string& Name = "Object");
-	//void SceneCreateEntity(MaterialType Type, const string& Name = "Object");
+    void SceneCreateEntity(unsigned long long int MeshID, MaterialType Type, const string& Name = "Object");
 	void SceneDeleteEntity(unsigned int EntityID);
-	bool ChangeColorEntity(unsigned int EntityID, Color targetColor);
+	void SceneDuplicateEntity(unsigned int EntityID);
 
-	bool SceneHasEntity(unsigned int EntityID) const;
-	bool SceneRenameEntity(unsigned int EntityID, const string& Name);
-	bool SceneSetEntityMaterial(unsigned int EntityID, MaterialType Type);
+	void ChangeColorEntity(unsigned int EntityID, Color targetColor);
+	void SceneHasEntity(unsigned int EntityID) const;
+	void SceneRenameEntity(unsigned int EntityID, const string& Name);
+	void SceneSetEntityMaterial(unsigned int EntityID, MaterialType Type);
 
 	EntityUnit& SceneGetEntity(unsigned int EntityID);
 };

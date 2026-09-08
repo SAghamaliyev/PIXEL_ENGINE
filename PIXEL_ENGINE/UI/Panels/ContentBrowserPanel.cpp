@@ -6,12 +6,22 @@
 
 #include <algorithm>
 #include <filesystem>
+#include <fstream>
+
+#ifdef _WIN32
+#include <windows.h>
+#pragma comment(lib, "Comdlg32.lib")
+#endif
 
 namespace {
 
 bool isModelExtension(const std::filesystem::path& path) {
     const std::filesystem::path ext = path.extension();
     return ext == ".obj" || ext == ".fbx";
+}
+
+bool isObjExtension(const std::filesystem::path& path) {
+    return path.extension() == ".obj";
 }
 
 }
@@ -48,43 +58,37 @@ void ContentBrowserPanel::draw(const EditorLayout& layout) {
 }
 
 void ContentBrowserPanel::drawToolbar() {
-    ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x * 0.5f);
-    ImGui::InputTextWithHint("##Search", "Search...", m_searchBuffer, sizeof(m_searchBuffer));
-
-    ImGui::SameLine();
-    if (ImGui::Button("Root")) {
+    if (ImGui::Button("Home")) {
         m_currentDirectory = "src";
         m_selectedFilePath.clear();
     }
 
     ImGui::SameLine();
-    if (ImGui::Button("Up")) {
-        const std::filesystem::path current(m_currentDirectory);
-        if (current.has_parent_path()) {
-            m_currentDirectory = current.parent_path().string();
-            m_selectedFilePath.clear();
-        }
+    if (ImGui::Button("Objects")) {
+        std::filesystem::create_directories("src/objects");
+        m_currentDirectory = "src/objects";
+        m_selectedFilePath.clear();
     }
+
+    ImGui::SameLine();
+    if (ImGui::Button("Register Object")) {
+        registerObject();
+    }
+
+    ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+    ImGui::InputTextWithHint("##Search", "Search...", m_searchBuffer, sizeof(m_searchBuffer));
 }
 
 void ContentBrowserPanel::drawFolderTree() {
     ImGui::BeginChild("FolderTree", ImVec2(0, 0), false);
 
-    if (ImGui::TreeNodeEx("src", ImGuiTreeNodeFlags_DefaultOpen)) {
-        try {
-            for (const auto& entry : std::filesystem::directory_iterator("src")) {
-                if (!entry.is_directory()) {
-                    continue;
-                }
+    std::filesystem::create_directories("src/objects");
 
-                const std::string folderPath = entry.path().string();
-                const std::string folderName = entry.path().filename().string();
-                if (ImGui::Selectable(folderName.c_str(), m_currentDirectory == folderPath)) {
-                    m_currentDirectory = folderPath;
-                    m_selectedFilePath.clear();
-                }
-            }
-        } catch (...) {
+    if (ImGui::TreeNodeEx("src", ImGuiTreeNodeFlags_DefaultOpen)) {
+        const std::string objectsPath = "src/objects";
+        if (ImGui::Selectable("objects", m_currentDirectory == objectsPath)) {
+            m_currentDirectory = objectsPath;
+            m_selectedFilePath.clear();
         }
         ImGui::TreePop();
     }
@@ -92,11 +96,37 @@ void ContentBrowserPanel::drawFolderTree() {
     ImGui::EndChild();
 }
 
+void ContentBrowserPanel::registerObject() {
+#ifdef _WIN32
+    char fileName[MAX_PATH] = {};
+    OPENFILENAMEA dialog = {};
+    dialog.lStructSize = sizeof(dialog);
+    dialog.lpstrFile = fileName;
+    dialog.nMaxFile = sizeof(fileName);
+    dialog.lpstrFilter = "OBJ files (*.obj)\0*.obj\0\0";
+    dialog.nFilterIndex = 1;
+    dialog.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+
+    if (GetOpenFileNameA(&dialog) != 0) {
+        const std::filesystem::path selectedPath(fileName);
+        if (isObjExtension(selectedPath)) {
+            EditorEvent event;
+            event.type = EditorEventType::RegisterObject;
+            event.path = selectedPath.string();
+            event.name = selectedPath.filename().string();
+            pushEvent(event);
+            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO,
+                "Object registration queued for " + event.name + ".");
+        }
+    }
+#else
+    Logger::getInstance().addLog(Logger::LogEntry::LOG_WARNING,
+        "Object registration is supported only on Windows.");
+#endif
+}
+
 void ContentBrowserPanel::drawFileView() {
     ImGui::BeginChild("FileView", ImVec2(0, 0), false);
-
-    ImGui::TextDisabled("Path: %s", m_currentDirectory.c_str());
-    ImGui::Separator();
 
     const float iconSize = 32.0f;
     const float rowHeight = iconSize + 8.0f;
@@ -108,12 +138,12 @@ void ContentBrowserPanel::drawFileView() {
                 continue;
             }
 
-            // ?????????? ?????? .obj ?????
-            if (!isModelExtension(entry.path())) {
+            if (entry.path().extension() != ".meta") {
                 continue;
             }
 
-            const std::string filename = entry.path().filename().string();
+            const std::string metaFilename = entry.path().filename().string();
+            const std::string filename = entry.path().stem().string();
             if (m_searchBuffer[0] != '\0' && filename.find(m_searchBuffer) == std::string::npos) {
                 continue;
             }
@@ -149,12 +179,12 @@ void ContentBrowserPanel::drawFileView() {
             }
 
             if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
-                queueAddObjectEvent(filePath, filename, entry.path().stem().string());
+                queueAddObjectEvent(filePath, metaFilename, filename);
             }
 
             if (ImGui::BeginPopupContextItem()) {
                 if (ImGui::MenuItem("Add to Scene")) {
-                    queueAddObjectEvent(filePath, filename, entry.path().stem().string());
+                    queueAddObjectEvent(filePath, metaFilename, filename);
                 }
                 ImGui::EndPopup();
             }
@@ -173,18 +203,34 @@ void ContentBrowserPanel::drawFileView() {
 }
 
 void ContentBrowserPanel::queueAddObjectEvent(const std::string& path, const std::string& filename, const std::string& stem) {
-    const std::filesystem::path filePath(path);
-    if (!isModelExtension(filePath)) {
+    std::ifstream metaFile(path);
+    if (!metaFile.is_open()) {
         return;
     }
 
-    std::string pathString = path;
-    std::replace(pathString.begin(), pathString.end(), '\\', '/');
+    unsigned long long int meshID = 0;
+    std::string line;
+    while (std::getline(metaFile, line)) {
+        if (line.rfind("ID=", 0) == 0) {
+            try {
+                meshID = std::stoull(line.substr(3));
+            }
+            catch (...) {
+                meshID = 0;
+            }
+            break;
+        }
+    }
 
-    // /FLAG AddObject: UI requests adding a model asset by path and display name.
+    if (meshID == 0) {
+        Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
+            "Invalid mesh ID in meta file: " + path);
+        return;
+    }
+
     EditorEvent event;
     event.type = EditorEventType::AddObject;
-    event.path = pathString;
+    event.meshID = meshID;
     event.name = stem;
     pushEvent(event);
 

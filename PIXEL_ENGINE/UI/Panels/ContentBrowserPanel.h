@@ -24,12 +24,13 @@ private:
     bool m_visible = true;
 
     char m_searchBuffer[256] = "";
-    std::string m_currentDirectory = "src";
+    std::string m_currentDirectory = "src/objects";
     std::string m_selectedFilePath;
 
     void drawToolbar();
     void drawFolderTree();
     void drawFileView();
-    void queueAddObjectEvent(const std::string& path, const std::string& filename, const std::string& stem);
+    void registerObject();
+    void queueAddObjectEvent(const std::string& metaPath, const std::string& filename, const std::string& stem);
     void pushEvent(const EditorEvent& event);
 };

@@ -67,9 +67,10 @@ void InspectorPanel::draw(const EditorLayout& layout) {
     }
 
     if (ImGui::CollapsingHeader("MeshRenderer", ImGuiTreeNodeFlags_DefaultOpen)) {
-        char meshPath[256];
-        strncpy_s(meshPath, sizeof(meshPath), entity->path.c_str(), _TRUNCATE);
-        ImGui::InputText("Model", meshPath, sizeof(meshPath), ImGuiInputTextFlags_ReadOnly);
+        char meshIDText[256] = "";
+        const std::string meshID = std::to_string(entity->meshID);
+        strncpy_s(meshIDText, sizeof(meshIDText), meshID.c_str(), _TRUNCATE);
+        ImGui::InputText("Mesh ID", meshIDText, sizeof(meshIDText), ImGuiInputTextFlags_ReadOnly);
 
         ImGui::Separator();
 

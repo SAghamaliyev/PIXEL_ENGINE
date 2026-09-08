@@ -9,6 +9,7 @@
 #include "src/Definitions.h"
 #include "UI/EditorUI.h"
 #include"Logger/Logger.h"
+#include "AssetSystem/AssetSystem.h"
 #include <vector>
 
 class Engine {
@@ -16,6 +17,7 @@ private:
 	RenderSystem* OurRenderSystem;
 	SceneSystem* OurSceneSystem;
 	EditorUI* OurEditorUI;
+	AssetSystem* OurAssetSystem;
 	GLFWwindow* OurWindow;
 
 

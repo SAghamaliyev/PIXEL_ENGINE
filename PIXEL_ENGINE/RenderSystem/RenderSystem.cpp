@@ -5,8 +5,7 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	for (auto Entity : OurSceneInfo.EntityList) {
-		MeshInfo OurMesh = OurMeshManager.getMesh(Entity.second.path,
-												  Entity.second.EntityID,
+		MeshInfo OurMesh = OurMeshManager.getMesh(Entity.second.MeshID,
 												  Entity.second.isActive);
 
 		// If -2007 it means this Entity is deactivated

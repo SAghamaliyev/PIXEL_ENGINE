@@ -6,10 +6,14 @@ EntityManager::EntityManager() {
 	counter = 0;
 }
 
-void EntityManager::createEntity(const string& Path, MaterialType Type, const string& Name) {
+void EntityManager::createEntity(unsigned long long int MeshID, MaterialType Type,
+								const string& Name) {
+
 	EntityUnit OurEntity;
 	OurEntity.EntityID = counter;
-	OurEntity.path = Path;
+	OurEntity.MeshID = MeshID;
+	OurEntity.MaterialID = Type;
+	OurEntity.isActive = true;
 	
 	
 	if (Name == "Object") {
@@ -18,32 +22,16 @@ void EntityManager::createEntity(const string& Path, MaterialType Type, const st
 	}
 	else { OurEntity.name = Name; }
 
-	OurEntity.MaterialID = Type;
-	OurEntity.isActive = true;
 
 	EntityList[OurEntity.EntityID] = OurEntity;
 
 	++counter;
 }
 
-//void EntityManager::createEntity(MaterialType Type, const string& Name) {
-//	EntityUnit OurEntity;
-//	OurEntity.EntityID = counter;
-//	OurEntity.path = "null";
-//
-//	if (Name == "Object") {
-//		OurEntity.name = "Object";
-//		OurEntity.name += to_string(OurEntity.EntityID);
-//	}
-//	else { OurEntity.name = Name; }
-//
-//	OurEntity.MaterialID = Type;
-//	OurEntity.isActive = true;
-//
-//	EntityList[OurEntity.EntityID] = OurEntity;
-//
-//	++counter;
-//}
+void EntityManager::duplicateEntity(unsigned int EntityID) {
+	EntityUnit r = EntityList[EntityID];
+	createEntity(r.MeshID, r.MaterialID, r.name + "dup");
+}
 
 void EntityManager::deactivateEntity(unsigned int EntityID) {
 	if (EntityList.find(EntityID) == EntityList.end()) {
@@ -63,7 +51,9 @@ void EntityManager::clearEntityList() {
 EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
 	auto it = EntityList.find(EntityID);
 	if (it == EntityList.end()) {
-		throw std::out_of_range("Entity with given ID not found");
+
+		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
+			"Entity with given ID not found");
 	}
 
 	return it->second;
@@ -78,64 +68,48 @@ bool EntityManager::hasEntity(unsigned int EntityID) const {
 	return it != EntityList.end() && it->second.isActive;
 }
 
-bool EntityManager::changeColor(unsigned int EntityID, Color targetColor) {
+void EntityManager::changeColor(unsigned int EntityID, Color targetColor) {
 	auto it = EntityList.find(EntityID);
 	if (it == EntityList.end()) {
-		return false;
+		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR, 
+			"Failed to find entity: " + EntityList[EntityID].name);
+		return;
 	}
 
 	EntityList[EntityID].color = targetColor;
-	return true;
 }
 
-bool EntityManager::renameEntity(unsigned int EntityID, const string& Name) {
+void EntityManager::changeName(unsigned int EntityID, const string& Name) {
 	auto it = EntityList.find(EntityID);
 	if (it == EntityList.end()) {
-		return false;
+		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
+			"Failed to find entity: " + EntityList[EntityID].name);
+		return;
 	}
 
 	it->second.name = Name;
-	return true;
 }
 
-bool EntityManager::renameEntityFile(unsigned int EntityID, const string& Name) {
-	auto it = EntityList.find(EntityID);
-	if (it == EntityList.end() || Name.empty()) {
-		return false;
-	}
-
-	const std::filesystem::path oldPath(it->second.path);
-	const std::filesystem::path newPath = oldPath.parent_path() / (Name + oldPath.extension().string());
-	if (oldPath == newPath) {
-		return true;
-	}
-
-	std::error_code error;
-	if (!std::filesystem::exists(oldPath, error)) {
-		return true;
-	}
-
-	if (std::filesystem::exists(newPath, error)) {
-		return false;
-	}
-
-	std::filesystem::rename(oldPath, newPath, error);
-	if (error) {
-		return false;
-	}
-
-	it->second.path = newPath.string();
-	return true;
-}
-
-bool EntityManager::setEntityMaterial(unsigned int EntityID, MaterialType Type) {
+void EntityManager::changeMaterial(unsigned int EntityID, MaterialType Type) {
 	auto it = EntityList.find(EntityID);
 	if (it == EntityList.end()) {
-		return false;
+		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
+			"Failed to find entity: " + EntityList[EntityID].name);
+		return;
 	}
 
 	it->second.MaterialID = Type;
-	return true;
+}
+
+void EntityManager::changeMesh(unsigned int EntityID, unsigned long long int MeshID) {
+	auto it = EntityList.find(EntityID);
+	if (it == EntityList.end()) {
+		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
+			"Failed to find entity: " + EntityList[EntityID].name);
+		return;
+	}
+
+	it->second.MeshID = MeshID;
 }
 
 void EntityManager::Update() {

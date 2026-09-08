@@ -31,9 +31,9 @@ inline EditorLayout computeEditorLayout(int screenW, int screenH, float menuBarH
     const float totalH = (float)screenH - menuBarH;
     const float leftW = (float)screenW * 0.18f;
     const float rightW = (float)screenW * 0.22f;
-    const float topH = totalH * 0.62f;
-    const float bottomH = totalH * 0.38f;
-    const float halfBottomW = ((float)screenW - rightW) * 0.5f;
+    const float topH = totalH * 0.58f;
+    const float bottomH = totalH * 0.42f;
+    const float halfBottomW = ((float)screenW - rightW) * 0.55f;
 
     layout.hierarchy.pos = ImVec2(0.0f, menuBarH);
     layout.hierarchy.size = ImVec2(leftW, topH);

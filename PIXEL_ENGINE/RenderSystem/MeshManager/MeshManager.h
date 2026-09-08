@@ -13,10 +13,13 @@ using namespace std;
 class MeshManager {
 public:
     MeshManager() = default;
-	MeshInfo getMesh(const string& path, unsigned int MeshID, bool isActive);
+	MeshInfo getMesh(unsigned long long int& MeshID, bool& isActive);
 
     ~MeshManager();
 private:
-	unordered_map <unsigned int /*Name*/, MeshInfo /*OurMesh*/> MeshMap;
-	MeshInfo makeMesh(const string& path);
+	unordered_map <unsigned long long int /*MeshID*/, MeshInfo /*OurMesh*/> MeshMap;
+	MeshInfo makeMesh(unsigned long long int& MeshID);
+
+	void readBinaryMesh(unsigned long long int MeshID, vector<float>& vertices,
+		vector<int>& indices, vector<float>& textures);
 };

@@ -22,8 +22,11 @@ void SceneHierarchyPanel::draw(const EditorLayout& layout) {
     ImGui::Begin("Scene Hierarchy", nullptr, kEditorPanelWindowFlags);
 
     if (ImGui::Button("Add Entity")) {
-        // /FLAG AddObject: UI requests an entity from a default asset path.
-        pushEvent(EditorEvent{ EditorEventType::AddObject, 0, "src/Objects/Triangle.obj", "NewObject" });
+        EditorEvent event;
+        event.type = EditorEventType::AddObject;
+        event.meshID = 123;
+        event.name = "NewObject";
+        pushEvent(event);
         Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Add Entity event queued.");
     }
 
@@ -83,14 +86,9 @@ void SceneHierarchyPanel::drawEntityList() {
             }
 
             if (ImGui::MenuItem("Duplicate")) {
-                // /FLAG DuplicateObject: UI requests duplicating an entity by current view data.
                 EditorEvent event;
                 event.type = EditorEventType::DuplicateObject;
                 event.entityID = id;
-                event.path = entity.path;
-                event.name = entity.name + "_copy";
-                event.materialType = entity.materialType;
-                event.color = entity.color;
                 pushEvent(event);
             }
 

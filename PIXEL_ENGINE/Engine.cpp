@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include <filesystem>
+
 void Engine::visualizeEditorEvents() {
     vector<EditorEntityView> EntityViews;
     const auto& TempList = OurSceneSystem->getSceneInfo().EntityList;
@@ -11,10 +13,10 @@ void Engine::visualizeEditorEvents() {
         if (!entity.isActive) continue;
 
         view.entityID = entity.EntityID;
+        view.meshID = entity.MeshID;
         view.color = entity.color;
         view.materialType = entity.MaterialID;
         view.name = entity.name;
-        view.path = entity.path;
 
         EntityViews.push_back(view);
     }
@@ -28,9 +30,14 @@ void Engine::processEditorEvents() {
         switch (event.type) {
 
         case EditorEventType::AddObject:
-            OurSceneSystem->SceneCreateEntity(event.path, event.materialType, event.name);
+            OurSceneSystem->SceneCreateEntity(event.meshID, event.materialType, event.name);
             /*OurEditorUI->setEntityViews()*/
             continue;
+
+        case EditorEventType::RegisterObject: {
+            OurAssetSystem->RegisterFile(event.path);
+            continue;
+        }
 
         case EditorEventType::ChangeEntityColor:
             OurSceneSystem->ChangeColorEntity(event.entityID, event.color);
@@ -54,7 +61,7 @@ void Engine::processEditorEvents() {
             continue;
 
         case EditorEventType::DuplicateObject:
-            OurSceneSystem->SceneCreateEntity(event.path, event.materialType, event.name);
+            OurSceneSystem->SceneDuplicateEntity(event.entityID);
             continue;
         }
     }
@@ -97,6 +104,7 @@ bool Engine::initailize() {
 
     OurRenderSystem = new RenderSystem();
     OurSceneSystem = new SceneSystem();
+    OurAssetSystem = new AssetSystem();
 
     OurEditorUI = new EditorUI();
     OurEditorUI->init(OurWindow, OurSceneSystem);
@@ -105,6 +113,8 @@ bool Engine::initailize() {
 }
 
 void Engine::run() {
+
+    OurAssetSystem->Run();
 
     while (!glfwWindowShouldClose(OurWindow)) {
 

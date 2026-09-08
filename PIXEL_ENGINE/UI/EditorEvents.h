@@ -13,6 +13,7 @@ struct EditorVec3 {
 
 enum class EditorEventType {
     AddObject,
+    RegisterObject,
     DeleteObject,
     RenameObject,
     DuplicateObject,
@@ -41,6 +42,7 @@ enum class EditorComponentType {
 struct EditorEvent {
     EditorEventType type = EditorEventType::AddObject;
     unsigned int entityID = 0;
+    unsigned long long int meshID = 0;
     std::string path;
     std::string name;
     std::string message;
@@ -54,7 +56,7 @@ struct EditorEvent {
 
 struct EditorEntityView {
     unsigned int entityID = 0;
-    std::string path;
+    unsigned long long int meshID = 0;
     std::string name;
     MaterialType materialType = Default;
     Color color;
@@ -64,6 +66,7 @@ struct EditorEntityView {
 inline const std::vector<EditorEventType>& getCreatableEditorEvents() {
     static const std::vector<EditorEventType> events = {
         EditorEventType::AddObject,
+        EditorEventType::RegisterObject,
         EditorEventType::DeleteObject,
         EditorEventType::RenameObject,
         EditorEventType::DuplicateObject,
