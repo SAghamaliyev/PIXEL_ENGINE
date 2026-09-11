@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -136,6 +136,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetSystem\AssetSystem.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemTEX.cpp" />
     <ClCompile Include="dependencies\glad\src\glad.c" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
@@ -148,13 +150,14 @@
     <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp" />
     <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
     <ClCompile Include="SceneSystem\SceneSystem.cpp" />
+    <ClCompile Include="SceneSystem\SceneSystemEntity.cpp" />
     <ClCompile Include="UI\EditorTheme.cpp" />
     <ClCompile Include="UI\EditorUI.cpp" />
     <ClCompile Include="UI\Panels\ConsolePanel.cpp" />
     <ClCompile Include="UI\Panels\ContentBrowserPanel.cpp" />
     <ClCompile Include="UI\Panels\InspectorPanel.cpp" />
     <ClCompile Include="UI\Panels\SceneHierarchyPanel.cpp" />
-    <Text Include="src\Shaders\MainFragmentShader.frag">
+    <Text Include="src\Shaders\DefaultShader.frag">
       <FileType>Document</FileType>
     </Text>
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
@@ -207,7 +210,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\MainVertexShader.vert" />
+    <None Include="src\Shaders\DefaultShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

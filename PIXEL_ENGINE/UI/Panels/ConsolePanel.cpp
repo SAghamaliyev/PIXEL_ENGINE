@@ -37,27 +37,27 @@ void ConsolePanel::draw(const EditorLayout& layout) {
     ImGui::BeginChild("LogScrollRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
 
     for (const LogEntry& log : m_logs) {
-        if (log.type == LogEntry::LOG_INFO && !m_filterInfo) continue;
-        if (log.type == LogEntry::LOG_WARNING && !m_filterWarning) continue;
-        if (log.type == LogEntry::LOG_ERROR && !m_filterError) continue;
-        if (log.type == LogEntry::LOG_DEBUG && !m_filterDebug) continue;
+        if (log.type == LOG_INFO && !m_filterInfo) continue;
+        if (log.type == LOG_WARNING && !m_filterWarning) continue;
+        if (log.type == LOG_ERROR && !m_filterError) continue;
+        if (log.type == LOG_DEBUG && !m_filterDebug) continue;
 
         ImVec4 color;
         const char* prefix = "[LOG]";
         switch (log.type) {
-            case LogEntry::LOG_INFO:
+            case LOG_INFO:
                 color = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
                 prefix = "[INFO]";
                 break;
-            case LogEntry::LOG_WARNING:
+            case LOG_WARNING:
                 color = ImVec4(1.0f, 0.85f, 0.0f, 1.0f);
                 prefix = "[WARNING]";
                 break;
-            case LogEntry::LOG_ERROR:
+            case LOG_ERROR:
                 color = ImVec4(1.0f, 0.2f, 0.2f, 1.0f);
                 prefix = "[ERROR]";
                 break;
-            case LogEntry::LOG_DEBUG:
+            case LOG_DEBUG:
                 color = ImVec4(0.5f, 0.5f, 0.5f, 1.0f);
                 prefix = "[DEBUG]";
                 break;
@@ -89,7 +89,7 @@ void ConsolePanel::draw(const EditorLayout& layout) {
             event.message = command;
             pushEvent(event);
 
-            Logger::getInstance().addLog(LogEntry::LOG_INFO, std::string("> ") + command);
+            Logger::addLog(LOG_INFO, std::string("> ") + command);
             m_commandBuffer[0] = '\0';
             reclaimFocus = true;
             m_scrollToBottom = true;
@@ -104,18 +104,19 @@ void ConsolePanel::draw(const EditorLayout& layout) {
 }
 
 void ConsolePanel::updateLogsFromBuffer() {
-    auto newLogs = Logger::getInstance().flushLogs();
-    for (const auto& log : newLogs) {
-        m_logs.push_back(log);
+    std::queue<LogEntry> newLogsQueue = Logger::getLogs();
+    while (!newLogsQueue.empty()) {
+        m_logs.push_back(newLogsQueue.front());
+        newLogsQueue.pop();
     }
-    if (!newLogs.empty()) {
+    if (!m_logs.empty()) {
         m_scrollToBottom = true;
     }
 }
 
 void ConsolePanel::clearLogs() {
     m_logs.clear();
-    Logger::getInstance().clearLogs();
+    Logger::clearLogs();
 }
 
 void ConsolePanel::pushEvent(const EditorEvent& event) {

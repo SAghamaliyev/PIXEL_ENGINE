@@ -5,11 +5,15 @@
 
 #include <vector>
 
+class ConsolePanel;
+class ContentBrowserPanel;
+
 class InspectorPanel {
 public:
     void setEventQueue(std::vector<EditorEvent>* events);
     void setEntityViews(const std::vector<EditorEntityView>* entityViews);
     void setSelectedEntityID(int entityID);
+    void setContentBrowserPanel(ContentBrowserPanel* contentBrowser);
 
     void draw(const EditorLayout& layout);
 
@@ -19,6 +23,7 @@ public:
 private:
     std::vector<EditorEvent>* m_events = nullptr;
     const std::vector<EditorEntityView>* m_entityViews = nullptr;
+    ContentBrowserPanel* m_contentBrowser = nullptr;
     bool m_visible = true;
     int m_selectedEntityID = -1;
 

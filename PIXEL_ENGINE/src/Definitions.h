@@ -12,15 +12,18 @@ enum MaterialType {
 };
 
 struct Color {
-    float r = 0.0f;
+    float r = 1.0f;
     float g = 1.0f;
     float b = 1.0f;
     float a = 1.0f;
 };
 
 struct MeshInfo {
+    bool isActive = true;
     unsigned int VAO = 0;
-    unsigned int VBO = 0;
+    unsigned int VBO_Pos = 0;
+    unsigned int VBO_Tex = 0;
     unsigned int EBO = 0;
-    unsigned int indexcount = 0;
+    unsigned int indexCount = 0;
+    unsigned int textureCount = 0;
 };

@@ -1,12 +1,17 @@
 #pragma once
+#include <glad/glad.h> 
+#include <GLFW/glfw3.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "../../dependencies/stb_image.h"
 #include <unordered_map>
+#include "../../Logger/Logger.h"
 using namespace std;
 
 class TextureManager {
+public:
+	unsigned int getTexture(uint64_t& TextureID, bool& isActive);
+	~TextureManager();
 private:
-	unordered_map<unsigned int, unsigned int> TextureList;
-	unsigned int
+	unordered_map<uint64_t, unsigned int> TextureList;
+	void makeTexture(uint64_t& TextureID);
+	void readBinary(uint64_t& TextureID, unsigned char*& data, int& width, int& height, int& nrChannels);
 };

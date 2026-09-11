@@ -6,12 +6,14 @@
 #include "ShaderManager/ShaderManager.h"
 #include "MeshManager/MeshManager.h"
 #include "../SceneSystem/SceneSystem.h"
+#include "TextureManager/TextureManager.h"
 
 
 class RenderSystem {
 private:
 	ShaderManager OurShaderManager;
 	MeshManager OurMeshManager;
+	TextureManager OurTextureManager;
 	//MaterialType getShader(MaterialType Material);
 	//MeshInfo getMesh(const string& path, unsigned int MeshID);
 public:

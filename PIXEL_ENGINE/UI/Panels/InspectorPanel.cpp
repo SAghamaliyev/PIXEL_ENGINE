@@ -1,6 +1,8 @@
 #include "InspectorPanel.h"
+#include "ContentBrowserPanel.h"
 
 #include "../Materials/imgui.h"
+#include "../../Logger/Logger.h"
 
 #include <cstring>
 
@@ -14,6 +16,10 @@ void InspectorPanel::setEntityViews(const std::vector<EditorEntityView>* entityV
 
 void InspectorPanel::setSelectedEntityID(int entityID) {
     m_selectedEntityID = entityID;
+}
+
+void InspectorPanel::setContentBrowserPanel(ContentBrowserPanel* contentBrowser) {
+    m_contentBrowser = contentBrowser;
 }
 
 void InspectorPanel::draw(const EditorLayout& layout) {
@@ -72,6 +78,11 @@ void InspectorPanel::draw(const EditorLayout& layout) {
         strncpy_s(meshIDText, sizeof(meshIDText), meshID.c_str(), _TRUNCATE);
         ImGui::InputText("Mesh ID", meshIDText, sizeof(meshIDText), ImGuiInputTextFlags_ReadOnly);
 
+        char textureIDText[256] = "";
+        const std::string textureID = std::to_string(entity->textureID);
+        strncpy_s(textureIDText, sizeof(textureIDText), textureID.c_str(), _TRUNCATE);
+        ImGui::InputText("Texture ID", textureIDText, sizeof(textureIDText), ImGuiInputTextFlags_ReadOnly);
+
         ImGui::Separator();
 
         float color[4] = {
@@ -83,6 +94,16 @@ void InspectorPanel::draw(const EditorLayout& layout) {
 
         bool colorChanged = ImGui::ColorEdit4("Color (RGBA)", color);
         colorChanged |= ImGui::SliderFloat("Alpha", &color[3], 0.0f, 1.0f);
+
+        bool colorEnabled = entity->colorEnabled;
+        if (ImGui::Checkbox("Enable Entity Color", &colorEnabled)) {
+            // /FLAG ToggleEntityColor: UI requests enabling or disabling the entity color.
+            EditorEvent event;
+            event.type = EditorEventType::ToggleEntityColor;
+            event.entityID = (unsigned int)m_selectedEntityID;
+            event.colorEnabled = colorEnabled;
+            pushEvent(event);
+        }
 
         if (colorChanged) {
             for (float& component : color) {
@@ -160,6 +181,14 @@ void InspectorPanel::draw(const EditorLayout& layout) {
         if (ImGui::MenuItem("Audio Source")) {
             // /FLAG AddComponent: UI requests adding an AudioSource component.
             queueComponentEvent(EditorComponentType::AudioSource);
+        }
+        if (ImGui::MenuItem("Texture")) {
+            // /FLAG AssignTexture: UI requests texture selection for the entity.
+            if (m_contentBrowser) {
+                Logger::addLog(LOG_INFO,
+                    "Texture selection mode activated for Entity ID: " + std::to_string(m_selectedEntityID));
+                m_contentBrowser->setTextureSelectionMode(true, (unsigned int)m_selectedEntityID);
+            }
         }
         ImGui::EndPopup();
     }

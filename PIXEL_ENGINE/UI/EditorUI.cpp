@@ -29,11 +29,12 @@ void EditorUI::init(GLFWwindow* window, void* engineEventTarget) {
     m_hierarchy.setEntityViews(&m_entityViews);
     m_inspector.setEventQueue(&m_events);
     m_inspector.setEntityViews(&m_entityViews);
+    m_inspector.setContentBrowserPanel(&m_contentBrowser);
     m_contentBrowser.setEventQueue(&m_events);
     m_console.setEventQueue(&m_events);
     m_contentBrowser.setConsole(&m_console);
 
-    Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Engine initialized");
+    Logger::addLog(LOG_INFO, "Engine initialized");
 }
 
 void EditorUI::beginFrame() {

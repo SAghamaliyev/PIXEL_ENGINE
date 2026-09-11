@@ -99,7 +99,16 @@
     <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
     <ClCompile Include="AssetSystem\AssetSystem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetSystem\AssetSystemTEX.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSystem\SceneSystemEntity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -211,10 +220,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\MainVertexShader.vert" />
+    <None Include="src\Shaders\DefaultShader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\Shaders\MainFragmentShader.frag">
+    <Text Include="src\Shaders\DefaultShader.frag">
       <Filter>Исходные файлы</Filter>
     </Text>
     <Text Include="src\Objects\Triangle.obj" />

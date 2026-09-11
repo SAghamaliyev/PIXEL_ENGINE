@@ -1,24 +1,21 @@
 #include "Logger.h"
+#include "Logger.h"
 
-Logger& Logger::getInstance() {
-    static Logger instance;
-    return instance;
-}
+std::queue<LogEntry> Logger::m_logBuffer;
 
-void Logger::addLog(LogEntry::Type type, const std::string& message) {
-    m_logBuffer.push({ type, message });
-}
+void Logger::addLog(Type LogType, const std::string& message) {
 
-std::vector<Logger::LogEntry> Logger::flushLogs() {
-    std::vector<LogEntry> logs;
-    while (!m_logBuffer.empty()) {
-        logs.push_back(m_logBuffer.front());
-        m_logBuffer.pop();
-    }
-    return logs;
+    LogEntry OurLog = { LogType, message };
+    m_logBuffer.push(OurLog);
 }
 
 void Logger::clearLogs() {
     std::queue<LogEntry> empty;
     std::swap(m_logBuffer, empty);
+}
+
+std::queue<LogEntry> Logger::getLogs() {
+    std::queue<LogEntry> temp = m_logBuffer;
+    clearLogs();
+    return temp;
 }

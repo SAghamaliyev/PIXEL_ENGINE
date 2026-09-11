@@ -1,28 +1,26 @@
 #pragma once
+#pragma once
 
-#include <string>
 #include <queue>
-#include <vector>
+#include <string>
+
+enum Type { LOG_INFO, LOG_WARNING, LOG_ERROR, LOG_DEBUG };
+
+struct LogEntry {
+    Type type;
+    std::string message;
+};
 
 class Logger {
 public:
-    struct LogEntry {
-        enum Type { LOG_INFO, LOG_WARNING, LOG_ERROR, LOG_DEBUG };
-        Type type;
-        std::string message;
-    };
+    // Add Log's type and then message
+    static void addLog(Type LogType, const std::string& message);
 
-    static Logger& getInstance();
+    // Clear all Logs from LogBuffer
+    static void clearLogs();
 
-    void addLog(LogEntry::Type type, const std::string& message);
-    std::vector<LogEntry> flushLogs();
-    void clearLogs();
+    static std::queue<LogEntry> getLogs();
 
 private:
-    Logger() = default;
-    ~Logger() = default;
-    Logger(const Logger&) = delete;
-    Logger& operator=(const Logger&) = delete;
-
-    std::queue<LogEntry> m_logBuffer;
+    static std::queue<LogEntry> m_logBuffer;
 };

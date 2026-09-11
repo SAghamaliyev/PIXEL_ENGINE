@@ -14,6 +14,7 @@ struct EditorVec3 {
 enum class EditorEventType {
     AddObject,
     RegisterObject,
+    RegisterTexture,
     DeleteObject,
     RenameObject,
     DuplicateObject,
@@ -22,9 +23,11 @@ enum class EditorEventType {
     SaveScene,
     SaveSceneAs,
     ChangeEntityColor,
+    ToggleEntityColor,
     ChangeEntityMaterial,
     ChangeEntityTransform,
     AddComponent,
+    AssignTexture,
     SubmitConsoleCommand,
     ClearConsole,
     ShowAbout
@@ -42,12 +45,15 @@ enum class EditorComponentType {
 struct EditorEvent {
     EditorEventType type = EditorEventType::AddObject;
     unsigned int entityID = 0;
-    unsigned long long int meshID = 0;
+    uint64_t meshID = 0;
+    uint64_t textureID = 0;
     std::string path;
     std::string name;
     std::string message;
     MaterialType materialType = Default;
     Color color;
+    bool colorEnabled = false;
+    bool isEmptyEntity = false;
     EditorVec3 position;
     EditorVec3 rotation;
     EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
@@ -56,10 +62,12 @@ struct EditorEvent {
 
 struct EditorEntityView {
     unsigned int entityID = 0;
-    unsigned long long int meshID = 0;
+    uint64_t meshID = 0;
+    uint64_t textureID = 0;
     std::string name;
     MaterialType materialType = Default;
     Color color;
+    bool colorEnabled = true;
 };
 
 // /FLAG This is the full list of event flags the UI is allowed to create.
@@ -75,6 +83,7 @@ inline const std::vector<EditorEventType>& getCreatableEditorEvents() {
         EditorEventType::SaveScene,
         EditorEventType::SaveSceneAs,
         EditorEventType::ChangeEntityColor,
+        EditorEventType::ToggleEntityColor,
         EditorEventType::ChangeEntityMaterial,
         EditorEventType::ChangeEntityTransform,
         EditorEventType::AddComponent,

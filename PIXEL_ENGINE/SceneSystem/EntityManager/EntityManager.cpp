@@ -6,7 +6,7 @@ EntityManager::EntityManager() {
 	counter = 0;
 }
 
-void EntityManager::createEntity(unsigned long long int MeshID, MaterialType Type,
+void EntityManager::createEntity(uint64_t MeshID, MaterialType Type,
 								const string& Name) {
 
 	EntityUnit OurEntity;
@@ -14,6 +14,8 @@ void EntityManager::createEntity(unsigned long long int MeshID, MaterialType Typ
 	OurEntity.MeshID = MeshID;
 	OurEntity.MaterialID = Type;
 	OurEntity.isActive = true;
+	OurEntity.TextureID = 1;
+	OurEntity.isColorActive = false;
 	
 	
 	if (Name == "Object") {
@@ -29,17 +31,14 @@ void EntityManager::createEntity(unsigned long long int MeshID, MaterialType Typ
 }
 
 void EntityManager::duplicateEntity(unsigned int EntityID) {
-	EntityUnit r = EntityList[EntityID];
-	createEntity(r.MeshID, r.MaterialID, r.name + "dup");
-}
+	EntityUnit temp = EntityList[EntityID];
+	
+	temp.EntityID = counter;
+	temp.name = temp.name + "(" + to_string(temp.EntityID) + ")";
 
-void EntityManager::deactivateEntity(unsigned int EntityID) {
-	if (EntityList.find(EntityID) == EntityList.end()) {
-		return;
-	}
+	EntityList[temp.EntityID] = temp;
 
-	EntityList[EntityID].isActive = false;
-	DeactivatedList.push_back(EntityID);
+	++counter;
 }
 
 void EntityManager::clearEntityList() {
@@ -48,68 +47,25 @@ void EntityManager::clearEntityList() {
 	counter = 0;
 }
 
-EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
-	auto it = EntityList.find(EntityID);
-	if (it == EntityList.end()) {
+bool EntityManager::hasEntity(unsigned int EntityID) {
 
-		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
-			"Entity with given ID not found");
+	auto it = EntityList.find(EntityID);
+
+	if (it == EntityList.end() && it->second.isActive)
+		return false;
+	return true;
+}
+
+void EntityManager::deactivateEntity(unsigned int EntityID) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].isActive = false;
+		DeactivatedList.push_back(EntityID);
 	}
-
-	return it->second;
-}
-
-const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
-	return EntityList;
-}
-
-bool EntityManager::hasEntity(unsigned int EntityID) const {
-	auto it = EntityList.find(EntityID);
-	return it != EntityList.end() && it->second.isActive;
-}
-
-void EntityManager::changeColor(unsigned int EntityID, Color targetColor) {
-	auto it = EntityList.find(EntityID);
-	if (it == EntityList.end()) {
-		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR, 
-			"Failed to find entity: " + EntityList[EntityID].name);
+	else {
+		Logger::addLog(LOG_ERROR, "Entity is either already deactivated or not exist");
 		return;
 	}
-
-	EntityList[EntityID].color = targetColor;
-}
-
-void EntityManager::changeName(unsigned int EntityID, const string& Name) {
-	auto it = EntityList.find(EntityID);
-	if (it == EntityList.end()) {
-		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
-			"Failed to find entity: " + EntityList[EntityID].name);
-		return;
-	}
-
-	it->second.name = Name;
-}
-
-void EntityManager::changeMaterial(unsigned int EntityID, MaterialType Type) {
-	auto it = EntityList.find(EntityID);
-	if (it == EntityList.end()) {
-		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
-			"Failed to find entity: " + EntityList[EntityID].name);
-		return;
-	}
-
-	it->second.MaterialID = Type;
-}
-
-void EntityManager::changeMesh(unsigned int EntityID, unsigned long long int MeshID) {
-	auto it = EntityList.find(EntityID);
-	if (it == EntityList.end()) {
-		Logger::getInstance().addLog(Logger::LogEntry::LOG_ERROR,
-			"Failed to find entity: " + EntityList[EntityID].name);
-		return;
-	}
-
-	it->second.MeshID = MeshID;
 }
 
 void EntityManager::Update() {
@@ -120,3 +76,103 @@ void EntityManager::Update() {
 
 	DeactivatedList.clear();
 }
+
+void EntityManager::changeColor(unsigned int EntityID, Color targetColor) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].color = targetColor;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Color: " + EntityList[EntityID].name);
+		return;
+	}
+}
+
+void EntityManager::changeName(unsigned int EntityID, const string& Name) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].name = Name;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Name: " + EntityList[EntityID].name);
+		return;
+	}
+}
+
+void EntityManager::changeMaterial(unsigned int EntityID, MaterialType Type) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].MaterialID = Type;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Material: " + EntityList[EntityID].name);
+		return;
+	}
+}
+
+void EntityManager::changeMesh(unsigned int EntityID, uint64_t MeshID) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].MeshID = MeshID;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Mesh: " + EntityList[EntityID].name);
+		return;
+	}
+}
+
+void EntityManager::changeTexture(unsigned int EntityID, uint64_t TextureID) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].TextureID = TextureID;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Texture: " + std::to_string(EntityID));
+		return;
+	}
+}
+
+void EntityManager::activateColor(unsigned int EntityID) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].isColorActive = true;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and activate its Color: " + std::to_string(EntityID));
+		return;
+	}
+}
+
+void EntityManager::deactivateColor(unsigned int EntityID) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].isColorActive = false;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and deactivate its Color: " + std::to_string(EntityID));
+		return;
+	}
+}
+
+const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
+	return EntityList;
+}
+
+//EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
+//
+//	if (hasEntity(EntityID)) {
+//		return EntityList[EntityID];
+//	}
+//	else {
+//		Logger::addLog(LOG_ERROR, "Entity with given ID not found");
+//		
+//		return ;
+//	}
+//}

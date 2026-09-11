@@ -9,7 +9,7 @@
 
 class ConsolePanel {
 public:
-    using LogEntry = Logger::LogEntry;
+    using LogEntry = ::LogEntry;
 
     void setEventQueue(std::vector<EditorEvent>* events);
 

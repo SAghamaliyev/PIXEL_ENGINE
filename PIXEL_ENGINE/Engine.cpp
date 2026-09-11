@@ -14,7 +14,9 @@ void Engine::visualizeEditorEvents() {
 
         view.entityID = entity.EntityID;
         view.meshID = entity.MeshID;
+        view.textureID = entity.TextureID;
         view.color = entity.color;
+        view.colorEnabled = entity.isColorActive;
         view.materialType = entity.MaterialID;
         view.name = entity.name;
 
@@ -30,8 +32,12 @@ void Engine::processEditorEvents() {
         switch (event.type) {
 
         case EditorEventType::AddObject:
-            OurSceneSystem->SceneCreateEntity(event.meshID, event.materialType, event.name);
-            /*OurEditorUI->setEntityViews()*/
+            if (event.isEmptyEntity) {
+                OurSceneSystem->SceneCreateEntity();
+            }
+            else {
+                OurSceneSystem->SceneCreateEntity(event.meshID, event.materialType, event.name);
+            }
             continue;
 
         case EditorEventType::RegisterObject: {
@@ -43,13 +49,22 @@ void Engine::processEditorEvents() {
             OurSceneSystem->ChangeColorEntity(event.entityID, event.color);
             continue;
 
+        case EditorEventType::ToggleEntityColor:
+            if (event.colorEnabled) {
+                OurSceneSystem->activateColorEntity(event.entityID);
+            }
+            else {
+                OurSceneSystem->deactivateColorEntity(event.entityID);
+            }
+            continue;
+
         case EditorEventType::ClearScene:
             OurSceneSystem->SceneClearEntityList();
-            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Scene was cleared successfully\n");
+            Logger::addLog(LOG_INFO, "Scene was cleared successfully\n");
             continue;
 
         case EditorEventType::ShowAbout:
-            Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, event.message);
+            Logger::addLog(LOG_INFO, event.message);
             continue;
 
         case EditorEventType::DeleteObject:
@@ -57,11 +72,22 @@ void Engine::processEditorEvents() {
             continue;
 
         case EditorEventType::RenameObject:
-            OurSceneSystem->SceneRenameEntity(event.entityID, event.name);
+            OurSceneSystem->ChangeNameEntity(event.entityID, event.name);
             continue;
 
         case EditorEventType::DuplicateObject:
             OurSceneSystem->SceneDuplicateEntity(event.entityID);
+            continue;
+
+        case EditorEventType::AssignTexture:
+            Logger::addLog(LOG_INFO,
+                "Processing AssignTexture event. Entity: " + std::to_string(event.entityID) + 
+                ", Texture ID: " + std::to_string(event.textureID));
+            OurSceneSystem->ChangeTextureEntity(event.entityID, event.textureID);
+            continue;
+
+        case EditorEventType::RegisterTexture:
+            OurAssetSystem->RegisterFile(event.path);
             continue;
         }
     }
@@ -126,7 +152,7 @@ void Engine::run() {
         
         // 1. Очищаем экран общим цветом (фон под UI)
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f); 
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Добавлен GL_DEPTH_BUFFER_BIT
 
         // 2. Получаем координаты кармана от UI и выставляем OpenGL Viewport
         int vX, vY, vW, vH;
@@ -136,7 +162,7 @@ void Engine::run() {
         // Проверяем флаги на события и отображаем их
         processEditorEvents();
         visualizeEditorEvents();
-
+        
         // 3. Рисуем сцену ТОЛЬКО в этом кармане! Твой треугольник будет здесь
         OurRenderSystem->renderScene(OurSceneSystem->getSceneInfo());
         OurSceneSystem->SceneUpdate();

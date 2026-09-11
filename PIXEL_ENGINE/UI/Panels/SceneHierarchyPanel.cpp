@@ -24,10 +24,9 @@ void SceneHierarchyPanel::draw(const EditorLayout& layout) {
     if (ImGui::Button("Add Entity")) {
         EditorEvent event;
         event.type = EditorEventType::AddObject;
-        event.meshID = 123;
-        event.name = "NewObject";
+        event.isEmptyEntity = true;
         pushEvent(event);
-        Logger::getInstance().addLog(Logger::LogEntry::LOG_INFO, "Add Entity event queued.");
+        Logger::addLog(LOG_INFO, "Add Entity event queued.");
     }
 
     ImGui::SameLine();

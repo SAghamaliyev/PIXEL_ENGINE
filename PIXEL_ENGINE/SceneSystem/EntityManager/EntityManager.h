@@ -1,3 +1,8 @@
+﻿/*
+2 is default mesh of cube for rendering 
+1 is default texture for rendering(you can find it in createEntity in .cpp)
+*/
+
 #pragma once
 
 #include <string>
@@ -11,12 +16,15 @@ using namespace std;
 
 struct EntityUnit {
 	unsigned int EntityID;	
-	unsigned long long int MeshID;
+	uint64_t MeshID;
+	uint64_t TextureID;
 	MaterialType MaterialID;	//ShaderID
-	Color color;
 
+	Color color;
 	string name;
-	bool isActive;
+
+	bool isActive;	// Should we render it or not
+	bool isColorActive;	// Should we add color to it or not(defaultly no)
 };
 
 class EntityManager {
@@ -28,11 +36,8 @@ public:
 	EntityManager();
 
 	// Create initial Entity(it can be just basic cube or we can already give it info)
-	void createEntity(unsigned long long int MeshID = 123, MaterialType Type = Default,
+	void createEntity(uint64_t MeshID = 2, MaterialType Type = Default,
 						const string& Name = "Object");
-
-	// Deactivate Entity(we dont delete it instantly bcs we need to warn everyone firstly)
-	void deactivateEntity(unsigned int EntityID);
 
 	// We create Entity which is same(except entity id itself)
 	void duplicateEntity(unsigned int EntityID);
@@ -40,18 +45,27 @@ public:
 	// Delete all List
 	void clearEntityList();
 
+	// Check if entity exist and active
+	bool hasEntity(unsigned int EntityID);
+
+	// Deactivate Entity(we dont delete it instantly bcs we need to warn everyone firstly)
+	void deactivateEntity(unsigned int EntityID);
+
 	// Delete all deactivated Entities
 	void Update();
-
-	bool hasEntity(unsigned int EntityID) const;
 
 	// Changers
 	void changeColor(unsigned int EntityID, Color targetColor);
 	void changeName(unsigned int EntityID, const string& Name);
 	void changeMaterial(unsigned int EntityID, MaterialType Type);
-	void changeMesh(unsigned int EntityID, unsigned long long int MeshID);
+	void changeMesh(unsigned int EntityID, uint64_t MeshID);
+	void changeTexture(unsigned int EntityID, uint64_t TetxureID);
 
+		// Turn on/off color for Entity
+		void deactivateColor(unsigned int EntityID);
+		void activateColor(unsigned int EntityID);
+	
+	// Getters
 	const unordered_map <unsigned int, EntityUnit>& getEntityList() const;
-	EntityUnit& getEntity(unsigned int EntityID);
-
+	/*EntityUnit& getEntity(unsigned int EntityID);*/
 };
