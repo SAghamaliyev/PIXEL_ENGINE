@@ -100,9 +100,10 @@ void TextureManager::makeTexture(uint64_t& TextureID) {
 		unsigned int texture = 0;
 		if (data) {
 			Logger::addLog(LOG_INFO, 
-				"Texture loaded successfully. Dimensions: " + std::to_string(width) + 
-				"x" + std::to_string(height) + ", Channels: " + std::to_string(nrChannels));
+				"Texture loaded successfully!");
 
+
+			// PreSettings for our future texture
 			glGenTextures(1, &texture);
 			glBindTexture(GL_TEXTURE_2D, texture);
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -148,7 +149,7 @@ unsigned int TextureManager::getTexture(uint64_t& TextureID, bool& isActive) {
 			return it->second;
 		}
 	}
-	// Деактивация - очистка текстуры
+	// Deactivation - Clearing texture
 	else {
 		auto it = TextureList.find(TextureID);
 		if (it != TextureList.end()) {

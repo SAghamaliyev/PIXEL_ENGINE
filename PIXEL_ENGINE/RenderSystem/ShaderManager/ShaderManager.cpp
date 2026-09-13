@@ -7,9 +7,6 @@ void ShaderManager::createShader(string& vertexSourceStr, string& fragmentSource
 	const char* vertexShaderSource = vertexSourceStr.c_str();
 	const char* fragmentShaderSource = fragmentSourceStr.c_str();
 
-	Logger::addLog(LOG_DEBUG, "Vertex Shader was added!!");
-	Logger::addLog(LOG_DEBUG, "Fragment Shader was added!!");
-
 	// Making Shader
 	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);

@@ -6,15 +6,15 @@ EntityManager::EntityManager() {
 	counter = 0;
 }
 
-void EntityManager::createEntity(uint64_t MeshID, MaterialType Type,
+void EntityManager::createEntity(uint64_t MeshID, MaterialType ShaderID,
 								const string& Name) {
 
 	EntityUnit OurEntity;
 	OurEntity.EntityID = counter;
 	OurEntity.MeshID = MeshID;
-	OurEntity.MaterialID = Type;
+	OurEntity.ShaderID = ShaderID;
 	OurEntity.isActive = true;
-	OurEntity.TextureID = 1;
+	OurEntity.TextureID = TextureDefault;
 	OurEntity.isColorActive = false;
 	
 	
@@ -101,10 +101,10 @@ void EntityManager::changeName(unsigned int EntityID, const string& Name) {
 	}
 }
 
-void EntityManager::changeMaterial(unsigned int EntityID, MaterialType Type) {
+void EntityManager::changeMaterial(unsigned int EntityID, MaterialType ShaderID) {
 
 	if (hasEntity(EntityID)) {
-		EntityList[EntityID].MaterialID = Type;
+		EntityList[EntityID].ShaderID = ShaderID;
 	}
 	else {
 		Logger::addLog(LOG_ERROR,
@@ -164,15 +164,3 @@ void EntityManager::deactivateColor(unsigned int EntityID) {
 const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
 	return EntityList;
 }
-
-//EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
-//
-//	if (hasEntity(EntityID)) {
-//		return EntityList[EntityID];
-//	}
-//	else {
-//		Logger::addLog(LOG_ERROR, "Entity with given ID not found");
-//		
-//		return ;
-//	}
-//}

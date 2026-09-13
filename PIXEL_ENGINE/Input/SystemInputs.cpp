@@ -6,5 +6,11 @@ void callSystemInputs(GLFWwindow* window) {
 	if (InputManager::IsKeyJustPressed(InputManager::Escape)) {
 		glfwSetWindowShouldClose(window, true);
 	}
+
+	//if((InputManager::IsKeyJustPressed(InputManager::LeftControl) || 
+	//	InputManager::IsKeyJustPressed(InputManager::RightControl)) &&
+	//	InputManager::IsKeyJustPressed(InputManager::E)) {
+	//	glfwSetWindowIcon; Event system should we make
+	//}
 	
 }

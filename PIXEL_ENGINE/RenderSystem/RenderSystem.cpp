@@ -1,13 +1,16 @@
 ﻿#include "RenderSystem.h"
 
 void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
+
+	// PreSettings for future render
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (auto Entity : OurSceneInfo.EntityList) {
-
+		
+		// Mesh to render
 		MeshInfo OurMesh = OurMeshManager.getMesh(Entity.second.MeshID,
 			Entity.second.isActive);
 
@@ -16,22 +19,20 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 			continue;
 		}
 
-		// -------------------------------------Shader-------------------------------------
-		unsigned int OurShader = OurShaderManager.getShader(Entity.second.MaterialID);
+		// Shader to render
+		unsigned int OurShader = OurShaderManager.getShader(Entity.second.ShaderID);
 
 		bool isColorActive = Entity.second.isColorActive;
 		Color Temp = Entity.second.color;
+		unsigned int OurTexture = OurTextureManager.getTexture(Entity.second.TextureID, Entity.second.isActive);
 
 		int boolLocation = glGetUniformLocation(OurShader, "isColorActive");
 		int ColorLocation = glGetUniformLocation(OurShader, "OurColor");
-
-		unsigned int OurTexture = OurTextureManager.getTexture(Entity.second.TextureID, Entity.second.isActive);
 		int TextureLocation = glGetUniformLocation(OurShader, "OurTexture2D");
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glUseProgram(OurShader);
 
+
+		glUseProgram(OurShader);
 		// Устанавливаем флаг цвета
 		glUniform1i(boolLocation, isColorActive);
 

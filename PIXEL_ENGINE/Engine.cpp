@@ -17,7 +17,7 @@ void Engine::visualizeEditorEvents() {
         view.textureID = entity.TextureID;
         view.color = entity.color;
         view.colorEnabled = entity.isColorActive;
-        view.materialType = entity.MaterialID;
+        view.ShaderID = entity.ShaderID;
         view.name = entity.name;
 
         EntityViews.push_back(view);
@@ -36,7 +36,7 @@ void Engine::processEditorEvents() {
                 OurSceneSystem->SceneCreateEntity();
             }
             else {
-                OurSceneSystem->SceneCreateEntity(event.meshID, event.materialType, event.name);
+                OurSceneSystem->SceneCreateEntity(event.meshID, event.ShaderID, event.name);
             }
             continue;
 

@@ -50,7 +50,7 @@ struct EditorEvent {
     std::string path;
     std::string name;
     std::string message;
-    MaterialType materialType = Default;
+    MaterialType ShaderID = Default;
     Color color;
     bool colorEnabled = false;
     bool isEmptyEntity = false;
@@ -65,7 +65,7 @@ struct EditorEntityView {
     uint64_t meshID = 0;
     uint64_t textureID = 0;
     std::string name;
-    MaterialType materialType = Default;
+    MaterialType ShaderID = Default;
     Color color;
     bool colorEnabled = true;
 };

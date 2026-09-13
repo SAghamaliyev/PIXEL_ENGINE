@@ -1,9 +1,4 @@
-﻿/*
-2 is default mesh of cube for rendering 
-1 is default texture for rendering(you can find it in createEntity in .cpp)
-*/
-
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <unordered_map>
@@ -11,14 +6,18 @@
 #include <vector>
 #include "../../src/Definitions.h"
 #include "../../Logger/Logger.h"
+
+#define TextureDefault 1	//	1 is default texture for rendering(you can find it in createEntity in .cpp)
+#define MeshDefault 2		//	2 is default mesh of cube for rendering 
 using namespace std;
 
 
 struct EntityUnit {
-	unsigned int EntityID;	
+	unsigned int EntityID;
+	unsigned int nCopies;	// Numbers of copies of one entity
 	uint64_t MeshID;
 	uint64_t TextureID;
-	MaterialType MaterialID;	//ShaderID
+	MaterialType ShaderID;	// Each Shader is working with Entity's material(for liquid we have liquid shader, for solid solid and etc.)
 
 	Color color;
 	string name;
@@ -36,7 +35,7 @@ public:
 	EntityManager();
 
 	// Create initial Entity(it can be just basic cube or we can already give it info)
-	void createEntity(uint64_t MeshID = 2, MaterialType Type = Default,
+	void createEntity(uint64_t MeshID = MeshDefault, MaterialType ShaderID = Default,
 						const string& Name = "Object");
 
 	// We create Entity which is same(except entity id itself)
@@ -57,7 +56,7 @@ public:
 	// Changers
 	void changeColor(unsigned int EntityID, Color targetColor);
 	void changeName(unsigned int EntityID, const string& Name);
-	void changeMaterial(unsigned int EntityID, MaterialType Type);
+	void changeMaterial(unsigned int EntityID, MaterialType ShaderID);
 	void changeMesh(unsigned int EntityID, uint64_t MeshID);
 	void changeTexture(unsigned int EntityID, uint64_t TetxureID);
 
@@ -67,5 +66,4 @@ public:
 	
 	// Getters
 	const unordered_map <unsigned int, EntityUnit>& getEntityList() const;
-	/*EntityUnit& getEntity(unsigned int EntityID);*/
 };

@@ -127,13 +127,13 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             "Default", "Unlit", "PBR_Standard", "BlinnPhong",
             "Glass", "Water", "Terrain", "Skybox", "Custom"
         };
-        m_currentMaterial = (int)entity->materialType;
+        m_currentMaterial = (int)entity->ShaderID;
         if (ImGui::Combo("Material", &m_currentMaterial, materialNames, IM_ARRAYSIZE(materialNames))) {
             // /FLAG ChangeEntityMaterial: UI requests a material change for the selected entity.
             EditorEvent event;
             event.type = EditorEventType::ChangeEntityMaterial;
             event.entityID = (unsigned int)m_selectedEntityID;
-            event.materialType = (MaterialType)m_currentMaterial;
+            event.ShaderID = (MaterialType)m_currentMaterial;
             pushEvent(event);
         }
     }
