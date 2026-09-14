@@ -5,7 +5,7 @@
 
 namespace fs = std::filesystem;
 
-void TextureManager::readBinary(uint64_t& TextureID, unsigned char*& data, int& width, int& height, int& nrChannels) {
+void TextureManager::readBinary(uint64_t TextureID, unsigned char*& data, int& width, int& height, int& nrChannels) {
 	const fs::path binPath = fs::path("src") / "bins" / (std::to_string(TextureID) + ".bin");
 
 	if (!fs::exists(binPath)) {
@@ -63,7 +63,7 @@ void TextureManager::readBinary(uint64_t& TextureID, unsigned char*& data, int& 
 	}
 }
 
-void TextureManager::makeTexture(uint64_t& TextureID) {
+void TextureManager::makeTexture(uint64_t TextureID) {
 	if (TextureID > 0) {
 		int width, height, nrChannels;
 		unsigned char* data = nullptr;
@@ -128,7 +128,7 @@ void TextureManager::makeTexture(uint64_t& TextureID) {
 	}
 }
 
-unsigned int TextureManager::getTexture(uint64_t& TextureID, bool& isActive) {
+unsigned int TextureManager::getTexture(uint64_t TextureID, bool isActive) {
 	if (isActive) {
 		auto it = TextureList.find(TextureID);
 

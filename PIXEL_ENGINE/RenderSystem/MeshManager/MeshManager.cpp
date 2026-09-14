@@ -5,7 +5,7 @@
 #include <fstream>
 #include <stdexcept>
 
-void MeshManager::readBinaryMesh(uint64_t& MeshID, vector<float>& vertices,
+void MeshManager::readBinaryMesh(uint64_t MeshID, vector<float>& vertices,
     vector<unsigned int>& indices, vector<float>& textures) {
 
     // We read only .obj files' bins
@@ -50,7 +50,7 @@ void MeshManager::readBinaryMesh(uint64_t& MeshID, vector<float>& vertices,
 
 
 
-MeshInfo MeshManager::makeMesh(uint64_t& MeshID) {
+MeshInfo MeshManager::makeMesh(uint64_t MeshID) {
 
     vector<float> vertices;
     vector<unsigned int> indices;
@@ -91,7 +91,7 @@ MeshInfo MeshManager::makeMesh(uint64_t& MeshID) {
     return result;
 }
 
-MeshInfo MeshManager::getMesh(uint64_t& MeshID, bool& isActive) {
+MeshInfo MeshManager::getMesh(uint64_t MeshID, bool isActive) {
 
     // If Entity is active
     if (isActive) {

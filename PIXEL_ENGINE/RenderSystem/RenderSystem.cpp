@@ -8,7 +8,7 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	for (auto Entity : OurSceneInfo.EntityList) {
+	for (const auto& Entity : OurSceneInfo.EntityList) {
 		
 		// Elements for sending to Shader
 
@@ -18,20 +18,8 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 			if (!OurMesh.isActive) {	// If isActive = false, it means this Entity is deactivated
 				continue;
 			}
-
-			Transform& OurTransformInfo = Entity.second.TransformInfo;
-
-			switch (OurTransformInfo.type){
-			case Translate:
-				OurTransformationManager.Translate(OurTransformInfo.OurMatrix, OurTransformInfo.TranslateV);
-				break;
-			case Rotate:
-				OurTransformationManager.Rotate(OurTransformInfo.OurMatrix, OurTransformInfo.RotateV);
-				break;
-			case Scale:
-				OurTransformationManager.Scale(OurTransformInfo.OurMatrix, OurTransformInfo.ScaleV);
-				break;
-			}
+			
+			//Transform& OurTransformInfo = Entity.second.TransformInfo;
 
 			unsigned int OurShader = OurShaderManager.getShader(Entity.second.ShaderID);
 			unsigned int OurTexture = OurTextureManager.getTexture(Entity.second.TextureID, Entity.second.isActive);
@@ -59,7 +47,7 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 		glUniform1i(TextureLocation, 0);
 
 		// Send Transform Matrix to Shader
-		glUniformMatrix4fv(TransMatrixLocation, 1, GL_FALSE, value_ptr(OurTransformInfo.OurMatrix));
+		glUniformMatrix4fv(TransMatrixLocation, 1, GL_FALSE, value_ptr(Entity.second.TransformInfo.OurMatrix));
 
 		glDrawElements(GL_TRIANGLES, OurMesh.indexCount, GL_UNSIGNED_INT, 0);
 	}
