@@ -39,7 +39,7 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 			Color Temp = Entity.second.color;
 
 		// Locations of uniform attributes in Shader
-		int boolLocation = glGetUniformLocation(OurShader, "isColorActive");
+		int isColorActiveLocation = glGetUniformLocation(OurShader, "isColorActive");
 		int ColorLocation = glGetUniformLocation(OurShader, "OurColor");
 		int TextureLocation = glGetUniformLocation(OurShader, "OurTexture2D");
 		int TransMatrixLocation = glGetUniformLocation(OurShader, "TransMatrix");
@@ -51,14 +51,15 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 		glBindTexture(GL_TEXTURE_2D, OurTexture);
 		glBindVertexArray(OurMesh.VAO);
 
-		// Send Color to Shader
-		glUniform1i(boolLocation, isColorActive);
+		// Send Color settings to Shader
+		glUniform1i(isColorActiveLocation, isColorActive);
+		glUniform4f(ColorLocation, Temp.r, Temp.g, Temp.b, Temp.a);
 
 		// Send Texture to Shader
 		glUniform1i(TextureLocation, 0);
 
 		// Send Transform Matrix to Shader
-		glUniformMatrix4fv(TransMatrixLocation, 1, GL_FALSE, value_ptr(Entity.second.TransformInfo.OurMatrix));
+		glUniformMatrix4fv(TransMatrixLocation, 1, GL_FALSE, value_ptr(OurTransformInfo.OurMatrix));
 
 		glDrawElements(GL_TRIANGLES, OurMesh.indexCount, GL_UNSIGNED_INT, 0);
 	}
