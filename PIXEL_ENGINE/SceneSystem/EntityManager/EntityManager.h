@@ -21,6 +21,7 @@ struct EntityUnit {
 
 	Color color;
 	string name;
+	Transform TransformInfo;
 
 	bool isActive;	// Should we render it or not
 	bool isColorActive;	// Should we add color to it or not(defaultly no)
@@ -54,16 +55,20 @@ public:
 	void Update();
 
 	// Changers
-	void changeColor(unsigned int EntityID, Color targetColor);
+	void changeColor(unsigned int EntityID, const Color& targetColor);
 	void changeName(unsigned int EntityID, const string& Name);
 	void changeMaterial(unsigned int EntityID, MaterialType ShaderID);
 	void changeMesh(unsigned int EntityID, uint64_t MeshID);
 	void changeTexture(unsigned int EntityID, uint64_t TetxureID);
+	void changeTranslate(unsigned int EntityID, const glm::vec3& TranslateV);
+	void changeRotate(unsigned int EntityID, const glm::vec3& RotateV);
+	void changeScale(unsigned int EntityID, const glm::vec3& ScaleV);
 
 		// Turn on/off color for Entity
 		void deactivateColor(unsigned int EntityID);
 		void activateColor(unsigned int EntityID);
 	
 	// Getters
+	//Transform& getTransformInfo(unsigned int EntityID);
 	const unordered_map <unsigned int, EntityUnit>& getEntityList() const;
 };

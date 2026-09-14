@@ -10,43 +10,56 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 
 	for (auto Entity : OurSceneInfo.EntityList) {
 		
-		// Mesh to render
-		MeshInfo OurMesh = OurMeshManager.getMesh(Entity.second.MeshID,
-			Entity.second.isActive);
+		// Elements for sending to Shader
 
-		// If isActive = false, it means this Entity is deactivated
-		if (!OurMesh.isActive) {
-			continue;
-		}
+			MeshInfo OurMesh = OurMeshManager.getMesh(Entity.second.MeshID,
+				Entity.second.isActive);
 
-		// Shader to render
-		unsigned int OurShader = OurShaderManager.getShader(Entity.second.ShaderID);
+			if (!OurMesh.isActive) {	// If isActive = false, it means this Entity is deactivated
+				continue;
+			}
 
-		bool isColorActive = Entity.second.isColorActive;
-		Color Temp = Entity.second.color;
-		unsigned int OurTexture = OurTextureManager.getTexture(Entity.second.TextureID, Entity.second.isActive);
+			Transform& OurTransformInfo = Entity.second.TransformInfo;
 
+			switch (OurTransformInfo.type){
+			case Translate:
+				OurTransformationManager.Translate(OurTransformInfo.OurMatrix, OurTransformInfo.TranslateV);
+				break;
+			case Rotate:
+				OurTransformationManager.Rotate(OurTransformInfo.OurMatrix, OurTransformInfo.RotateV);
+				break;
+			case Scale:
+				OurTransformationManager.Scale(OurTransformInfo.OurMatrix, OurTransformInfo.ScaleV);
+				break;
+			}
+
+			unsigned int OurShader = OurShaderManager.getShader(Entity.second.ShaderID);
+			unsigned int OurTexture = OurTextureManager.getTexture(Entity.second.TextureID, Entity.second.isActive);
+			bool isColorActive = Entity.second.isColorActive;
+			Color Temp = Entity.second.color;
+
+		// Locations of uniform attributes in Shader
 		int boolLocation = glGetUniformLocation(OurShader, "isColorActive");
 		int ColorLocation = glGetUniformLocation(OurShader, "OurColor");
 		int TextureLocation = glGetUniformLocation(OurShader, "OurTexture2D");
-
+		int TransMatrixLocation = glGetUniformLocation(OurShader, "TransMatrix");
 
 
 		glUseProgram(OurShader);
-		// Устанавливаем флаг цвета
-		glUniform1i(boolLocation, isColorActive);
 
-		// Если цвет активен, применяем его
-		if (isColorActive) {
-			glUniform4f(ColorLocation, Temp.r, Temp.g, Temp.b, Temp.a);
-		}
-
-		// Привязываем текстуру к текстурному модулю 0
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, OurTexture);
+		glBindVertexArray(OurMesh.VAO);
+
+		// Send Color to Shader
+		glUniform1i(boolLocation, isColorActive);
+
+		// Send Texture to Shader
 		glUniform1i(TextureLocation, 0);
 
-		glBindVertexArray(OurMesh.VAO);
+		// Send Transform Matrix to Shader
+		glUniformMatrix4fv(TransMatrixLocation, 1, GL_FALSE, value_ptr(Entity.second.TransformInfo.OurMatrix));
+
 		glDrawElements(GL_TRIANGLES, OurMesh.indexCount, GL_UNSIGNED_INT, 0);
 	}
 }

@@ -70,14 +70,20 @@ void EntityManager::deactivateEntity(unsigned int EntityID) {
 
 void EntityManager::Update() {
 
+	// Clear all deactivated entities
 	for (auto element : DeactivatedList) {
 		EntityList.erase(element);
 	}
 
 	DeactivatedList.clear();
+
+	// Set that entity is already transformed
+	for (auto element : EntityList) {
+		element.second.TransformInfo.type = Nothing;
+	}
 }
 
-void EntityManager::changeColor(unsigned int EntityID, Color targetColor) {
+void EntityManager::changeColor(unsigned int EntityID, const Color& targetColor) {
 
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].color = targetColor;
@@ -137,6 +143,45 @@ void EntityManager::changeTexture(unsigned int EntityID, uint64_t TextureID) {
 	}
 }
 
+void EntityManager::changeTranslate(unsigned int EntityID, const glm::vec3& TranslateV) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].TransformInfo.TranslateV = TranslateV;
+		EntityList[EntityID].TransformInfo.type = Translate;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Transform Translate: " + std::to_string(EntityID));
+		return;
+	}
+}
+
+void EntityManager::changeRotate(unsigned int EntityID, const glm::vec3& RotateV) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].TransformInfo.RotateV = RotateV;
+		EntityList[EntityID].TransformInfo.type = Rotate;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Transform Rotate: " + std::to_string(EntityID));
+		return;
+	}
+}
+
+void EntityManager::changeScale(unsigned int EntityID, const glm::vec3& ScaleV) {
+
+	if (hasEntity(EntityID)) {
+		EntityList[EntityID].TransformInfo.ScaleV = ScaleV;
+		EntityList[EntityID].TransformInfo.type = Scale;
+	}
+	else {
+		Logger::addLog(LOG_ERROR,
+			"Failed to find entity and change its Transform Scale: " + std::to_string(EntityID));
+		return;
+	}
+}
+
 void EntityManager::activateColor(unsigned int EntityID) {
 
 	if (hasEntity(EntityID)) {
@@ -160,6 +205,10 @@ void EntityManager::deactivateColor(unsigned int EntityID) {
 		return;
 	}
 }
+
+//Transform& EntityManager::getTransformInfo(unsigned int EntityID) {
+//	return EntityList[EntityID].TransformInfo;
+//}
 
 const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
 	return EntityList;

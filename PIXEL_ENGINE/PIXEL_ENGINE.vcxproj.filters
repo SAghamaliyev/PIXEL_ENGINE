@@ -114,6 +114,9 @@
     <ClCompile Include="RenderSystem\TransformationManager\TransformationManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="dependencies\ImGuizmo.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h">
@@ -222,6 +225,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem\TransformationManager\TransformationManager.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\ImGuizmo.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

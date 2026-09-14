@@ -56,19 +56,31 @@ void InspectorPanel::draw(const EditorLayout& layout) {
     ImGui::Separator();
 
     if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
-        bool transformChanged = ImGui::DragFloat3("Position", m_position, 0.01f);
-        transformChanged |= ImGui::DragFloat3("Rotation", m_rotation, 0.1f);
-        transformChanged |= ImGui::DragFloat3("Scale", m_scale, 0.01f);
+        const bool positionChanged = ImGui::DragFloat3("Position", m_position, 0.01f);
+        const bool rotationChanged = ImGui::DragFloat3("Rotation", m_rotation, 0.1f);
+        const bool scaleChanged = ImGui::DragFloat3("Scale", m_scale, 0.01f);
 
-        if (transformChanged) {
-            // /FLAG ChangeEntityTransform: UI requests a transform update for the selected entity.
+        auto queueTransformEvent = [this](EditorEventType type) {
             EditorEvent event;
-            event.type = EditorEventType::ChangeEntityTransform;
+            event.type = type;
             event.entityID = (unsigned int)m_selectedEntityID;
             event.position = EditorVec3{ m_position[0], m_position[1], m_position[2] };
             event.rotation = EditorVec3{ m_rotation[0], m_rotation[1], m_rotation[2] };
             event.scale = EditorVec3{ m_scale[0], m_scale[1], m_scale[2] };
             pushEvent(event);
+        };
+
+        if (positionChanged) {
+            // /FLAG Translate: UI requests a translation for the selected entity.
+            queueTransformEvent(EditorEventType::Translate);
+        }
+        if (rotationChanged) {
+            // /FLAG Rotate: UI requests a rotation for the selected entity.
+            queueTransformEvent(EditorEventType::Rotate);
+        }
+        if (scaleChanged) {
+            // /FLAG Scale: UI requests a scale change for the selected entity.
+            queueTransformEvent(EditorEventType::Scale);
         }
     }
 

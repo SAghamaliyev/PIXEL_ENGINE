@@ -25,16 +25,20 @@ public:
 	void SceneDuplicateEntity(unsigned int EntityID);
 
 		// Changers
-		void ChangeColorEntity(unsigned int EntityID, Color targetColor);
+		void ChangeColorEntity(unsigned int EntityID, const Color& targetColor);
 		void ChangeNameEntity(unsigned int EntityID, const string& Name);
 		void ChangeMaterialEntity(unsigned int EntityID, MaterialType Type);
 		void ChangeMeshEntity(unsigned int EntityID, uint64_t MeshID);
 		void ChangeTextureEntity(unsigned int EntityID, uint64_t TetxureID);
+		void changeTranslateEntity(unsigned int EntityID, const glm::vec3& TranslateV);
+		void changeRotateEntity(unsigned int EntityID, const glm::vec3& RotateV);
+		void changeScaleEntity(unsigned int EntityID, const glm::vec3& ScaleV);
 			
 			// Turn on/off color of Entity
 			void activateColorEntity(unsigned int EntityID);
 			void deactivateColorEntity(unsigned int EntityID);
 		
 		// Getters
+		//Transform& getTransformInfoEntity(unsigned int EntityID);
 		/*EntityUnit& SceneGetEntity(unsigned int EntityID);*/
 };

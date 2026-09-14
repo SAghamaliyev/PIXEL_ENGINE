@@ -1,11 +1,9 @@
 #pragma once
-#include <../../glm-1.0.3/glm/glm.hpp>
-#include <../../glm-1.0.3/glm/gtc/matrix_transform.hpp>
-#include <../../glm-1.0.3/glm/gtc/type_ptr.hpp>
+#include "../../src/Definitions.h"
 
 class TransformationManager {
-private:
-	glm::mat4 IdenMatrix;
 public:
-	TransformationManager();
+	void Translate(glm::mat4& OurMatrix, glm::vec3& TranslateV);
+	void Rotate(glm::mat4& OurMatrix, glm::vec3& RotateV);
+	void Scale(glm::mat4& OurMatrix, glm::vec3& ScaleV);
 };

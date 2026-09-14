@@ -58,6 +58,21 @@ void Engine::processEditorEvents() {
             }
             continue;
 
+        case EditorEventType::Translate:
+            OurSceneSystem->changeTranslateEntity(event.entityID,
+                glm::vec3(event.position.x, event.position.y, event.position.z));
+            continue;
+
+        case EditorEventType::Rotate:
+            OurSceneSystem->changeRotateEntity(event.entityID,
+                glm::vec3(event.rotation.x, event.rotation.y, event.rotation.z));
+            continue;
+
+        case EditorEventType::Scale:
+            OurSceneSystem->changeScaleEntity(event.entityID,
+                glm::vec3(event.scale.x, event.scale.y, event.scale.z));
+            continue;
+
         case EditorEventType::ClearScene:
             OurSceneSystem->SceneClearEntityList();
             Logger::addLog(LOG_INFO, "Scene was cleared successfully\n");
@@ -89,6 +104,7 @@ void Engine::processEditorEvents() {
         case EditorEventType::RegisterTexture:
             OurAssetSystem->RegisterFile(event.path);
             continue;
+
         }
     }
 }

@@ -139,6 +139,7 @@
     <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp" />
     <ClCompile Include="AssetSystem\AssetSystemTEX.cpp" />
     <ClCompile Include="dependencies\glad\src\glad.c" />
+    <ClCompile Include="dependencies\ImGuizmo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\SystemInputs.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="dependencies\glad\include\glad\glad.h" />
     <ClInclude Include="dependencies\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="dependencies\ImGuizmo.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
     <ClInclude Include="dependencies\stb_image.h" />
