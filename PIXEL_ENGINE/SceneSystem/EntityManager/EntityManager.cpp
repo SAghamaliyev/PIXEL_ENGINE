@@ -209,6 +209,9 @@ void EntityManager::deactivateColor(unsigned int EntityID) {
 //Transform& EntityManager::getTransformInfo(unsigned int EntityID) {
 //	return EntityList[EntityID].TransformInfo;
 //}
+EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
+	return EntityList.at(EntityID);
+}
 
 const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
 	return EntityList;
