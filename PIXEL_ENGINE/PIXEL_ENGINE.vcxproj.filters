@@ -111,7 +111,7 @@
     <ClCompile Include="SceneSystem\SceneSystemEntity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSystem\TransformationManager\TransformationManager.cpp">
+    <ClCompile Include="SceneSystem\TransformManager\TransformManager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="dependencies\ImGuizmo.cpp">
@@ -224,7 +224,7 @@
     <ClInclude Include="AssetSystem\AssetSystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSystem\TransformationManager\TransformationManager.h">
+    <ClInclude Include="SceneSystem\TransformManager\TransformManager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="dependencies\ImGuizmo.h">

@@ -207,4 +207,27 @@ void EditorUI::drawPanels() {
 
     m_contentBrowser.draw(m_layout);
     m_console.draw(m_layout);
+    drawPerformanceOverlay();
+}
+
+void EditorUI::drawPerformanceOverlay() {
+    ImGuiIO& io = ImGui::GetIO();
+
+    ImGui::SetNextWindowPos(
+        ImVec2(io.DisplaySize.x - 10.0f, ImGui::GetFrameHeight() + 10.0f),
+        ImGuiCond_Always,
+        ImVec2(1.0f, 0.0f));
+    ImGui::SetNextWindowBgAlpha(0.7f);
+
+    constexpr ImGuiWindowFlags flags =
+        ImGuiWindowFlags_NoDecoration |
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoFocusOnAppearing |
+        ImGuiWindowFlags_NoNav;
+
+    if (ImGui::Begin("Performance", nullptr, flags)) {
+        ImGui::Text("FPS: %.1f", io.Framerate);
+        ImGui::Text("Frame time: %.2f ms", 1000.0f / io.Framerate);
+    }
+    ImGui::End();
 }

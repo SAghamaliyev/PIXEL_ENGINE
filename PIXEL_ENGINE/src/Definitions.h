@@ -32,15 +32,8 @@ struct MeshInfo {
     unsigned int textureCount = 0;
 };
 
-enum TransformType {
-    Nothing,
-    Translate,
-    Rotate,
-    Scale
-};
 
 struct Transform{
-    TransformType type;
     glm::mat4 OurMatrix = glm::mat4(1.0f);
     glm::vec3 RotateV = glm::vec3(0.0f);
     glm::vec3 TranslateV = glm::vec3(0.0f);

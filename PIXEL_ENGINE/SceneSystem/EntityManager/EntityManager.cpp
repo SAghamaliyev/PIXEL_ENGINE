@@ -76,11 +76,6 @@ void EntityManager::Update() {
 	}
 
 	DeactivatedList.clear();
-
-	// Set that entity is already transformed
-	for (auto element : EntityList) {
-		element.second.TransformInfo.type = Nothing;
-	}
 }
 
 void EntityManager::changeColor(unsigned int EntityID, const Color& targetColor) {
@@ -147,7 +142,6 @@ void EntityManager::changeTranslate(unsigned int EntityID, const glm::vec3& Tran
 
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].TransformInfo.TranslateV = TranslateV;
-		EntityList[EntityID].TransformInfo.type = Translate;
 	}
 	else {
 		Logger::addLog(LOG_ERROR,
@@ -160,7 +154,6 @@ void EntityManager::changeRotate(unsigned int EntityID, const glm::vec3& RotateV
 
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].TransformInfo.RotateV = RotateV;
-		EntityList[EntityID].TransformInfo.type = Rotate;
 	}
 	else {
 		Logger::addLog(LOG_ERROR,
@@ -173,7 +166,6 @@ void EntityManager::changeScale(unsigned int EntityID, const glm::vec3& ScaleV) 
 
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].TransformInfo.ScaleV = ScaleV;
-		EntityList[EntityID].TransformInfo.type = Scale;
 	}
 	else {
 		Logger::addLog(LOG_ERROR,

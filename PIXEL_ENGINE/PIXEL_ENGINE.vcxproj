@@ -149,7 +149,7 @@
     <ClCompile Include="RenderSystem\RenderSystem.cpp" />
     <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp" />
-    <ClCompile Include="SceneSystem\TransformationManager\TransformationManager.cpp" />
+    <ClCompile Include="SceneSystem\TransformManager\TransformManager.cpp" />
     <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
     <ClCompile Include="SceneSystem\SceneSystem.cpp" />
     <ClCompile Include="SceneSystem\SceneSystemEntity.cpp" />
@@ -186,7 +186,7 @@
     <ClInclude Include="RenderSystem\RenderSystem.h" />
     <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h" />
     <ClInclude Include="RenderSystem\TextureManager\TextureManager.h" />
-    <ClInclude Include="SceneSystem\TransformationManager\TransformationManager.h" />
+    <ClInclude Include="SceneSystem\TransformManager\TransformManager.h" />
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
     <ClInclude Include="SceneSystem\SceneSystem.h" />
     <ClInclude Include="src\Definitions.h" />

@@ -40,14 +40,23 @@ void SceneSystem::ChangeTextureEntity(unsigned int EntityID, uint64_t TetxureID)
 
 void SceneSystem::changeTranslateEntity(unsigned int EntityID, const glm::vec3& TranslateV) {
 	OurEntityManager.changeTranslate(EntityID, TranslateV);
+
+	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
+	OurTransformManager.ReTransformEntity(TempInfo);
 }
 
 void SceneSystem::changeRotateEntity(unsigned int EntityID, const glm::vec3& RotateV) {
 	OurEntityManager.changeRotate(EntityID, RotateV);
+
+	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
+	OurTransformManager.ReTransformEntity(TempInfo);
 }
 
 void SceneSystem::changeScaleEntity(unsigned int EntityID, const glm::vec3& ScaleV) {
 	OurEntityManager.changeScale(EntityID, ScaleV);
+
+	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
+	OurTransformManager.ReTransformEntity(TempInfo);
 }
 
 void SceneSystem::activateColorEntity(unsigned int EntityID) {

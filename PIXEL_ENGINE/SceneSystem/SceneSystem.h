@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EntityManager/EntityManager.h"
+#include "TransformManager/TransformManager.h"
 
 enum MaterialType;	// PreDefined enum
 
@@ -11,6 +12,7 @@ struct SceneInfo {
 class SceneSystem {
 private:
 	EntityManager OurEntityManager;
+	TransformManager OurTransformManager;
 	SceneInfo OurSceneInfo;
 public:
 	// SceneSystem 

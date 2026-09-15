@@ -134,6 +134,7 @@ bool Engine::initailize() {
         return false;
     }
     glfwMakeContextCurrent(OurWindow);
+    glfwSwapInterval(1);
 
 
     // Чтобы связать новые функции со старыми из 1997 видеокарте необходимо местоположение этих функций 

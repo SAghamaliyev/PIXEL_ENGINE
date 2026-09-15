@@ -27,6 +27,7 @@ private:
 
     void drawMainMenuBar();
     void drawPanels();
+    void drawPerformanceOverlay();
     void updateLayout();
 
 public:
