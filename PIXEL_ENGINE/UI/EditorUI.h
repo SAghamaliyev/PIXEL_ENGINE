@@ -17,7 +17,6 @@ private:
     GLFWwindow* m_window = nullptr;
     bool m_windowShouldClose = false;
     EditorLayout m_layout;
-    EventSystem m_eventSystem;
     std::vector<EditorEntityView> m_entityViews;
 
     SceneHierarchyPanel m_hierarchy;
@@ -47,11 +46,11 @@ public:
     void setEntityViews(const std::vector<EditorEntityView>& entityViews);
 
     // /FLAG Engine can read queued UI flags without the UI knowing engine modules.
-    const std::vector<EditorEvent>& getEvents() const { return m_eventSystem.getEvents(); }
+    const std::vector<EditorEvent>& getEvents() const { return EventSystem::getEvents(); }
 
     // /FLAG Engine can consume UI flags after it handles them.
     std::vector<EditorEvent> consumeEvents();
 
     // /FLAG Engine can clear UI flags when it has processed or discarded them.
-    void clearEvents() { m_eventSystem.clear(); }
+    void clearEvents() { EventSystem::clear(); }
 };

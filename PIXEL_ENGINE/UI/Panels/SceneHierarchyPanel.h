@@ -7,7 +7,6 @@
 
 class SceneHierarchyPanel {
 public:
-    void setEventQueue(EventSystem* events);
     void setEntityViews(const std::vector<EditorEntityView>* entityViews);
 
     void draw(const EditorLayout& layout);
@@ -19,7 +18,6 @@ public:
     void setSelectedEntityID(int entityID) { m_selectedEntityID = entityID; }
 
 private:
-    EventSystem* m_events = nullptr;
     const std::vector<EditorEntityView>* m_entityViews = nullptr;
     bool m_visible = true;
     int m_selectedEntityID = -1;

@@ -11,8 +11,6 @@ class ConsolePanel {
 public:
     using LogEntry = ::LogEntry;
 
-    void setEventQueue(EventSystem* events);
-
     void draw(const EditorLayout& layout);
 
     bool isVisible() const { return m_visible; }
@@ -21,7 +19,6 @@ public:
     void clearLogs();
 
 private:
-    EventSystem* m_events = nullptr;
     bool m_visible = true;
     std::vector<LogEntry> m_logs;
     char m_commandBuffer[256] = "";

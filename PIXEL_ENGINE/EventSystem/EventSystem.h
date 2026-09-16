@@ -4,20 +4,14 @@
 
 #include <vector>
 
-// ============================================================================
-// EventSystem — Central part of adding event flags
-// Each modul (UI, Input, Scene, Asset, Render) can push there event,
-// and Engine can process them.
-// ============================================================================
 class EventSystem {
 public:
+    static void push(const EditorEvent& event);
 
-    void push(const EditorEvent& event);
+    static const std::vector<EditorEvent>& getEvents();
 
-    const std::vector<EditorEvent>& getEvents() const;
-
-    void clear();
+    static void clear();
 
 private:
-    std::vector<EditorEvent> m_events;
+    static std::vector<EditorEvent> m_events;
 };

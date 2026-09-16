@@ -10,7 +10,6 @@ class ConsolePanel;
 
 class ContentBrowserPanel {
 public:
-    void setEventQueue(EventSystem* events);
     void setConsole(ConsolePanel* console);
 
     void draw(const EditorLayout& layout);
@@ -21,7 +20,6 @@ public:
     void setTextureSelectionMode(bool enabled, unsigned int entityID = 0);
 
 private:
-    EventSystem* m_events = nullptr;
     ConsolePanel* m_console = nullptr;
     bool m_visible = true;
 

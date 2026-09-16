@@ -27,7 +27,6 @@ void Engine::visualizeEditorEvents() {
 
 void Engine::processEditorEvents() {
     const vector <EditorEvent> events = OurEditorUI->consumeEvents();
-
     for (const EditorEvent& event : events) {
         switch (event.type) {
 

@@ -10,7 +10,6 @@ class ContentBrowserPanel;
 
 class InspectorPanel {
 public:
-    void setEventQueue(EventSystem* events);
     void setEntityViews(const std::vector<EditorEntityView>* entityViews);
     void setSelectedEntityID(int entityID);
     void setContentBrowserPanel(ContentBrowserPanel* contentBrowser);
@@ -21,7 +20,6 @@ public:
     void setVisible(bool visible) { m_visible = visible; }
 
 private:
-    EventSystem* m_events = nullptr;
     const std::vector<EditorEntityView>* m_entityViews = nullptr;
     ContentBrowserPanel* m_contentBrowser = nullptr;
     bool m_visible = true;
