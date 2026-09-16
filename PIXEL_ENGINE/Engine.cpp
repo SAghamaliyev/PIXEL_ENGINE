@@ -95,9 +95,6 @@ void Engine::processEditorEvents() {
             continue;
 
         case EditorEventType::AssignTexture:
-            Logger::addLog(LOG_INFO,
-                "Processing AssignTexture event. Entity: " + std::to_string(event.entityID) + 
-                ", Texture ID: " + std::to_string(event.textureID));
             OurSceneSystem->ChangeTextureEntity(event.entityID, event.textureID);
             continue;
 

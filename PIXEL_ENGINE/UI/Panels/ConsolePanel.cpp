@@ -2,7 +2,7 @@
 #include "../Materials/imgui.h"
 #include "../../Logger/Logger.h"
 
-void ConsolePanel::setEventQueue(std::vector<EditorEvent>* events) {
+void ConsolePanel::setEventQueue(EventSystem* events) {
     m_events = events;
 }
 
@@ -122,6 +122,6 @@ void ConsolePanel::clearLogs() {
 void ConsolePanel::pushEvent(const EditorEvent& event) {
     if (m_events) {
         // /FLAG Stores the event flag for the engine-side event processor.
-        m_events->push_back(event);
+        m_events->push(event);
     }
 }

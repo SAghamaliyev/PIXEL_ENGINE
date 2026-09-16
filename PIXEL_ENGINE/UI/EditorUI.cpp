@@ -25,13 +25,13 @@ void EditorUI::init(GLFWwindow* window, void* engineEventTarget) {
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-    m_hierarchy.setEventQueue(&m_events);
+    m_hierarchy.setEventQueue(&m_eventSystem);
     m_hierarchy.setEntityViews(&m_entityViews);
-    m_inspector.setEventQueue(&m_events);
+    m_inspector.setEventQueue(&m_eventSystem);
     m_inspector.setEntityViews(&m_entityViews);
     m_inspector.setContentBrowserPanel(&m_contentBrowser);
-    m_contentBrowser.setEventQueue(&m_events);
-    m_console.setEventQueue(&m_events);
+    m_contentBrowser.setEventQueue(&m_eventSystem);
+    m_console.setEventQueue(&m_eventSystem);
     m_contentBrowser.setConsole(&m_console);
 
     Logger::addLog(LOG_INFO, "Engine initialized");
@@ -71,8 +71,8 @@ void EditorUI::setEntityViews(const std::vector<EditorEntityView>& entityViews) 
 }
 
 std::vector<EditorEvent> EditorUI::consumeEvents() {
-    std::vector<EditorEvent> events = m_events;
-    m_events.clear();
+    std::vector<EditorEvent> events = m_eventSystem.getEvents();
+    m_eventSystem.clear();
     return events;
 }
 
@@ -107,19 +107,19 @@ void EditorUI::drawMainMenuBar() {
     if (ImGui::BeginMenu("File")) {
         if (ImGui::MenuItem("New Scene", "Ctrl+N")) {
             // /FLAG ClearScene: UI asks the engine to clear the active scene.
-            m_events.push_back(EditorEvent{ EditorEventType::ClearScene });
+            m_eventSystem.push(EditorEvent{ EditorEventType::ClearScene });
         }
         if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {
             // /FLAG OpenScene: UI asks the engine to open a scene picker/load flow.
-            m_events.push_back(EditorEvent{ EditorEventType::OpenScene });
+            m_eventSystem.push(EditorEvent{ EditorEventType::OpenScene });
         }
         if (ImGui::MenuItem("Save Scene", "Ctrl+S")) {
             // /FLAG SaveScene: UI asks the engine to save the current scene.
-            m_events.push_back(EditorEvent{ EditorEventType::SaveScene });
+            m_eventSystem.push(EditorEvent{ EditorEventType::SaveScene });
         }
         if (ImGui::MenuItem("Save Scene As...", "Ctrl+Shift+S")) {
             // /FLAG SaveSceneAs: UI asks the engine to save the scene with a new path.
-            m_events.push_back(EditorEvent{ EditorEventType::SaveSceneAs });
+            m_eventSystem.push(EditorEvent{ EditorEventType::SaveSceneAs });
         }
         ImGui::Separator();
         if (ImGui::MenuItem("Exit", "Alt+F4")) {
@@ -191,7 +191,7 @@ void EditorUI::drawMainMenuBar() {
                 "If you want to add something or noticed some problems\n"
                 "please dont be hesitated to contact me: saidaghamaliyev@gmail.com\n"
                 "Please ENJOY, Said Aghamaliyev";
-            m_events.push_back(event);
+            m_eventSystem.push(std::move(event));
         }
         ImGui::EndMenu();
     }

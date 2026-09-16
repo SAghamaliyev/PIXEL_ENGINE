@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../EditorLayout.h"
-#include "../EditorEvents.h"
+#include "../../EventSystem/EventSystem.h"
 
 #include <vector>
 
@@ -10,7 +10,7 @@ class ContentBrowserPanel;
 
 class InspectorPanel {
 public:
-    void setEventQueue(std::vector<EditorEvent>* events);
+    void setEventQueue(EventSystem* events);
     void setEntityViews(const std::vector<EditorEntityView>* entityViews);
     void setSelectedEntityID(int entityID);
     void setContentBrowserPanel(ContentBrowserPanel* contentBrowser);
@@ -21,7 +21,7 @@ public:
     void setVisible(bool visible) { m_visible = visible; }
 
 private:
-    std::vector<EditorEvent>* m_events = nullptr;
+    EventSystem* m_events = nullptr;
     const std::vector<EditorEntityView>* m_entityViews = nullptr;
     ContentBrowserPanel* m_contentBrowser = nullptr;
     bool m_visible = true;

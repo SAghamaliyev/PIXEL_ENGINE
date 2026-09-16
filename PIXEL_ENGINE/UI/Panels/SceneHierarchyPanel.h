@@ -1,13 +1,13 @@
 #pragma once
 
 #include "../EditorLayout.h"
-#include "../EditorEvents.h"
+#include "../../EventSystem/EventSystem.h"
 
 #include <vector>
 
 class SceneHierarchyPanel {
 public:
-    void setEventQueue(std::vector<EditorEvent>* events);
+    void setEventQueue(EventSystem* events);
     void setEntityViews(const std::vector<EditorEntityView>* entityViews);
 
     void draw(const EditorLayout& layout);
@@ -19,7 +19,7 @@ public:
     void setSelectedEntityID(int entityID) { m_selectedEntityID = entityID; }
 
 private:
-    std::vector<EditorEvent>* m_events = nullptr;
+    EventSystem* m_events = nullptr;
     const std::vector<EditorEntityView>* m_entityViews = nullptr;
     bool m_visible = true;
     int m_selectedEntityID = -1;

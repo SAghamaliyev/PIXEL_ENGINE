@@ -138,6 +138,7 @@
     <ClCompile Include="AssetSystem\AssetSystem.cpp" />
     <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp" />
     <ClCompile Include="AssetSystem\AssetSystemTEX.cpp" />
+    <ClCompile Include="EventSystem\EventSystem.cpp" />
     <ClCompile Include="dependencies\glad\src\glad.c" />
     <ClCompile Include="dependencies\ImGuizmo.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -179,6 +180,8 @@
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
     <ClInclude Include="dependencies\stb_image.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="EventSystem\EventSystem.h" />
+    <ClInclude Include="EventSystem\EventTypes.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\SystemInputs.h" />
     <ClInclude Include="Logger\Logger.h" />
@@ -191,7 +194,6 @@
     <ClInclude Include="SceneSystem\SceneSystem.h" />
     <ClInclude Include="src\Definitions.h" />
     <ClInclude Include="UI\EditorLayout.h" />
-    <ClInclude Include="UI\EditorEvents.h" />
     <ClInclude Include="UI\EditorTheme.h" />
     <ClInclude Include="UI\EditorUI.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
@@ -220,3 +222,5 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
+
+

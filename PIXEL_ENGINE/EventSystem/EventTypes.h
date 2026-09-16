@@ -70,9 +70,11 @@ struct EditorEntityView {
     MaterialType ShaderID = Default;
     Color color;
     bool colorEnabled = true;
+    EditorVec3 position;
+    EditorVec3 rotation;
+    EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
 };
 
-// /FLAG This is the full list of event flags the UI is allowed to create.
 inline const std::vector<EditorEventType>& getCreatableEditorEvents() {
     static const std::vector<EditorEventType> events = {
         EditorEventType::AddObject,

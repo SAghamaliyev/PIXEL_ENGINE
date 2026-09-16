@@ -31,7 +31,7 @@ bool isTextureExtension(const std::filesystem::path& path) {
 
 }
 
-void ContentBrowserPanel::setEventQueue(std::vector<EditorEvent>* events) {
+void ContentBrowserPanel::setEventQueue(EventSystem* events) {
     m_events = events;
 }
 
@@ -411,6 +411,6 @@ void ContentBrowserPanel::queueAssignTextureEvent(const std::string& metaPath, c
 void ContentBrowserPanel::pushEvent(const EditorEvent& event) {
     if (m_events) {
         // /FLAG Stores the event flag for the engine-side event processor.
-        m_events->push_back(event);
+        m_events->push(event);
     }
 }

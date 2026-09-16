@@ -6,7 +6,7 @@
 
 #include <cstring>
 
-void InspectorPanel::setEventQueue(std::vector<EditorEvent>* events) {
+void InspectorPanel::setEventQueue(EventSystem* events) {
     m_events = events;
 }
 
@@ -225,6 +225,6 @@ const EditorEntityView* InspectorPanel::findSelectedEntity() const {
 void InspectorPanel::pushEvent(const EditorEvent& event) {
     if (m_events) {
         // /FLAG Stores the event flag for the engine-side event processor.
-        m_events->push_back(event);
+        m_events->push(event);
     }
 }
