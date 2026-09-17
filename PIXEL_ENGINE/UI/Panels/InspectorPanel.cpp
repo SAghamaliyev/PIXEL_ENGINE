@@ -2,7 +2,7 @@
 #include "ContentBrowserPanel.h"
 
 #include "../Materials/imgui.h"
-#include "../../Logger/Logger.h"
+#include "../../Core/Logger/Logger.h"
 
 #include <cstring>
 
@@ -28,23 +28,23 @@ void InspectorPanel::draw(const EditorLayout& layout) {
 
     const EditorEntityView* entity = findSelectedEntity();
     if (m_selectedEntityID < 0 || !entity) {
+        m_lastSelectedEntityID = -1;
         ImGui::TextDisabled("No entity selected");
         ImGui::End();
         return;
     }
 
-    static int lastSelectedID = -1;
-    if (lastSelectedID != m_selectedEntityID) {
-        strncpy_s(m_entityNameBuffer, sizeof(m_entityNameBuffer), entity->name.c_str(), _TRUNCATE);
-        lastSelectedID = m_selectedEntityID;
+    if (m_lastSelectedEntityID != m_selectedEntityID) {
+        syncSelectedEntityFields(*entity);
+        m_lastSelectedEntityID = m_selectedEntityID;
     }
 
     if (ImGui::InputText("##EntityName", m_entityNameBuffer, sizeof(m_entityNameBuffer))) {
         // /FLAG RenameObject: UI requests renaming the selected entity.
         EditorEvent event;
         event.type = EditorEventType::RenameObject;
-        event.entityID = (unsigned int)m_selectedEntityID;
-        event.name = m_entityNameBuffer;
+        event.info.entityID = (unsigned int)m_selectedEntityID;
+        event.info.name = m_entityNameBuffer;
         pushEvent(event);
     }
 
@@ -59,10 +59,10 @@ void InspectorPanel::draw(const EditorLayout& layout) {
         auto queueTransformEvent = [this](EditorEventType type) {
             EditorEvent event;
             event.type = type;
-            event.entityID = (unsigned int)m_selectedEntityID;
-            event.position = EditorVec3{ m_position[0], m_position[1], m_position[2] };
-            event.rotation = EditorVec3{ m_rotation[0], m_rotation[1], m_rotation[2] };
-            event.scale = EditorVec3{ m_scale[0], m_scale[1], m_scale[2] };
+            event.info.entityID = (unsigned int)m_selectedEntityID;
+            event.info.position = EditorVec3{ m_position[0], m_position[1], m_position[2] };
+            event.info.rotation = EditorVec3{ m_rotation[0], m_rotation[1], m_rotation[2] };
+            event.info.scale = EditorVec3{ m_scale[0], m_scale[1], m_scale[2] };
             pushEvent(event);
         };
 
@@ -108,8 +108,8 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             // /FLAG ToggleEntityColor: UI requests enabling or disabling the entity color.
             EditorEvent event;
             event.type = EditorEventType::ToggleEntityColor;
-            event.entityID = (unsigned int)m_selectedEntityID;
-            event.colorEnabled = colorEnabled;
+            event.info.entityID = (unsigned int)m_selectedEntityID;
+            event.info.colorEnabled = colorEnabled;
             pushEvent(event);
         }
 
@@ -126,8 +126,8 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             // /FLAG ChangeEntityColor: UI requests a color update for the selected entity.
             EditorEvent event;
             event.type = EditorEventType::ChangeEntityColor;
-            event.entityID = (unsigned int)m_selectedEntityID;
-            event.color = Color{ color[0], color[1], color[2], color[3] };
+            event.info.entityID = (unsigned int)m_selectedEntityID;
+            event.info.color = Color{ color[0], color[1], color[2], color[3] };
             pushEvent(event);
         }
 
@@ -140,8 +140,8 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             // /FLAG ChangeEntityMaterial: UI requests a material change for the selected entity.
             EditorEvent event;
             event.type = EditorEventType::ChangeEntityMaterial;
-            event.entityID = (unsigned int)m_selectedEntityID;
-            event.ShaderID = (MaterialType)m_currentMaterial;
+            event.info.entityID = (unsigned int)m_selectedEntityID;
+            event.info.ShaderID = (MaterialType)m_currentMaterial;
             pushEvent(event);
         }
     }
@@ -161,8 +161,8 @@ void InspectorPanel::draw(const EditorLayout& layout) {
         auto queueComponentEvent = [this](EditorComponentType componentType) {
             EditorEvent event;
             event.type = EditorEventType::AddComponent;
-            event.entityID = (unsigned int)m_selectedEntityID;
-            event.componentType = componentType;
+            event.info.entityID = (unsigned int)m_selectedEntityID;
+            event.info.componentType = componentType;
             pushEvent(event);
         };
 
@@ -218,6 +218,22 @@ const EditorEntityView* InspectorPanel::findSelectedEntity() const {
     return nullptr;
 }
 
+void InspectorPanel::syncSelectedEntityFields(const EditorEntityView& entity) {
+    strncpy_s(m_entityNameBuffer, sizeof(m_entityNameBuffer), entity.name.c_str(), _TRUNCATE);
+
+    m_position[0] = entity.position.x;
+    m_position[1] = entity.position.y;
+    m_position[2] = entity.position.z;
+
+    m_rotation[0] = entity.rotation.x;
+    m_rotation[1] = entity.rotation.y;
+    m_rotation[2] = entity.rotation.z;
+
+    m_scale[0] = entity.scale.x;
+    m_scale[1] = entity.scale.y;
+    m_scale[2] = entity.scale.z;
+}
+
 void InspectorPanel::pushEvent(const EditorEvent& event) {
-    EventSystem::push(event);
+    EventSystem::pushEvent(event);
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../EditorLayout.h"
-#include "../../EventSystem/EventSystem.h"
+#include "../../Core/EventSystem/EventSystem.h"
 
 #include <vector>
 
@@ -24,6 +24,7 @@ private:
     ContentBrowserPanel* m_contentBrowser = nullptr;
     bool m_visible = true;
     int m_selectedEntityID = -1;
+    int m_lastSelectedEntityID = -1;
 
     char m_entityNameBuffer[128] = "";
     float m_position[3] = { 0.0f, 0.0f, 0.0f };
@@ -32,5 +33,6 @@ private:
     int m_currentMaterial = 0;
 
     const EditorEntityView* findSelectedEntity() const;
+    void syncSelectedEntityFields(const EditorEntityView& entity);
     void pushEvent(const EditorEvent& event);
 };

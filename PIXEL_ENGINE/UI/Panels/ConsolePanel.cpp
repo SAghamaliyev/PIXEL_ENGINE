@@ -1,6 +1,6 @@
 #include "ConsolePanel.h"
 #include "../Materials/imgui.h"
-#include "../../Logger/Logger.h"
+#include "../../Core/Logger/Logger.h"
 
 void ConsolePanel::draw(const EditorLayout& layout) {
     if (!m_visible) {
@@ -14,7 +14,9 @@ void ConsolePanel::draw(const EditorLayout& layout) {
 
     if (ImGui::Button("Clear")) {
         // /FLAG ClearConsole: UI requests clearing console output.
-        pushEvent(EditorEvent{ EditorEventType::ClearConsole });
+        EditorEvent event;
+        event.type = EditorEventType::ClearConsole;
+        pushEvent(event);
         clearLogs();
     }
 
@@ -82,7 +84,7 @@ void ConsolePanel::draw(const EditorLayout& layout) {
             // /FLAG SubmitConsoleCommand: UI requests command execution outside the UI layer.
             EditorEvent event;
             event.type = EditorEventType::SubmitConsoleCommand;
-            event.message = command;
+            event.info.message = command;
             pushEvent(event);
 
             Logger::addLog(LOG_INFO, std::string("> ") + command);
@@ -116,5 +118,5 @@ void ConsolePanel::clearLogs() {
 }
 
 void ConsolePanel::pushEvent(const EditorEvent& event) {
-    EventSystem::push(event);
+    EventSystem::pushEvent(event);
 }

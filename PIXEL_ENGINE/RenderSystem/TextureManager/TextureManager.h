@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 
 #include <unordered_map>
-#include "../../Logger/Logger.h"
+#include "../../Core/Logger/Logger.h"
 using namespace std;
 
 class TextureManager {

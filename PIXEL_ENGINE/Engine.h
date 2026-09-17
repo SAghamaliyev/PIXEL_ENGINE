@@ -3,12 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include "Input/SystemInputs.h"
+#include "Core/InputSystem/InputSystem.h"
 #include "RenderSystem/RenderSystem.h"
 #include "SceneSystem/SceneSystem.h"
 #include "src/Definitions.h"
 #include "UI/EditorUI.h"
-#include"Logger/Logger.h"
+#include "Core/Logger/Logger.h"
 #include "AssetSystem/AssetSystem.h"
 #include <vector>
 
@@ -18,6 +18,7 @@ private:
 	SceneSystem* OurSceneSystem;
 	EditorUI* OurEditorUI;
 	AssetSystem* OurAssetSystem;
+	InputManager OurInputManager;
 	GLFWwindow* OurWindow;
 
 

@@ -1,5 +1,5 @@
 #include "TextureManager.h"
-#include "../../Logger/Logger.h"
+#include "../../Core/Logger/Logger.h"
 #include <fstream>
 #include <filesystem>
 

@@ -5,7 +5,7 @@
 #include <fstream>
 #include <vector>
 #include "../../src/Definitions.h"
-#include "../../Logger/Logger.h"
+#include "../../Core/Logger/Logger.h"
 
 #define TextureDefault 1	//	1 is default texture for rendering(you can find it in createEntity in .cpp)
 #define MeshDefault 2		//	2 is default mesh of cube for rendering 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../EditorLayout.h"
-#include "../../EventSystem/EventSystem.h"
+#include "../../Core/EventSystem/EventSystem.h"
 
 #include <string>
 #include <vector>

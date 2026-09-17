@@ -19,6 +19,21 @@ void Engine::visualizeEditorEvents() {
         view.colorEnabled = entity.isColorActive;
         view.ShaderID = entity.ShaderID;
         view.name = entity.name;
+        view.position = EditorVec3{
+            entity.TransformInfo.TranslateV.x,
+            entity.TransformInfo.TranslateV.y,
+            entity.TransformInfo.TranslateV.z
+        };
+        view.rotation = EditorVec3{
+            entity.TransformInfo.RotateV.x,
+            entity.TransformInfo.RotateV.y,
+            entity.TransformInfo.RotateV.z
+        };
+        view.scale = EditorVec3{
+            entity.TransformInfo.ScaleV.x,
+            entity.TransformInfo.ScaleV.y,
+            entity.TransformInfo.ScaleV.z
+        };
 
         EntityViews.push_back(view);
     }
@@ -26,50 +41,53 @@ void Engine::visualizeEditorEvents() {
 }
 
 void Engine::processEditorEvents() {
-    const vector <EditorEvent> events = OurEditorUI->consumeEvents();
+
+    const vector <EditorEvent> events = EventSystem::getEventsList();
+
     for (const EditorEvent& event : events) {
+
         switch (event.type) {
 
         case EditorEventType::AddObject:
-            if (event.isEmptyEntity) {
+            if (event.info.isEmptyEntity) {
                 OurSceneSystem->SceneCreateEntity();
             }
             else {
-                OurSceneSystem->SceneCreateEntity(event.meshID, event.ShaderID, event.name);
+                OurSceneSystem->SceneCreateEntity(event.info.meshID, event.info.ShaderID, event.info.name);
             }
             continue;
 
         case EditorEventType::RegisterObject: {
-            OurAssetSystem->RegisterFile(event.path);
+            OurAssetSystem->RegisterFile(event.info.path);
             continue;
         }
 
         case EditorEventType::ChangeEntityColor:
-            OurSceneSystem->ChangeColorEntity(event.entityID, event.color);
+            OurSceneSystem->ChangeColorEntity(event.info.entityID, event.info.color);
             continue;
 
         case EditorEventType::ToggleEntityColor:
-            if (event.colorEnabled) {
-                OurSceneSystem->activateColorEntity(event.entityID);
+            if (event.info.colorEnabled) {
+                OurSceneSystem->activateColorEntity(event.info.entityID);
             }
             else {
-                OurSceneSystem->deactivateColorEntity(event.entityID);
+                OurSceneSystem->deactivateColorEntity(event.info.entityID);
             }
             continue;
 
         case EditorEventType::Translate:
-            OurSceneSystem->changeTranslateEntity(event.entityID,
-                glm::vec3(event.position.x, event.position.y, event.position.z));
+            OurSceneSystem->changeTranslateEntity(event.info.entityID,
+                glm::vec3(event.info.position.x, event.info.position.y, event.info.position.z));
             continue;
 
         case EditorEventType::Rotate:
-            OurSceneSystem->changeRotateEntity(event.entityID,
-                glm::vec3(event.rotation.x, event.rotation.y, event.rotation.z));
+            OurSceneSystem->changeRotateEntity(event.info.entityID,
+                glm::vec3(event.info.rotation.x, event.info.rotation.y, event.info.rotation.z));
             continue;
 
         case EditorEventType::Scale:
-            OurSceneSystem->changeScaleEntity(event.entityID,
-                glm::vec3(event.scale.x, event.scale.y, event.scale.z));
+            OurSceneSystem->changeScaleEntity(event.info.entityID,
+                glm::vec3(event.info.scale.x, event.info.scale.y, event.info.scale.z));
             continue;
 
         case EditorEventType::ClearScene:
@@ -78,27 +96,31 @@ void Engine::processEditorEvents() {
             continue;
 
         case EditorEventType::ShowAbout:
-            Logger::addLog(LOG_INFO, event.message);
+            Logger::addLog(LOG_INFO, event.info.message);
             continue;
 
         case EditorEventType::DeleteObject:
-            OurSceneSystem->SceneDeleteEntity(event.entityID);
+            OurSceneSystem->SceneDeleteEntity(event.info.entityID);
             continue;
 
         case EditorEventType::RenameObject:
-            OurSceneSystem->ChangeNameEntity(event.entityID, event.name);
+            OurSceneSystem->ChangeNameEntity(event.info.entityID, event.info.name);
             continue;
 
         case EditorEventType::DuplicateObject:
-            OurSceneSystem->SceneDuplicateEntity(event.entityID);
+            OurSceneSystem->SceneDuplicateEntity(event.info.entityID);
             continue;
 
         case EditorEventType::AssignTexture:
-            OurSceneSystem->ChangeTextureEntity(event.entityID, event.textureID);
+            OurSceneSystem->ChangeTextureEntity(event.info.entityID, event.info.textureID);
             continue;
 
         case EditorEventType::RegisterTexture:
-            OurAssetSystem->RegisterFile(event.path);
+            OurAssetSystem->RegisterFile(event.info.path);
+            continue;
+
+        case EditorEventType::CloseWindow:
+            glfwSetWindowShouldClose(OurWindow, GLFW_TRUE);
             continue;
 
         }
@@ -161,7 +183,7 @@ void Engine::run() {
             return;
         }
 
-        callSystemInputs(OurWindow);
+        OurInputManager.analyzeInput(OurWindow);
         
         // 1. Очищаем экран общим цветом (фон под UI)
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f); 

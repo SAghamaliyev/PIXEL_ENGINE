@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../EditorLayout.h"
-#include "../../EventSystem/EventSystem.h"
-#include "../../Logger/Logger.h"
+#include "../../Core/EventSystem/EventSystem.h"
+#include "../../Core/Logger/Logger.h"
 
 #include <string>
 #include <vector>

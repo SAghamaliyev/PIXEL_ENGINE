@@ -1,16 +1,30 @@
 #pragma once
 
-#include "../src/Definitions.h"
+#include "../../src/Definitions.h"
 
 #include <string>
 #include <vector>
 
+// This struct is being used for passing position/scale/rotation
 struct EditorVec3 {
     float x = 0.0f;
     float y = 0.0f;
     float z = 0.0f;
 };
 
+// This enum class is being used for passing type of component of Entity
+// (you can find it in UI by clicking on Entity)
+enum class EditorComponentType {
+    RigidBody,
+    Script,
+    Collider,
+    Light,
+    Camera,
+    AudioSource
+};
+
+// This enum class is being used for defining type of Event when you click the button 
+// in UI
 enum class EditorEventType {
     AddObject,
     RegisterObject,
@@ -32,20 +46,12 @@ enum class EditorEventType {
     AssignTexture,
     SubmitConsoleCommand,
     ClearConsole,
-    ShowAbout
+    ShowAbout,
+    CloseWindow
 };
 
-enum class EditorComponentType {
-    RigidBody,
-    Script,
-    Collider,
-    Light,
-    Camera,
-    AudioSource
-};
-
-struct EditorEvent {
-    EditorEventType type = EditorEventType::AddObject;
+// This struct is being used for giving details which we must pass
+struct EditorTypeInfo {
     unsigned int entityID = 0;
     uint64_t meshID = 0;
     uint64_t textureID = 0;
@@ -56,10 +62,16 @@ struct EditorEvent {
     Color color;
     bool colorEnabled = false;
     bool isEmptyEntity = false;
-    EditorVec3 position;
-    EditorVec3 rotation;
+    EditorVec3 position = { 0.0f, 0.0f, 0.0f };
+    EditorVec3 rotation = { 0.0f, 0.0f, 0.0f };
     EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
     EditorComponentType componentType = EditorComponentType::RigidBody;
+};
+
+// This is our final struct which we will analyze in Engine.cpp
+struct EditorEvent {
+    EditorEventType type;
+    EditorTypeInfo info;
 };
 
 struct EditorEntityView {
@@ -74,29 +86,3 @@ struct EditorEntityView {
     EditorVec3 rotation;
     EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
 };
-
-inline const std::vector<EditorEventType>& getCreatableEditorEvents() {
-    static const std::vector<EditorEventType> events = {
-        EditorEventType::AddObject,
-        EditorEventType::RegisterObject,
-        EditorEventType::DeleteObject,
-        EditorEventType::RenameObject,
-        EditorEventType::DuplicateObject,
-        EditorEventType::ClearScene,
-        EditorEventType::OpenScene,
-        EditorEventType::SaveScene,
-        EditorEventType::SaveSceneAs,
-        EditorEventType::ChangeEntityColor,
-        EditorEventType::ToggleEntityColor,
-        EditorEventType::ChangeEntityMaterial,
-        EditorEventType::Translate,
-        EditorEventType::Rotate,
-        EditorEventType::Scale,
-        EditorEventType::AddComponent,
-        EditorEventType::SubmitConsoleCommand,
-        EditorEventType::ClearConsole,
-        EditorEventType::ShowAbout
-    };
-
-    return events;
-}
