@@ -23,6 +23,12 @@ enum class EditorComponentType {
     AudioSource
 };
 
+enum class EditorGizmoOperation {
+    Translate,
+    Rotate,
+    Scale
+};
+
 // This enum class is being used for defining type of Event when you click the button 
 // in UI
 enum class EditorEventType {
@@ -47,7 +53,8 @@ enum class EditorEventType {
     SubmitConsoleCommand,
     ClearConsole,
     ShowAbout,
-    CloseWindow
+    CloseWindow,
+    SetGizmoOperation
 };
 
 // This struct is being used for giving details which we must pass
@@ -66,6 +73,7 @@ struct EditorTypeInfo {
     EditorVec3 rotation = { 0.0f, 0.0f, 0.0f };
     EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
     EditorComponentType componentType = EditorComponentType::RigidBody;
+    EditorGizmoOperation gizmoOperation = EditorGizmoOperation::Translate;
 };
 
 // This is our final struct which we will analyze in Engine.cpp

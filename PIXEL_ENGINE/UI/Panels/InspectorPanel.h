@@ -13,6 +13,7 @@ public:
     void setEntityViews(const std::vector<EditorEntityView>* entityViews);
     void setSelectedEntityID(int entityID);
     void setContentBrowserPanel(ContentBrowserPanel* contentBrowser);
+    void setGizmoOperation(EditorGizmoOperation operation);
 
     void draw(const EditorLayout& layout);
 
@@ -31,6 +32,7 @@ private:
     float m_rotation[3] = { 0.0f, 0.0f, 0.0f };
     float m_scale[3] = { 1.0f, 1.0f, 1.0f };
     int m_currentMaterial = 0;
+    EditorGizmoOperation m_gizmoOperation = EditorGizmoOperation::Translate;
 
     const EditorEntityView* findSelectedEntity() const;
     void syncSelectedEntityFields(const EditorEntityView& entity);

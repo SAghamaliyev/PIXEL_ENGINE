@@ -18,6 +18,10 @@ void InspectorPanel::setContentBrowserPanel(ContentBrowserPanel* contentBrowser)
     m_contentBrowser = contentBrowser;
 }
 
+void InspectorPanel::setGizmoOperation(EditorGizmoOperation operation) {
+    m_gizmoOperation = operation;
+}
+
 void InspectorPanel::draw(const EditorLayout& layout) {
     if (!m_visible) {
         return;
@@ -51,10 +55,27 @@ void InspectorPanel::draw(const EditorLayout& layout) {
     ImGui::Text("Entity ID: %d", m_selectedEntityID);
     ImGui::Separator();
 
+    const char* gizmoNames[] = { "Translate", "Rotate", "Scale" };
+    int gizmoIndex = (int)m_gizmoOperation;
+    if (ImGui::Combo("Gizmo", &gizmoIndex, gizmoNames, IM_ARRAYSIZE(gizmoNames))) {
+        EditorEvent event;
+        event.type = EditorEventType::SetGizmoOperation;
+        event.info.gizmoOperation = (EditorGizmoOperation)gizmoIndex;
+        pushEvent(event);
+    }
+
     if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
         const bool positionChanged = ImGui::DragFloat3("Position", m_position, 0.01f);
         const bool rotationChanged = ImGui::DragFloat3("Rotation", m_rotation, 0.1f);
         const bool scaleChanged = ImGui::DragFloat3("Scale", m_scale, 0.01f);
+
+        if (scaleChanged) {
+            for (float& scaleValue : m_scale) {
+                if (scaleValue < 1.0f) {
+                    scaleValue = 1.0f;
+                }
+            }
+        }
 
         auto queueTransformEvent = [this](EditorEventType type) {
             EditorEvent event;

@@ -72,4 +72,5 @@ public:
 	//Transform& getTransformInfo(unsigned int EntityID);
 	EntityUnit& getEntity(unsigned int EntityID);
 	const unordered_map <unsigned int, EntityUnit>& getEntityList() const;
+	const Transform& getTransformInfo(unsigned int EntityID) const;
 };

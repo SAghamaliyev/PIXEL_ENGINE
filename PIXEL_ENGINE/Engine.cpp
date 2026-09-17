@@ -123,6 +123,10 @@ void Engine::processEditorEvents() {
             glfwSetWindowShouldClose(OurWindow, GLFW_TRUE);
             continue;
 
+        case EditorEventType::SetGizmoOperation:
+            OurEditorUI->setGizmoOperation(event.info.gizmoOperation);
+            continue;
+
         }
     }
 }
