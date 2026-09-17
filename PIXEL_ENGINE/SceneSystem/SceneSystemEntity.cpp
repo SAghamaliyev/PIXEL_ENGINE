@@ -53,7 +53,18 @@ void SceneSystem::changeRotateEntity(unsigned int EntityID, const glm::vec3& Rot
 }
 
 void SceneSystem::changeScaleEntity(unsigned int EntityID, const glm::vec3& ScaleV) {
-	OurEntityManager.changeScale(EntityID, ScaleV);
+	glm::vec3 clampedScale = ScaleV;
+	if (clampedScale.x < 1.0f) {
+		clampedScale.x = 1.0f;
+	}
+	if (clampedScale.y < 1.0f) {
+		clampedScale.y = 1.0f;
+	}
+	if (clampedScale.z < 1.0f) {
+		clampedScale.z = 1.0f;
+	}
+
+	OurEntityManager.changeScale(EntityID, clampedScale);
 
 	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
 	OurTransformManager.ReTransformEntity(TempInfo);
@@ -67,9 +78,9 @@ void SceneSystem::deactivateColorEntity(unsigned int EntityID) {
 	OurEntityManager.deactivateColor(EntityID);
 }
 
-//Transform& SceneSystem::getTransformInfoEntity(unsigned int EntityID) {
-//	return OurEntityManager.getTransformInfo(EntityID);
-//}
+const Transform& SceneSystem::getTransformInfoEntity(unsigned int EntityID) const {
+	return OurEntityManager.getTransformInfo(EntityID);
+}
 
 //EntityUnit& SceneSystem::SceneGetEntity(unsigned int EntityID) {
 //	return OurEntityManager.getEntity(EntityID);

@@ -208,3 +208,7 @@ EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
 const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
 	return EntityList;
 }
+
+const Transform& EntityManager::getTransformInfo(unsigned int EntityID) const {
+	return EntityList.at(EntityID).TransformInfo;
+}

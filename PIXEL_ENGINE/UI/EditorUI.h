@@ -11,13 +11,20 @@
 #include <vector>
 
 struct GLFWwindow;  // forward declaration
+class SceneSystem;
 
 class EditorUI {
 private:
     GLFWwindow* m_window = nullptr;
+    SceneSystem* m_sceneSystem = nullptr;
     bool m_windowShouldClose = false;
     EditorLayout m_layout;
     std::vector<EditorEntityView> m_entityViews;
+    EditorGizmoOperation m_gizmoOperation = EditorGizmoOperation::Translate;
+    int m_activeRotateAxis = -1;
+    float m_rotateDragStartAngle = 0.0f;
+    float m_rotateDragStartMouse[2] = { 0.0f, 0.0f };
+    float m_rotateDragStart[3] = { 0.0f, 0.0f, 0.0f };
 
     SceneHierarchyPanel m_hierarchy;
     InspectorPanel m_inspector;
@@ -26,8 +33,12 @@ private:
 
     void drawMainMenuBar();
     void drawPanels();
+    void drawGizmo();
+    void drawRotateGizmo(const Transform& transform, unsigned int entityID,
+        float viewportX, float viewportY, float viewportW, float viewportH);
     void drawPerformanceOverlay();
     void updateLayout();
+    const EditorEntityView* findSelectedEntityView() const;
 
 public:
     EditorUI() = default;
@@ -44,5 +55,7 @@ public:
     int getSelectedEntityID() const;
     void getViewportRect(int& outX, int& outY, int& outW, int& outH);
     void setEntityViews(const std::vector<EditorEntityView>& entityViews);
+    void setGizmoOperation(EditorGizmoOperation operation) { m_gizmoOperation = operation; }
+    EditorGizmoOperation getGizmoOperation() const { return m_gizmoOperation; }
 
 };

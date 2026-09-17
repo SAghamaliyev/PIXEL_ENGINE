@@ -41,6 +41,6 @@ public:
 			void deactivateColorEntity(unsigned int EntityID);
 		
 		// Getters
-		//Transform& getTransformInfoEntity(unsigned int EntityID);
+		const Transform& getTransformInfoEntity(unsigned int EntityID) const;
 		/*EntityUnit& SceneGetEntity(unsigned int EntityID);*/
 };
