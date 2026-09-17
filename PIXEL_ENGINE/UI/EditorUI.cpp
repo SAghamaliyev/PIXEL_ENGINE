@@ -236,33 +236,102 @@ void EditorUI::drawRotateGizmo(const Transform& transform, unsigned int entityID
         viewportY + (0.5f - clipCenter.y * 0.5f) * viewportH);
 
     constexpr int axisCount = 3;
-    const float radii[axisCount] = { 58.0f, 74.0f, 90.0f };
+    constexpr int segmentCount = 96;
+    const float radius = 88.0f;
     const ImU32 colors[axisCount] = {
         IM_COL32(230, 65, 65, 255),
         IM_COL32(65, 210, 95, 255),
         IM_COL32(85, 140, 255, 255)
     };
 
+    auto makeRingPoint = [center, radius](int axis, float angle) {
+        const float c = std::cos(angle);
+        const float s = std::sin(angle);
+
+        switch (axis) {
+        case 0:
+            return ImVec2(
+                center.x + c * radius * 0.34f + s * radius * 0.12f,
+                center.y + c * radius * 0.10f - s * radius);
+        case 1:
+            return ImVec2(
+                center.x + c * radius,
+                center.y + c * radius * 0.08f + s * radius * 0.34f);
+        default:
+            return ImVec2(
+                center.x + c * radius,
+                center.y + s * radius);
+        }
+    };
+
+    auto distanceToSegment = [](const ImVec2& p, const ImVec2& a, const ImVec2& b) {
+        const float abx = b.x - a.x;
+        const float aby = b.y - a.y;
+        const float apx = p.x - a.x;
+        const float apy = p.y - a.y;
+        const float abLengthSq = abx * abx + aby * aby;
+
+        float t = 0.0f;
+        if (abLengthSq > 0.0f) {
+            t = (apx * abx + apy * aby) / abLengthSq;
+            if (t < 0.0f) {
+                t = 0.0f;
+            }
+            else if (t > 1.0f) {
+                t = 1.0f;
+            }
+        }
+
+        const float closestX = a.x + abx * t;
+        const float closestY = a.y + aby * t;
+        const float dx = p.x - closestX;
+        const float dy = p.y - closestY;
+        return std::sqrt(dx * dx + dy * dy);
+    };
+
     ImDrawList* drawList = ImGui::GetForegroundDrawList();
     for (int axis = 0; axis < axisCount; ++axis) {
         const bool active = (m_activeRotateAxis == axis);
-        drawList->AddCircle(center, radii[axis], active ? IM_COL32(255, 255, 255, 255) : colors[axis], 96, active ? 5.5f : 4.0f);
+
+        ImVec2 points[segmentCount + 1];
+        for (int segment = 0; segment <= segmentCount; ++segment) {
+            const float angle = (float)segment / (float)segmentCount * 6.283185307f;
+            points[segment] = makeRingPoint(axis, angle);
+        }
+
+        drawList->AddPolyline(
+            points,
+            segmentCount + 1,
+            active ? IM_COL32(255, 255, 255, 255) : colors[axis],
+            ImDrawFlags_Closed,
+            active ? 5.5f : 4.0f);
     }
 
     ImGuiIO& io = ImGui::GetIO();
     const ImVec2 mouse = io.MousePos;
     const float dx = mouse.x - center.x;
     const float dy = mouse.y - center.y;
-    const float mouseDistance = std::sqrt(dx * dx + dy * dy);
 
     if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
         int closestAxis = -1;
         float closestDistance = 99999.0f;
 
         for (int axis = 0; axis < axisCount; ++axis) {
-            const float ringDistance = std::fabs(mouseDistance - radii[axis]);
-            if (ringDistance < 10.0f && ringDistance < closestDistance) {
-                closestDistance = ringDistance;
+            float axisDistance = 99999.0f;
+            ImVec2 previousPoint = makeRingPoint(axis, 0.0f);
+
+            for (int segment = 1; segment <= segmentCount; ++segment) {
+                const float angle = (float)segment / (float)segmentCount * 6.283185307f;
+                const ImVec2 currentPoint = makeRingPoint(axis, angle);
+                const float segmentDistance = distanceToSegment(mouse, previousPoint, currentPoint);
+                if (segmentDistance < axisDistance) {
+                    axisDistance = segmentDistance;
+                }
+                previousPoint = currentPoint;
+            }
+
+            if (axisDistance < 12.0f && axisDistance < closestDistance) {
+                closestDistance = axisDistance;
                 closestAxis = axis;
             }
         }
@@ -270,6 +339,8 @@ void EditorUI::drawRotateGizmo(const Transform& transform, unsigned int entityID
         if (closestAxis >= 0) {
             m_activeRotateAxis = closestAxis;
             m_rotateDragStartAngle = std::atan2(dy, dx);
+            m_rotateDragStartMouse[0] = mouse.x;
+            m_rotateDragStartMouse[1] = mouse.y;
             m_rotateDragStart[0] = transform.RotateV.x;
             m_rotateDragStart[1] = transform.RotateV.y;
             m_rotateDragStart[2] = transform.RotateV.z;
@@ -280,20 +351,28 @@ void EditorUI::drawRotateGizmo(const Transform& transform, unsigned int entityID
         constexpr float radiansToDegrees = 57.2957795131f;
         constexpr float pi = 3.1415926535f;
 
-        float deltaRadians = std::atan2(dy, dx) - m_rotateDragStartAngle;
-        if (deltaRadians > pi) {
-            deltaRadians -= 2.0f * pi;
-        }
-        else if (deltaRadians < -pi) {
-            deltaRadians += 2.0f * pi;
-        }
-
         float newRotation[3] = {
             m_rotateDragStart[0],
             m_rotateDragStart[1],
             m_rotateDragStart[2]
         };
-        newRotation[m_activeRotateAxis] += deltaRadians * radiansToDegrees;
+
+        if (m_activeRotateAxis == 0) {
+            newRotation[0] += (m_rotateDragStartMouse[1] - mouse.y) * 0.6f;
+        }
+        else if (m_activeRotateAxis == 1) {
+            newRotation[1] += (mouse.x - m_rotateDragStartMouse[0]) * 0.6f;
+        }
+        else {
+            float deltaRadians = std::atan2(dy, dx) - m_rotateDragStartAngle;
+            if (deltaRadians > pi) {
+                deltaRadians -= 2.0f * pi;
+            }
+            else if (deltaRadians < -pi) {
+                deltaRadians += 2.0f * pi;
+            }
+            newRotation[2] += deltaRadians * radiansToDegrees;
+        }
 
         const float currentTranslation[3] = {
             transform.TranslateV.x,

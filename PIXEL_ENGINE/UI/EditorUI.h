@@ -23,6 +23,7 @@ private:
     EditorGizmoOperation m_gizmoOperation = EditorGizmoOperation::Translate;
     int m_activeRotateAxis = -1;
     float m_rotateDragStartAngle = 0.0f;
+    float m_rotateDragStartMouse[2] = { 0.0f, 0.0f };
     float m_rotateDragStart[3] = { 0.0f, 0.0f, 0.0f };
 
     SceneHierarchyPanel m_hierarchy;
