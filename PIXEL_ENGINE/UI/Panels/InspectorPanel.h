@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../EditorLayout.h"
-#include "../EditorEvents.h"
+#include "../../Core/EventSystem/EventSystem.h"
 
 #include <vector>
 
@@ -10,7 +10,6 @@ class ContentBrowserPanel;
 
 class InspectorPanel {
 public:
-    void setEventQueue(std::vector<EditorEvent>* events);
     void setEntityViews(const std::vector<EditorEntityView>* entityViews);
     void setSelectedEntityID(int entityID);
     void setContentBrowserPanel(ContentBrowserPanel* contentBrowser);
@@ -21,11 +20,11 @@ public:
     void setVisible(bool visible) { m_visible = visible; }
 
 private:
-    std::vector<EditorEvent>* m_events = nullptr;
     const std::vector<EditorEntityView>* m_entityViews = nullptr;
     ContentBrowserPanel* m_contentBrowser = nullptr;
     bool m_visible = true;
     int m_selectedEntityID = -1;
+    int m_lastSelectedEntityID = -1;
 
     char m_entityNameBuffer[128] = "";
     float m_position[3] = { 0.0f, 0.0f, 0.0f };
@@ -34,5 +33,6 @@ private:
     int m_currentMaterial = 0;
 
     const EditorEntityView* findSelectedEntity() const;
+    void syncSelectedEntityFields(const EditorEntityView& entity);
     void pushEvent(const EditorEvent& event);
 };

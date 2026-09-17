@@ -1,6 +1,6 @@
 #include "ContentBrowserPanel.h"
 #include "ConsolePanel.h"
-#include "../../Logger/Logger.h"
+#include "../../Core/Logger/Logger.h"
 
 #include "../Materials/imgui.h"
 
@@ -29,10 +29,6 @@ bool isTextureExtension(const std::filesystem::path& path) {
     return ext == ".png" || ext == ".jpg" || ext == ".jpeg";
 }
 
-}
-
-void ContentBrowserPanel::setEventQueue(std::vector<EditorEvent>* events) {
-    m_events = events;
 }
 
 void ContentBrowserPanel::setConsole(ConsolePanel* console) {
@@ -157,11 +153,11 @@ void ContentBrowserPanel::registerObject() {
         if (isObjExtension(selectedPath)) {
             EditorEvent event;
             event.type = EditorEventType::RegisterObject;
-            event.path = selectedPath.string();
-            event.name = selectedPath.filename().string();
+            event.info.path = selectedPath.string();
+            event.info.name = selectedPath.filename().string();
             pushEvent(event);
             Logger::addLog(LOG_INFO,
-                "Object registration queued for " + event.name + ".");
+                "Object registration queued for " + event.info.name + ".");
         }
     }
 #else
@@ -186,11 +182,11 @@ void ContentBrowserPanel::registerTexture() {
         if (isTextureExtension(selectedPath)) {
             EditorEvent event;
             event.type = EditorEventType::RegisterTexture;
-            event.path = selectedPath.string();
-            event.name = selectedPath.filename().string();
+            event.info.path = selectedPath.string();
+            event.info.name = selectedPath.filename().string();
             pushEvent(event);
             Logger::addLog(LOG_INFO,
-                "Texture registration queued for " + event.name + ".");
+                "Texture registration queued for " + event.info.name + ".");
         }
     }
 #else
@@ -356,8 +352,8 @@ void ContentBrowserPanel::queueAddObjectEvent(const std::string& path, const std
 
     EditorEvent event;
     event.type = EditorEventType::AddObject;
-    event.meshID = meshID;
-    event.name = stem;
+    event.info.meshID = meshID;
+    event.info.name = stem;
     pushEvent(event);
 
     Logger::addLog(LOG_INFO, "Add object event queued for " + filename + ".");
@@ -392,9 +388,9 @@ void ContentBrowserPanel::queueAssignTextureEvent(const std::string& metaPath, c
 
     EditorEvent event;
     event.type = EditorEventType::AssignTexture;
-    event.entityID = m_selectedEntityIDForTexture;
-    event.textureID = textureID;
-    event.name = stem;
+    event.info.entityID = m_selectedEntityIDForTexture;
+    event.info.textureID = textureID;
+    event.info.name = stem;
     pushEvent(event);
 
     m_textureSelectionMode = false;
@@ -409,8 +405,5 @@ void ContentBrowserPanel::queueAssignTextureEvent(const std::string& metaPath, c
 }
 
 void ContentBrowserPanel::pushEvent(const EditorEvent& event) {
-    if (m_events) {
-        // /FLAG Stores the event flag for the engine-side event processor.
-        m_events->push_back(event);
-    }
+    EventSystem::pushEvent(event);
 }

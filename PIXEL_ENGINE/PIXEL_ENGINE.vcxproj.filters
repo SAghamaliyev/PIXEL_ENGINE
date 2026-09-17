@@ -1,243 +1,108 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Исходные файлы">
+    <Filter Include="???????? ?????">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков">
+    <Filter Include="????? ??????????">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Файлы ресурсов">
+    <Filter Include="????? ????????">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\Input">
+    <Filter Include="???????? ?????\Input">
       <UniqueIdentifier>{41d84469-7d1d-43c6-b755-c47669483db2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Input\SystemInputs">
+    <Filter Include="???????? ?????\Input\SystemInputs">
       <UniqueIdentifier>{8bd0eeb6-d279-4c5b-ab73-b53565084294}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\ImGui">
+    <Filter Include="???????? ?????\ImGui">
       <UniqueIdentifier>{ee5ce3fe-8361-45bd-8d4b-b0f848af59c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\ImGui\Backend">
+    <Filter Include="???????? ?????\ImGui\Backend">
       <UniqueIdentifier>{32ffef1c-cab1-4b55-8bfb-633ee26f05ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Materials\imgui.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Materials\imgui_draw.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Materials\imgui_tables.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Materials\imgui_widgets.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\SystemInputs.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\glad\src\glad.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderSystem\MeshManager\MeshManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderSystem\RenderSystem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneSystem\SceneSystem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\EditorTheme.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Panels\SceneHierarchyPanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Panels\InspectorPanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Panels\ContentBrowserPanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Panels\ConsolePanel.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\EditorUI.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Logger\Logger.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetSystem\AssetSystem.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetSystem\AssetSystemTEX.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneSystem\SceneSystemEntity.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneSystem\TransformManager\TransformManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\ImGuizmo.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
+    <ClCompile Include="AssetSystem\AssetSystem.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemTEX.cpp" />
+    <ClCompile Include="Core\EventSystem\EventSystem.cpp" />
+    <ClCompile Include="dependencies\glad\src\glad.c" />
+    <ClCompile Include="dependencies\ImGuizmo.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Core\InputSystem\InputSystem.cpp" />
+    <ClCompile Include="Core\InputSystem\InputEditor.cpp" />
+    <ClCompile Include="Core\Logger\Logger.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="RenderSystem\MeshManager\MeshManager.cpp" />
+    <ClCompile Include="RenderSystem\RenderSystem.cpp" />
+    <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp" />
+    <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp" />
+    <ClCompile Include="SceneSystem\TransformManager\TransformManager.cpp" />
+    <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
+    <ClCompile Include="SceneSystem\SceneSystem.cpp" />
+    <ClCompile Include="SceneSystem\SceneSystemEntity.cpp" />
+    <ClCompile Include="UI\EditorTheme.cpp" />
+    <ClCompile Include="UI\EditorUI.cpp" />
+    <ClCompile Include="UI\Panels\ConsolePanel.cpp" />
+    <ClCompile Include="UI\Panels\ContentBrowserPanel.cpp" />
+    <ClCompile Include="UI\Panels\InspectorPanel.cpp" />
+    <ClCompile Include="UI\Panels\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="UI\Materials\imgui.cpp" />
+    <ClCompile Include="UI\Materials\imgui_draw.cpp" />
+    <ClCompile Include="UI\Materials\imgui_tables.cpp" />
+    <ClCompile Include="UI\Materials\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\imconfig.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\imgui.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\imgui_internal.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\imstb_rectpack.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\imstb_textedit.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\imstb_truetype.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\SystemInputs.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\glad\include\glad\glad.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\glad\include\KHR\khrplatform.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\include\GLFW\glfw3.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\include\GLFW\glfw3native.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSystem\MeshManager\MeshManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSystem\EntityManager\EntityManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSystem\RenderSystem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSystem\SceneSystem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Definitions.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\EditorUI.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\EditorTheme.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\EditorLayout.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\EditorEvents.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Panels\SceneHierarchyPanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Panels\InspectorPanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Panels\ContentBrowserPanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Panels\ConsolePanel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger\Logger.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSystem\TextureManager\TextureManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\stb_image.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetSystem\AssetSystem.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSystem\TransformManager\TransformManager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\ImGuizmo.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
+    <ClInclude Include="AssetSystem\AssetSystem.h" />
+    <ClInclude Include="dependencies\glad\include\glad\glad.h" />
+    <ClInclude Include="dependencies\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="dependencies\ImGuizmo.h" />
+    <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
+    <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
+    <ClInclude Include="dependencies\stb_image.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Core\EventSystem\EventSystem.h" />
+    <ClInclude Include="Core\InputSystem\InputSystem.h" />
+    <ClInclude Include="Core\Logger\Logger.h" />
+    <ClInclude Include="RenderSystem\MeshManager\MeshManager.h" />
+    <ClInclude Include="RenderSystem\RenderSystem.h" />
+    <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h" />
+    <ClInclude Include="RenderSystem\TextureManager\TextureManager.h" />
+    <ClInclude Include="SceneSystem\TransformManager\TransformManager.h" />
+    <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
+    <ClInclude Include="SceneSystem\SceneSystem.h" />
+    <ClInclude Include="src\Definitions.h" />
+    <ClInclude Include="UI\EditorLayout.h" />
+    <ClInclude Include="UI\EditorTheme.h" />
+    <ClInclude Include="UI\EditorUI.h" />
+    <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
+    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="UI\Materials\imconfig.h" />
+    <ClInclude Include="UI\Materials\imgui.h" />
+    <ClInclude Include="UI\Materials\imgui_internal.h" />
+    <ClInclude Include="UI\Materials\imstb_rectpack.h" />
+    <ClInclude Include="UI\Materials\imstb_textedit.h" />
+    <ClInclude Include="UI\Materials\imstb_truetype.h" />
+    <ClInclude Include="UI\Panels\ConsolePanel.h" />
+    <ClInclude Include="UI\Panels\ContentBrowserPanel.h" />
+    <ClInclude Include="UI\Panels\InspectorPanel.h" />
+    <ClInclude Include="UI\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="Core\EventSystem\EventTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\DefaultShader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\Shaders\DefaultShader.frag">
-      <Filter>Исходные файлы</Filter>
-    </Text>
     <Text Include="src\Objects\Triangle.obj" />
+    <Text Include="src\Shaders\DefaultShader.frag" />
   </ItemGroup>
 </Project>

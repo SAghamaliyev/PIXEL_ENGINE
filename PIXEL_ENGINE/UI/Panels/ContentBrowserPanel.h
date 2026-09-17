@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../EditorLayout.h"
-#include "../EditorEvents.h"
+#include "../../Core/EventSystem/EventSystem.h"
 
 #include <string>
 #include <vector>
@@ -10,7 +10,6 @@ class ConsolePanel;
 
 class ContentBrowserPanel {
 public:
-    void setEventQueue(std::vector<EditorEvent>* events);
     void setConsole(ConsolePanel* console);
 
     void draw(const EditorLayout& layout);
@@ -21,7 +20,6 @@ public:
     void setTextureSelectionMode(bool enabled, unsigned int entityID = 0);
 
 private:
-    std::vector<EditorEvent>* m_events = nullptr;
     ConsolePanel* m_console = nullptr;
     bool m_visible = true;
 

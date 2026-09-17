@@ -5,7 +5,7 @@
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/ConsolePanel.h"
 #include "EditorLayout.h"
-#include "EditorEvents.h"
+#include "../Core/EventSystem/EventSystem.h"
 
 #include <string>
 #include <vector>
@@ -17,7 +17,6 @@ private:
     GLFWwindow* m_window = nullptr;
     bool m_windowShouldClose = false;
     EditorLayout m_layout;
-    std::vector<EditorEvent> m_events;
     std::vector<EditorEntityView> m_entityViews;
 
     SceneHierarchyPanel m_hierarchy;
@@ -46,12 +45,4 @@ public:
     void getViewportRect(int& outX, int& outY, int& outW, int& outH);
     void setEntityViews(const std::vector<EditorEntityView>& entityViews);
 
-    // /FLAG Engine can read queued UI flags without the UI knowing engine modules.
-    const std::vector<EditorEvent>& getEvents() const { return m_events; }
-
-    // /FLAG Engine can consume UI flags after it handles them.
-    std::vector<EditorEvent> consumeEvents();
-
-    // /FLAG Engine can clear UI flags when it has processed or discarded them.
-    void clearEvents() { m_events.clear(); }
 };

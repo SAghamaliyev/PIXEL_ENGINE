@@ -6,7 +6,7 @@
 #include <string>
 #include <unordered_map>
 #include "../../src/Definitions.h"
-#include "../../Logger/Logger.h"
+#include "../../Core/Logger/Logger.h"
 
 using namespace std;
 

@@ -1,6 +1,6 @@
 #include "EditorUI.h"
 #include "EditorTheme.h"
-#include "../Logger/Logger.h"
+#include "../Core/Logger/Logger.h"
 
 #include "Materials/imgui.h"
 #include "Materials/Backends/imgui_impl_glfw.h"
@@ -25,13 +25,9 @@ void EditorUI::init(GLFWwindow* window, void* engineEventTarget) {
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-    m_hierarchy.setEventQueue(&m_events);
     m_hierarchy.setEntityViews(&m_entityViews);
-    m_inspector.setEventQueue(&m_events);
     m_inspector.setEntityViews(&m_entityViews);
     m_inspector.setContentBrowserPanel(&m_contentBrowser);
-    m_contentBrowser.setEventQueue(&m_events);
-    m_console.setEventQueue(&m_events);
     m_contentBrowser.setConsole(&m_console);
 
     Logger::addLog(LOG_INFO, "Engine initialized");
@@ -70,12 +66,6 @@ void EditorUI::setEntityViews(const std::vector<EditorEntityView>& entityViews) 
     m_inspector.setEntityViews(&m_entityViews);
 }
 
-std::vector<EditorEvent> EditorUI::consumeEvents() {
-    std::vector<EditorEvent> events = m_events;
-    m_events.clear();
-    return events;
-}
-
 void EditorUI::getViewportRect(int& outX, int& outY, int& outW, int& outH) {
     if (!m_window) {
         return;
@@ -107,19 +97,19 @@ void EditorUI::drawMainMenuBar() {
     if (ImGui::BeginMenu("File")) {
         if (ImGui::MenuItem("New Scene", "Ctrl+N")) {
             // /FLAG ClearScene: UI asks the engine to clear the active scene.
-            m_events.push_back(EditorEvent{ EditorEventType::ClearScene });
+            EventSystem::pushEvent(EditorEvent{ EditorEventType::ClearScene });
         }
         if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {
             // /FLAG OpenScene: UI asks the engine to open a scene picker/load flow.
-            m_events.push_back(EditorEvent{ EditorEventType::OpenScene });
+            EventSystem::pushEvent(EditorEvent{ EditorEventType::OpenScene });
         }
         if (ImGui::MenuItem("Save Scene", "Ctrl+S")) {
             // /FLAG SaveScene: UI asks the engine to save the current scene.
-            m_events.push_back(EditorEvent{ EditorEventType::SaveScene });
+            EventSystem::pushEvent(EditorEvent{ EditorEventType::SaveScene });
         }
         if (ImGui::MenuItem("Save Scene As...", "Ctrl+Shift+S")) {
             // /FLAG SaveSceneAs: UI asks the engine to save the scene with a new path.
-            m_events.push_back(EditorEvent{ EditorEventType::SaveSceneAs });
+            EventSystem::pushEvent(EditorEvent{ EditorEventType::SaveSceneAs });
         }
         ImGui::Separator();
         if (ImGui::MenuItem("Exit", "Alt+F4")) {
@@ -187,11 +177,11 @@ void EditorUI::drawMainMenuBar() {
             // /FLAG ShowAbout: UI asks the engine/app layer to show or log the about message.
             EditorEvent event;
             event.type = EditorEventType::ShowAbout;
-            event.message = "Hello, this is Pixel Engine, i am glad you downloaded it.\n"
+            event.info.message = "Hello, this is Pixel Engine, i am glad you downloaded it.\n"
                 "If you want to add something or noticed some problems\n"
                 "please dont be hesitated to contact me: saidaghamaliyev@gmail.com\n"
                 "Please ENJOY, Said Aghamaliyev";
-            m_events.push_back(event);
+            EventSystem::pushEvent(event);
         }
         ImGui::EndMenu();
     }

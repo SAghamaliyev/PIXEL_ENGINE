@@ -1,5 +1,4 @@
 #include "Logger.h"
-#include "Logger.h"
 
 std::queue<LogEntry> Logger::m_logBuffer;
 

@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "../src/Definitions.h"
-#include "../Logger/Logger.h"
+#include "../Core/Logger/Logger.h"
 
 struct MeshData {
     std::vector<float>        vertices;
