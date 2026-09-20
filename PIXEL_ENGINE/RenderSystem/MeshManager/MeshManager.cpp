@@ -5,6 +5,8 @@
 #include <fstream>
 #include <stdexcept>
 
+using namespace std;
+
 void MeshManager::readBinaryMesh(uint64_t MeshID, vector<float>& vertices,
     vector<unsigned int>& indices, vector<float>& textures) {
 

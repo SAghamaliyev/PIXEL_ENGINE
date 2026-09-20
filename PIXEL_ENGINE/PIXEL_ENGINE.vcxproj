@@ -150,6 +150,8 @@
     <ClCompile Include="RenderSystem\RenderSystem.cpp" />
     <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp" />
+    <ClCompile Include="SceneSystem\CameraManager\CameraManager.cpp" />
+    <ClCompile Include="SceneSystem\SceneSystemCamera.cpp" />
     <ClCompile Include="SceneSystem\TransformManager\TransformManager.cpp" />
     <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
     <ClCompile Include="SceneSystem\SceneSystem.cpp" />
@@ -172,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetSystem\AssetSystem.h" />
+    <ClInclude Include="Core\Definitions\SceneDefinitons.h" />
     <ClInclude Include="dependencies\glad\include\glad\glad.h" />
     <ClInclude Include="dependencies\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
@@ -188,10 +191,10 @@
     <ClInclude Include="RenderSystem\RenderSystem.h" />
     <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h" />
     <ClInclude Include="RenderSystem\TextureManager\TextureManager.h" />
+    <ClInclude Include="SceneSystem\CameraManager\CameraManager.h" />
     <ClInclude Include="SceneSystem\TransformManager\TransformManager.h" />
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
     <ClInclude Include="SceneSystem\SceneSystem.h" />
-    <ClInclude Include="src\Definitions.h" />
     <ClInclude Include="UI\EditorLayout.h" />
     <ClInclude Include="UI\EditorTheme.h" />
     <ClInclude Include="UI\EditorUI.h" />

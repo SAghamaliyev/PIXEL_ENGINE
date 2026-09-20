@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include <filesystem>
+using namespace std;
 
 void Engine::visualizeEditorEvents() {
     vector<EditorEntityView> EntityViews;
@@ -155,6 +156,8 @@ bool Engine::initailize() {
         glfwTerminate();
         return false;
     }
+
+    glfwGetFramebufferSize(OurWindow, &screenW, &screenH);
     glfwMakeContextCurrent(OurWindow);
     glfwSwapInterval(1);
 
@@ -168,7 +171,10 @@ bool Engine::initailize() {
     }
 
     OurRenderSystem = new RenderSystem();
-    OurSceneSystem = new SceneSystem();
+    OurSceneSystem = new SceneSystem(
+        static_cast<float>(screenW),
+        static_cast<float>(screenH)
+    );
     OurAssetSystem = new AssetSystem();
 
     OurEditorUI = new EditorUI();
@@ -207,7 +213,6 @@ void Engine::run() {
         OurSceneSystem->SceneUpdate();
 
         // 4. Возвращаем Viewport обратно на ВЕСЬ экран, чтобы UI рисовался правильно
-        int screenW, screenH;
         glfwGetFramebufferSize(OurWindow, &screenW, &screenH);
         glViewport(0, 0, screenW, screenH);
 

@@ -37,9 +37,12 @@ void TransformManager::Scale(glm::mat4& OurMatrix, const glm::vec3& ScaleV) {
 }
 
 void TransformManager::ReTransformEntity(Transform& TransformInfo) {
-
     ResetMatrix(TransformInfo.OurMatrix);
     Translate(TransformInfo.OurMatrix, TransformInfo.TranslateV);
     Rotate(TransformInfo.OurMatrix, TransformInfo.RotateV);
     Scale(TransformInfo.OurMatrix, TransformInfo.ScaleV);
+}
+
+void TransformManager::ReTransformCamera(glm::mat4& OurMatrix, glm::vec3& TransV) {
+    Translate(OurMatrix, TransV);
 }

@@ -4,7 +4,7 @@ int main() {
 	Engine OurEngine;
 	
 	if (!OurEngine.initailize()) {
-		cout << "Something went wrong";
+     std::cout << "Something went wrong";
 		return -1;
 	}
 

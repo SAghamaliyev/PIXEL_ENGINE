@@ -29,4 +29,5 @@ void InputManager::InputEditor() {
         event.info.gizmoOperation = EditorGizmoOperation::Scale;
         EventSystem::pushEvent(event);
     }
+
 }

@@ -58,6 +58,8 @@
     <ClCompile Include="UI\Materials\imgui_draw.cpp" />
     <ClCompile Include="UI\Materials\imgui_tables.cpp" />
     <ClCompile Include="UI\Materials\imgui_widgets.cpp" />
+    <ClCompile Include="SceneSystem\CameraManager\CameraManager.cpp" />
+    <ClCompile Include="SceneSystem\SceneSystemCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetSystem\AssetSystem.h" />
@@ -79,7 +81,6 @@
     <ClInclude Include="SceneSystem\TransformManager\TransformManager.h" />
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
     <ClInclude Include="SceneSystem\SceneSystem.h" />
-    <ClInclude Include="src\Definitions.h" />
     <ClInclude Include="UI\EditorLayout.h" />
     <ClInclude Include="UI\EditorTheme.h" />
     <ClInclude Include="UI\EditorUI.h" />
@@ -97,6 +98,8 @@
     <ClInclude Include="UI\Panels\InspectorPanel.h" />
     <ClInclude Include="UI\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="Core\EventSystem\EventTypes.h" />
+    <ClInclude Include="Core\Definitions\SceneDefinitons.h" />
+    <ClInclude Include="SceneSystem\CameraManager\CameraManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\DefaultShader.vert" />

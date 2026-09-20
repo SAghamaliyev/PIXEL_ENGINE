@@ -1,8 +1,6 @@
 #include "TextureManager.h"
-#include "../../Core/Logger/Logger.h"
-#include <fstream>
-#include <filesystem>
 
+using namespace std;
 namespace fs = std::filesystem;
 
 void TextureManager::readBinary(uint64_t TextureID, unsigned char*& data, int& width, int& height, int& nrChannels) {

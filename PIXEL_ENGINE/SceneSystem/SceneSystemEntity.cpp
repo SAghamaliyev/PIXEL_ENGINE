@@ -1,4 +1,5 @@
 #include "SceneSystem.h"
+using namespace std;
 
 void SceneSystem::SceneClearEntityList() {
 	OurEntityManager.clearEntityList();

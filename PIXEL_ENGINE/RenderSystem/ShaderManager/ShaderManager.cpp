@@ -1,5 +1,5 @@
 #include "ShaderManager.h"
-#include "../../Core/Logger/Logger.h"
+using namespace std;
 
 namespace fs = std::filesystem;
 

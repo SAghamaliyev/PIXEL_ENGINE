@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "../src/Definitions.h"
+#include "../Core/Definitions/SceneDefinitons.h"
 #include "../Core/Logger/Logger.h"
 
 struct MeshData {

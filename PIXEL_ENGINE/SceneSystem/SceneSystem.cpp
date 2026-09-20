@@ -1,7 +1,8 @@
 #include "SceneSystem.h"
 
-SceneSystem::SceneSystem()
-	:OurSceneInfo{OurEntityManager.getEntityList()}	// Must be initialized before creating SceneSystem
+SceneSystem::SceneSystem(float viewPortWidth, float viewPortHeight)
+	:OurCameraManager(viewPortWidth, viewPortHeight)
+	,OurSceneInfo{OurEntityManager.getEntityList(),OurCameraManager.getActiveCamera()}	// Must be initialized before creating SceneSystem
 {
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../src/Definitions.h"
+#include "../Definitions/SceneDefinitons.h"
 
 #include <string>
 #include <vector>

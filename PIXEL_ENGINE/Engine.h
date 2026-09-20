@@ -6,7 +6,7 @@
 #include "Core/InputSystem/InputSystem.h"
 #include "RenderSystem/RenderSystem.h"
 #include "SceneSystem/SceneSystem.h"
-#include "src/Definitions.h"
+#include "Core/Definitions/SceneDefinitons.h"
 #include "UI/EditorUI.h"
 #include "Core/Logger/Logger.h"
 #include "AssetSystem/AssetSystem.h"
@@ -20,6 +20,8 @@ private:
 	AssetSystem* OurAssetSystem;
 	InputManager OurInputManager;
 	GLFWwindow* OurWindow;
+	int screenW = 0;
+	int screenH = 0;
 
 
 	void processEditorEvents();

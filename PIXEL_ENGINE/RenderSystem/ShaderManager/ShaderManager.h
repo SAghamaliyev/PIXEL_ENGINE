@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "../../Core/Definitions/SceneDefinitons.h"
+#include "../../Core/Logger/Logger.h"
 
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
@@ -8,14 +10,11 @@
 #include <filesystem>
 #include <iostream>
 #include <fstream>
-#include "../../src/Definitions.h"
-
-using namespace std;
 
 class ShaderManager {
 private:
-    unordered_map <MaterialType, unsigned int> ShaderMap;
-    void createShader(string& vertexSourceStr, string& fragmentSourceStr);
+    std::unordered_map <MaterialType, unsigned int> ShaderMap;
+    void createShader(std::string& vertexSourceStr, std::string& fragmentSourceStr);
 public:
     ShaderManager();    // When we create shadermanager it starts creating all of active shaders beforehead
     ~ShaderManager();
