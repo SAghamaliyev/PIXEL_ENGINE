@@ -154,7 +154,7 @@ bool AssetSystem::ParseOBJ(const fs::path& objPath, MeshData& out) {
 
         if (texIndex > 0 && (texIndex - 1) * 2 + 1 < static_cast<int>(texcoords.size())) {
             out.textures.push_back(texcoords[(texIndex - 1) * 2 + 0]);
-            out.textures.push_back(texcoords[(texIndex - 1) * 2 + 1]);
+            out.textures.push_back(1.0f - texcoords[(texIndex - 1) * 2 + 1]); // Invert V: OBJ V=0 is bottom, texture V=0 is top
         }
         else {
             out.textures.push_back(x * 0.5f + 0.5f);

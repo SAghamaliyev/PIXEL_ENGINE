@@ -40,7 +40,6 @@ public:
 		
 		// Getters
 		const Transform& getTransformInfoEntity(unsigned int EntityID) const;
-		/*EntityUnit& SceneGetEntity(unsigned int EntityID);*/
 
 	// CameraManager functions
 		void createSceneCamera();

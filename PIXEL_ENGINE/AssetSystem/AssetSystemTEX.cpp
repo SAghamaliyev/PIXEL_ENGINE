@@ -120,7 +120,7 @@ void AssetSystem::MakeFileMetaTEX(const fs::path& texPath) {
 
 bool AssetSystem::ParseTEX(const fs::path& texPath, TexData& out) {
     int width, height, nrChannels;
-    // Принудительно загружаем с 4 каналами (RGBA)
+
     unsigned char* data = stbi_load(texPath.string().c_str(), &width, &height, &nrChannels, 0);
 
     if (!data) {

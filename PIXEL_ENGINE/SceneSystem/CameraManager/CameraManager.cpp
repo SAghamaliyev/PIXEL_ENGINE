@@ -15,7 +15,7 @@ CameraManager::CameraManager(float viewPortWidth, float viewPortHeight) {
 	OurDefaultCamera.TransV = glm::vec3(0.0f, 0.0f, 0.0f);
 	OurDefaultCamera.FOVdegree = 45.0f;
 	OurDefaultCamera.near = 0.1f;
-	OurDefaultCamera.far = 100.0f;
+	OurDefaultCamera.far = 1000.0f;
 	OurDefaultCamera.View = glm::mat4(1.0f);
 	OurDefaultCamera.Projection = glm::perspective(glm::radians(OurDefaultCamera.FOVdegree),
 		viewPortWidth / viewPortHeight, OurDefaultCamera.near, OurDefaultCamera.far);
