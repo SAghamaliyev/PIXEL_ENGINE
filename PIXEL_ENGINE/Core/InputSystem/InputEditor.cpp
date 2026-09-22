@@ -30,4 +30,9 @@ void InputManager::InputEditor() {
         EventSystem::pushEvent(event);
     }
 
+    if (InputManager::IsKeyJustPressed(InputManager::W)) {
+        EditorEvent event;
+        event.type = EditorEventType::CameraMoveForward;
+    }
+
 }

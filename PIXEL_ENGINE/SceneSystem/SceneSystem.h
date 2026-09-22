@@ -16,7 +16,7 @@ public:
 	// SceneSystem 
 	SceneSystem(float viewPortWidth, float viewPortHeight);
 	const SceneInfo& getSceneInfo() const;
-	void SceneUpdate();
+	void SceneUpdate(float viewPortWidth, float viewPortHeight);
 
 	// EntityManager functions
 		void SceneClearEntityList();
@@ -46,11 +46,10 @@ public:
 		void deleteSceneCamera(unsigned int CameraID);
 
 		// Setters
-		void setSceneViewPort(float viewPortWidth, float viewPortHeight);  // It's Common for all cameras
-
-		void changeTranslateCamera(unsigned int CameraID, glm::vec3 TransV);
-
-		void setFOVdegreeCamera(unsigned int CameraID, float FOVdegree);
-		void setNearCamera(unsigned int CameraID, float near);
-		void setFarCamera(unsigned int CameraID, float far);
+		void changeFOVdegreeCamera(unsigned int CameraID, float FOVdegree);
+		void changeNearCamera(unsigned int CameraID, float near);
+		void changeFarCamera(unsigned int CameraID, float far);
+		
+		void changeSpeedCamera(unsigned int CameraID, float targetSpeed);
+		void changePosCamera(unsigned int CameraID, Movement direction);
 };

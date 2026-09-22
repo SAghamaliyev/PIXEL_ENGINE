@@ -10,6 +10,6 @@ const SceneInfo& SceneSystem::getSceneInfo() const {
 	return OurSceneInfo;
 }
 
-void SceneSystem::SceneUpdate() {
+void SceneSystem::SceneUpdate(float viewPortWidth, float viewPortHeigh) {
 	OurEntityManager.Update();
 }

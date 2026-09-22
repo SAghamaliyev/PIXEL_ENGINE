@@ -54,7 +54,15 @@ enum class EditorEventType {
     ClearConsole,
     ShowAbout,
     CloseWindow,
-    SetGizmoOperation
+    SetGizmoOperation,
+
+    // Camera movement events
+    CameraMoveForward,
+    CameraMoveBackward,
+    CameraMoveLeft,
+    CameraMoveRight,
+    CameraMoveUp,
+    CameraMoveDown
 };
 
 // This struct is being used for giving details which we must pass

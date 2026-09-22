@@ -1,28 +1,14 @@
 #include "CameraManager.h"
-
 #include <string>
+
+#define CameraDefault 0
 using namespace std;
 
-CameraManager::CameraManager(float viewPortWidth, float viewPortHeight) {
-	CameraUnit OurDefaultCamera;
+CameraManager::CameraManager(float viewPortWidth, float viewPortHeight) {	
+	createCamera();
+	activateCamera(CameraDefault);
 
-	this->counter = 1;
-
-	this->viewPortWidth = viewPortWidth;
-	this->viewPortHeight = viewPortHeight;
-
-	OurDefaultCamera.CameraID = CameraDefault;
-	OurDefaultCamera.TransV = glm::vec3(0.0f, 0.0f, 0.0f);
-	OurDefaultCamera.FOVdegree = 45.0f;
-	OurDefaultCamera.near = 0.1f;
-	OurDefaultCamera.far = 1000.0f;
-	OurDefaultCamera.View = glm::mat4(1.0f);
-	OurDefaultCamera.Projection = glm::perspective(glm::radians(OurDefaultCamera.FOVdegree),
-		viewPortWidth / viewPortHeight, OurDefaultCamera.near, OurDefaultCamera.far);
-	OurDefaultCamera.OurMatrix = glm::mat4(1.0f);
-
-	CameraList[CameraDefault] = OurDefaultCamera;
-	this->activeCameraID = CameraDefault;
+	this->counter++;
 }
 
 bool CameraManager::hasCamera(unsigned int CameraID) {
@@ -38,16 +24,9 @@ void CameraManager::createCamera() {
 	CameraUnit AnotherCamera;
 		
 	AnotherCamera.CameraID = counter;
-	AnotherCamera.TransV = glm::vec3(0.0f, 0.0f, 0.0f);
-	AnotherCamera.FOVdegree = 45.0f;
-	AnotherCamera.near = 0.1f;
-	AnotherCamera.far = 100.0f;
-	AnotherCamera.View = glm::mat4(1.0f);
-	AnotherCamera.Projection = glm::perspective(glm::radians(AnotherCamera.FOVdegree),
-		this->viewPortWidth / this->viewPortHeight, AnotherCamera.near, AnotherCamera.far);
-	AnotherCamera.OurMatrix = glm::mat4(1.0f);
-
 	CameraList[AnotherCamera.CameraID] = AnotherCamera;
+
+	this->counter++;
 }
 
 void CameraManager::deleteCamera(unsigned int CameraID) {
@@ -69,21 +48,7 @@ void CameraManager::activateCamera(unsigned int CameraID) {
 	}
 }
 
-void CameraManager::setViewPort(float viewPortWidth, float viewPortHeight) {
-	this->viewPortWidth = viewPortWidth;
-	this->viewPortHeight = viewPortHeight;
-}
-
-void CameraManager::setTransV(unsigned int CameraID, glm::vec3 TransV) {
-	if (hasCamera(CameraID)) {
-		CameraList[CameraID].TransV = TransV;
-	}
-	else {
-		Logger::addLog(LOG_ERROR, "Failed to find and change TransV Camera at index: " + to_string(CameraID));
-	}
-}
-
-void CameraManager::setFOVdegree(unsigned int CameraID, float FOVdegree) {
+void CameraManager::changeFOVdegree(unsigned int CameraID, float FOVdegree) {
 	if (hasCamera(CameraID)) {
 		CameraList[CameraID].FOVdegree = FOVdegree;
 	}
@@ -92,7 +57,7 @@ void CameraManager::setFOVdegree(unsigned int CameraID, float FOVdegree) {
 	}
 }
 
-void CameraManager::setNear(unsigned int CameraID, float near) {
+void CameraManager::changeNear(unsigned int CameraID, float near) {
 	if (hasCamera(CameraID)) {
 		CameraList[CameraID].near = near;
 	}
@@ -101,7 +66,7 @@ void CameraManager::setNear(unsigned int CameraID, float near) {
 	}
 }
 
-void CameraManager::setFar(unsigned int CameraID, float far) {
+void CameraManager::changeFar(unsigned int CameraID, float far) {
 	if (hasCamera(CameraID)) {
 		CameraList[CameraID].far = far;
 	}
@@ -110,10 +75,38 @@ void CameraManager::setFar(unsigned int CameraID, float far) {
 	}
 }
 
-const CameraUnit& CameraManager::getActiveCamera() {
-	return CameraList.at(activeCameraID);
+void CameraManager::changeSpeed(unsigned int CameraID, float TargetSpeed) {
+	if (hasCamera(CameraID)) {
+		CameraList[CameraID].cameraSpeed = TargetSpeed;
+	}
+	else {
+		Logger::addLog(LOG_ERROR, "Failed to find and change speed Camera at index: " + to_string(CameraID));
+	}
 }
 
-glm::mat4& CameraManager::getCameraMatrix(unsigned int CameraID) {
-	return CameraList.at(CameraID).OurMatrix;
+void CameraManager::changePos(unsigned int CameraID, Movement direction) {
+	if (hasCamera(CameraID)) {
+		switch (direction)
+		{
+		case Forward:
+			CameraList[CameraID].cameraPos += CameraList[CameraID].cameraSpeed * CameraList[CameraID].cameraFront;
+			break;
+		case Back:
+			CameraList[CameraID].cameraPos -= CameraList[CameraID].cameraSpeed * CameraList[CameraID].cameraFront;
+			break;
+		case Right:
+			CameraList[CameraID].cameraPos += CameraList[CameraID].cameraSpeed * CameraList[CameraID].cameraRight;
+			break;
+		case Left:
+			CameraList[CameraID].cameraPos -= CameraList[CameraID].cameraSpeed * CameraList[CameraID].cameraRight;
+			break;
+		}
+	}
+	else {
+		Logger::addLog(LOG_ERROR, "Failed to find and change position Camera at index: " + to_string(CameraID));
+	}
+}
+
+const CameraUnit& CameraManager::getActiveCamera() {
+	return CameraList.at(activeCameraID);
 }

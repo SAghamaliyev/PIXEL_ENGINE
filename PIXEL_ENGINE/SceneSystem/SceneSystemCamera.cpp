@@ -8,25 +8,22 @@ void SceneSystem::deleteSceneCamera(unsigned int CameraID) {
 	OurCameraManager.deleteCamera(CameraID);
 }
 
-void SceneSystem::setSceneViewPort(float viewPortWidth, float viewPortHeight) {
-	OurCameraManager.setViewPort(viewPortWidth, viewPortHeight);
+void SceneSystem::changeFOVdegreeCamera(unsigned int CameraID, float FOVdegree) {
+	OurCameraManager.changeFOVdegree(CameraID, FOVdegree);
 }
 
-void SceneSystem::changeTranslateCamera(unsigned int CameraID, glm::vec3 TransV) {
-	OurCameraManager.setTransV(CameraID, TransV);
-
-	auto& it = OurCameraManager.getCameraMatrix(CameraID);
-	OurTransformManager.ReTransformCamera(it, TransV);
+void SceneSystem::changeNearCamera(unsigned int CameraID, float near) {
+	OurCameraManager.changeNear(CameraID, near);
 }
 
-void SceneSystem::setFOVdegreeCamera(unsigned int CameraID, float FOVdegree) {
-	OurCameraManager.setFOVdegree(CameraID, FOVdegree);
+void SceneSystem::changeFarCamera(unsigned int CameraID, float far) {
+	OurCameraManager.changeFar(CameraID, far);
 }
 
-void SceneSystem::setNearCamera(unsigned int CameraID, float near) {
-	OurCameraManager.setNear(CameraID, near);
+void SceneSystem::changeSpeedCamera(unsigned int CameraID, float targetSpeed) {
+	OurCameraManager.changeSpeed(CameraID, targetSpeed);
 }
 
-void SceneSystem::setFarCamera(unsigned int CameraID, float far) {
-	OurCameraManager.setFar(CameraID, far);
+void  SceneSystem::changePosCamera(unsigned int CameraID, Movement direction) {
+	OurCameraManager.changePos(CameraID, direction);
 }
