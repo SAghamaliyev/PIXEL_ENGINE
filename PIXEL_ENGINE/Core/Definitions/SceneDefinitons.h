@@ -61,6 +61,19 @@ struct EntityUnit {
     bool isColorActive;	// Should we add color to it or not(defaultly no)
 };
 
+struct CameraTransform {
+    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);    // Position of the camera in world space
+    glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);  // Normalized forward direction vector of the camera
+    glm::vec3 cameraRight = glm::vec3(1.0f, 0.0f, 0.0f);  // Normalized right direction vector (local X axis)
+    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);     // Normalized up direction vector (local Y axis)
+};
+
+struct CameraSettings {
+    float FOVdegree = 45.0f;
+    float near = 0.1f;
+    float far = 100.0f;
+};
+
 struct CameraUnit {
     unsigned int CameraID = 0;
 
@@ -70,14 +83,9 @@ struct CameraUnit {
     // We add this matrix to stop rendering other parts of screen which are out of our view
     glm::mat4 Projection = glm::mat4(1.0f);
 
-    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);    // Position of the camera in world space
-    glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);  // Normalized forward direction vector of the camera
-    glm::vec3 cameraRight = glm::vec3(1.0f, 0.0f, 0.0f);  // Normalized right direction vector (local X axis)
-    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);     // Normalized up direction vector (local Y axis)
+    CameraTransform TransformInfo;
+    CameraSettings SettingsInfo;
 
-    float FOVdegree = 45.0f;
-    float near = 0.1f;
-    float far = 100.0f;
     float cameraSpeed = 0.05f;
 };
 

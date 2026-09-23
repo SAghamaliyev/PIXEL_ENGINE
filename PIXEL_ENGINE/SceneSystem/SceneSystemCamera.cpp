@@ -9,21 +9,86 @@ void SceneSystem::deleteSceneCamera(unsigned int CameraID) {
 }
 
 void SceneSystem::changeFOVdegreeCamera(unsigned int CameraID, float FOVdegree) {
-	OurCameraManager.changeFOVdegree(CameraID, FOVdegree);
+
+	try{
+		OurCameraManager.changeFOVdegree(CameraID, FOVdegree);
+
+		auto& settings_info = OurCameraManager.getCameraSettings(CameraID);
+		auto& projection_matrix = OurCameraManager.getCameraProj(CameraID);
+
+		OurTransformManager.TransformCameraProj(
+			projection_matrix, 
+			settings_info, 
+			this->viewPortWidth,
+			this->viewPortHeight
+		);
+	}
+	catch (const std::out_of_range& error){
+		Logger::addLog(LOG_ERROR, error.what());
+	}
 }
 
 void SceneSystem::changeNearCamera(unsigned int CameraID, float near) {
-	OurCameraManager.changeNear(CameraID, near);
+
+	try {
+		OurCameraManager.changeNear(CameraID, near);
+
+		auto& settings_info = OurCameraManager.getCameraSettings(CameraID);
+		auto& projection_matrix = OurCameraManager.getCameraProj(CameraID);
+
+		OurTransformManager.TransformCameraProj(
+			projection_matrix,
+			settings_info,
+			this->viewPortWidth,
+			this->viewPortHeight
+		);
+	}
+	catch (const std::out_of_range& error) {
+		Logger::addLog(LOG_ERROR, error.what());
+	}
 }
 
 void SceneSystem::changeFarCamera(unsigned int CameraID, float far) {
-	OurCameraManager.changeFar(CameraID, far);
+
+	try {
+		OurCameraManager.changeFar(CameraID, far);
+
+		auto& settings_info = OurCameraManager.getCameraSettings(CameraID);
+		auto& projection_matrix = OurCameraManager.getCameraProj(CameraID);
+
+		OurTransformManager.TransformCameraProj(
+			projection_matrix,
+			settings_info,
+			this->viewPortWidth,
+			this->viewPortHeight
+		);
+	}
+	catch (const std::out_of_range& error) {
+		Logger::addLog(LOG_ERROR, error.what());
+	}
 }
 
 void SceneSystem::changeSpeedCamera(unsigned int CameraID, float targetSpeed) {
-	OurCameraManager.changeSpeed(CameraID, targetSpeed);
+	
+	try{
+		OurCameraManager.changeSpeed(CameraID, targetSpeed);
+	}
+	catch (const std::out_of_range& error) {
+		Logger::addLog(LOG_ERROR, error.what());
+	}
 }
 
 void  SceneSystem::changePosCamera(unsigned int CameraID, Movement direction) {
-	OurCameraManager.changePos(CameraID, direction);
+
+	try {
+		OurCameraManager.changePos(CameraID, direction);
+
+		auto& transform_info = OurCameraManager.getCameraTransform(CameraID);
+		auto& view_matrix = OurCameraManager.getCameraView(CameraID);
+
+		OurTransformManager.TransformCameraView(view_matrix, transform_info);
+	}
+	catch (const std::out_of_range& error) {
+		Logger::addLog(LOG_ERROR, error.what());
+	}
 }

@@ -12,6 +12,9 @@ private:
 	CameraManager OurCameraManager;
 
 	SceneInfo OurSceneInfo;
+
+	float viewPortWidth;
+	float viewPortHeight;
 public:
 	// SceneSystem 
 	SceneSystem(float viewPortWidth, float viewPortHeight);

@@ -43,14 +43,14 @@ void SceneSystem::changeTranslateEntity(unsigned int EntityID, const glm::vec3& 
 	OurEntityManager.changeTranslate(EntityID, TranslateV);
 
 	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
-	OurTransformManager.ReTransformEntity(TempInfo);
+	OurTransformManager.TransformEntity(TempInfo);
 }
 
 void SceneSystem::changeRotateEntity(unsigned int EntityID, const glm::vec3& RotateV) {
 	OurEntityManager.changeRotate(EntityID, RotateV);
 
 	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
-	OurTransformManager.ReTransformEntity(TempInfo);
+	OurTransformManager.TransformEntity(TempInfo);
 }
 
 void SceneSystem::changeScaleEntity(unsigned int EntityID, const glm::vec3& ScaleV) {
@@ -68,7 +68,7 @@ void SceneSystem::changeScaleEntity(unsigned int EntityID, const glm::vec3& Scal
 	OurEntityManager.changeScale(EntityID, clampedScale);
 
 	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
-	OurTransformManager.ReTransformEntity(TempInfo);
+	OurTransformManager.TransformEntity(TempInfo);
 }
 
 void SceneSystem::activateColorEntity(unsigned int EntityID) {

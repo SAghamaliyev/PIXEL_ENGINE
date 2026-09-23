@@ -36,19 +36,29 @@ void TransformManager::Scale(glm::mat4& OurMatrix, const glm::vec3& ScaleV) {
     OurMatrix = glm::scale(OurMatrix, ScaleV);
 }
 
-void TransformManager::ReTransformEntity(Transform& TransformInfo) {
+void TransformManager::TransformEntity(Transform& TransformInfo) {
     ResetMatrix(TransformInfo.OurMatrix);
     Translate(TransformInfo.OurMatrix, TransformInfo.TranslateV);
     Rotate(TransformInfo.OurMatrix, TransformInfo.RotateV);
     Scale(TransformInfo.OurMatrix, TransformInfo.ScaleV);
 }
 
-void TransformManager::ReTransformCamera(glm::mat4& ViewMatrix, glm::mat4& ProjectionMatrix, 
-                                         glm::vec3& cameraPos, glm::vec3& cameraFront,
-                                         glm::vec3& cameraUp, float FOVdegree,
-                                         float near, float far,
-                                         float viewPortWidth, float viewPortHeight) {
-    
-    ViewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    ProjectionMatrix = glm::perspective(glm::radians(FOVdegree), viewPortWidth / viewPortHeight, near, far);
+void TransformManager::TransformCameraView(glm::mat4& ViewMatrix, CameraTransform& TransformInfo) {
+
+    ViewMatrix = glm::lookAt(
+        TransformInfo.cameraPos,
+        TransformInfo.cameraPos + TransformInfo.cameraFront,
+        TransformInfo.cameraUp
+    );
+}
+
+void TransformManager::TransformCameraProj(glm::mat4& ProjectionMatrix, CameraSettings& SettingsInfo,
+                                           float viewPortWidth, float viewPortHeight) {
+
+    ProjectionMatrix = glm::perspective(
+        glm::radians(SettingsInfo.FOVdegree),
+        viewPortWidth / viewPortHeight,
+        SettingsInfo.near,
+        SettingsInfo.far
+    );
 }

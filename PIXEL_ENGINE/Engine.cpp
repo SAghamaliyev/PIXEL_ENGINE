@@ -127,7 +127,14 @@ void Engine::processEditorEvents() {
         case EditorEventType::SetGizmoOperation:
             OurEditorUI->setGizmoOperation(event.info.gizmoOperation);
             continue;
+        
+        case EditorEventType::CameraMoveForward:
+            OurSceneSystem->changePosCamera(event.info.entityID, Forward);
+            continue;
 
+        case EditorEventType::CameraMoveBackward:
+            OurSceneSystem->changePosCamera(event.info.entityID, Back);
+            continue;
         }
     }
 }
@@ -210,7 +217,7 @@ void Engine::run() {
         
         // 3. Рисуем сцену ТОЛЬКО в этом кармане! Твой треугольник будет здесь
         OurRenderSystem->renderScene(OurSceneSystem->getSceneInfo());
-        OurSceneSystem->SceneUpdate();
+        OurSceneSystem->SceneUpdate(screenW, screenH);
 
         // 4. Возвращаем Viewport обратно на ВЕСЬ экран, чтобы UI рисовался правильно
         glfwGetFramebufferSize(OurWindow, &screenW, &screenH);

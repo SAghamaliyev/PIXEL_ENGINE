@@ -8,7 +8,7 @@ void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	CameraUnit OurCamera = OurSceneInfo.OurActiveCamera;
+	const CameraUnit& OurCamera = OurSceneInfo.OurActiveCamera;
 
 	for (const auto& Entity : OurSceneInfo.EntityList) {
 		

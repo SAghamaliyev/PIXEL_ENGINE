@@ -8,6 +8,9 @@ private:
 	void Rotate(glm::mat4& OurMatrix, const glm::vec3& RotateV);
 	void Scale(glm::mat4& OurMatrix, const glm::vec3& ScaleV);
 public:
-	void ReTransformEntity(Transform& TransformInfo);
-	void ReTransformCamera(glm::mat4& OurMatrix, glm::vec3& TransV);
+	void TransformEntity(Transform& TransformInfo);
+
+	void TransformCameraView(glm::mat4& ViewMatrix, CameraTransform& TransformInfo);
+	void TransformCameraProj(glm::mat4& ProjectionMatrix, CameraSettings& SettingsInfo, 
+							 float viewPortWidth, float viewPortHeight);
 };

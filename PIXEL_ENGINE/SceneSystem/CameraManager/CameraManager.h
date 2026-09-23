@@ -17,6 +17,8 @@ private:
 	unsigned int counter = 0;
 	std::unordered_map <unsigned int, CameraUnit> CameraList;
 	unsigned int activeCameraID;
+	float viewPortWidth = 800.0f;
+	float viewPortHeight = 600.0f;
 
 	bool hasCamera(unsigned int CameraID);
 public:
@@ -36,4 +38,10 @@ public:
 
 	// Getters
 	const CameraUnit& getActiveCamera();
+
+	CameraSettings& getCameraSettings(unsigned int CameraID);
+	CameraTransform& getCameraTransform(unsigned int CameraID);
+
+	glm::mat4& getCameraView(unsigned int CameraID);
+	glm::mat4& getCameraProj(unsigned int CameraID);
 };
