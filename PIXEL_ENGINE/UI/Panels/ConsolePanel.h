@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../EditorLayout.h"
-#include "../../Core/EventSystem/EventSystem.h"
+#include "../Layout/EditorLayout.h"
+#include "../../Core/EventSystem/EventTypes.h"
 #include "../../Core/Logger/Logger.h"
 
 #include <string>
@@ -29,5 +29,4 @@ private:
     bool m_scrollToBottom = true;
 
     void updateLogsFromBuffer();
-    void pushEvent(const EditorEvent& event);
 };

@@ -1,17 +1,13 @@
 #pragma once
 
-#include "../EditorLayout.h"
-#include "../../Core/EventSystem/EventSystem.h"
+#include "../Layout/EditorLayout.h"
+#include "../../Core/EventSystem/EventTypes.h"
 
 #include <string>
 #include <vector>
 
-class ConsolePanel;
-
 class ContentBrowserPanel {
 public:
-    void setConsole(ConsolePanel* console);
-
     void draw(const EditorLayout& layout);
 
     bool isVisible() const { return m_visible; }
@@ -20,7 +16,6 @@ public:
     void setTextureSelectionMode(bool enabled, unsigned int entityID = 0);
 
 private:
-    ConsolePanel* m_console = nullptr;
     bool m_visible = true;
 
     bool m_textureSelectionMode = false;
@@ -37,5 +32,4 @@ private:
     void registerTexture();
     void queueAddObjectEvent(const std::string& metaPath, const std::string& filename, const std::string& stem);
     void queueAssignTextureEvent(const std::string& metaPath, const std::string& filename, const std::string& stem);
-    void pushEvent(const EditorEvent& event);
 };

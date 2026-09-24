@@ -1,10 +1,11 @@
 #include "ContentBrowserPanel.h"
-#include "ConsolePanel.h"
-#include "../../Core/Logger/Logger.h"
 
+#include "../Theme/EditorTheme.h"
+#include "../../Core/EventSystem/EventSystem.h"
+#include "../../Core/Logger/Logger.h"
 #include "../Materials/imgui.h"
 
-#include <algorithm>
+#include <cstring>
 #include <filesystem>
 #include <fstream>
 
@@ -15,11 +16,6 @@
 
 namespace {
 
-bool isModelExtension(const std::filesystem::path& path) {
-    const std::filesystem::path ext = path.extension();
-    return ext == ".obj" || ext == ".fbx";
-}
-
 bool isObjExtension(const std::filesystem::path& path) {
     return path.extension() == ".obj";
 }
@@ -29,10 +25,6 @@ bool isTextureExtension(const std::filesystem::path& path) {
     return ext == ".png" || ext == ".jpg" || ext == ".jpeg";
 }
 
-}
-
-void ContentBrowserPanel::setConsole(ConsolePanel* console) {
-    m_console = console;
 }
 
 void ContentBrowserPanel::setTextureSelectionMode(bool enabled, unsigned int entityID) {
@@ -53,19 +45,20 @@ void ContentBrowserPanel::draw(const EditorLayout& layout) {
     }
 
     applyPanelRect(layout.contentBrowser);
-    ImGui::Begin("Content Browser", nullptr, kEditorPanelWindowFlags);
+    ImGui::Begin("##ContentBrowser", nullptr, kEditorPanelWindowFlags);
+    EditorTheme::drawPanelHeader(
+        "Content Browser",
+        m_textureSelectionMode ? "Select a texture" : "Project files");
 
     drawToolbar();
-    ImGui::Separator();
+    ImGui::Dummy(ImVec2(0.0f, 2.0f));
 
     ImGui::Columns(2, "ContentBrowserColumns", true);
-    ImGui::SetColumnWidth(0, 150.0f);
+    ImGui::SetColumnWidth(0, 168.0f);
 
     drawFolderTree();
-
     ImGui::NextColumn();
     drawFileView();
-
     ImGui::Columns(1);
     ImGui::End();
 }
@@ -109,11 +102,11 @@ void ContentBrowserPanel::drawToolbar() {
     }
 
     ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-    ImGui::InputTextWithHint("##Search", "Search...", m_searchBuffer, sizeof(m_searchBuffer));
+    ImGui::InputTextWithHint("##Search", "Search assets...", m_searchBuffer, sizeof(m_searchBuffer));
 }
 
 void ContentBrowserPanel::drawFolderTree() {
-    ImGui::BeginChild("FolderTree", ImVec2(0, 0), false);
+    ImGui::BeginChild("FolderTree", ImVec2(0, 0), true);
 
     std::filesystem::create_directories("src/objects");
     std::filesystem::create_directories("src/Textures");
@@ -155,7 +148,7 @@ void ContentBrowserPanel::registerObject() {
             event.type = EditorEventType::RegisterObject;
             event.info.path = selectedPath.string();
             event.info.name = selectedPath.filename().string();
-            pushEvent(event);
+            EventSystem::pushEvent(event);
             Logger::addLog(LOG_INFO,
                 "Object registration queued for " + event.info.name + ".");
         }
@@ -184,7 +177,7 @@ void ContentBrowserPanel::registerTexture() {
             event.type = EditorEventType::RegisterTexture;
             event.info.path = selectedPath.string();
             event.info.name = selectedPath.filename().string();
-            pushEvent(event);
+            EventSystem::pushEvent(event);
             Logger::addLog(LOG_INFO,
                 "Texture registration queued for " + event.info.name + ".");
         }
@@ -196,7 +189,7 @@ void ContentBrowserPanel::registerTexture() {
 }
 
 void ContentBrowserPanel::drawFileView() {
-    ImGui::BeginChild("FileView", ImVec2(0, 0), false);
+    ImGui::BeginChild("FileView", ImVec2(0, 0), true);
 
     const float iconSize = 32.0f;
     const float rowHeight = iconSize + 8.0f;
@@ -209,7 +202,6 @@ void ContentBrowserPanel::drawFileView() {
             }
 
             if (!m_textureSelectionMode) {
-                // Normal mode - show objects (OBJ files with .meta)
                 if (entry.path().extension() != ".meta") {
                     continue;
                 }
@@ -226,13 +218,13 @@ void ContentBrowserPanel::drawFileView() {
                 ImGui::PushID(i++);
 
                 if (isSelected) {
-                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.3f, 0.5f, 0.8f, 0.3f));
+                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.24f, 0.42f, 0.62f, 0.35f));
                 }
 
                 ImGui::BeginChild(("##item" + std::to_string(i)).c_str(), ImVec2(ImGui::GetContentRegionAvail().x, rowHeight), true);
                 ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 4.0f);
 
-                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.7f, 0.9f, 1.0f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.70f, 0.86f, 1.0f, 1.0f));
                 ImGui::Text("[OBJ]");
                 ImGui::PopStyleColor();
                 ImGui::SameLine(0, 12.0f);
@@ -263,14 +255,12 @@ void ContentBrowserPanel::drawFileView() {
 
                 ImGui::PopID();
             } else {
-                // Texture selection mode - show textures (image files with .meta)
                 if (entry.path().extension() != ".meta") {
                     continue;
                 }
 
-                // Check if the corresponding image file exists
                 const std::string metaPath = entry.path().string();
-                const std::string texturePath = metaPath.substr(0, metaPath.length() - 5); // Remove ".meta"
+                const std::string texturePath = metaPath.substr(0, metaPath.length() - 5);
                 if (!isTextureExtension(std::filesystem::path(texturePath))) {
                     continue;
                 }
@@ -286,13 +276,13 @@ void ContentBrowserPanel::drawFileView() {
                 ImGui::PushID(i++);
 
                 if (isSelected) {
-                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.3f, 0.5f, 0.8f, 0.3f));
+                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.24f, 0.42f, 0.62f, 0.35f));
                 }
 
                 ImGui::BeginChild(("##item" + std::to_string(i)).c_str(), ImVec2(ImGui::GetContentRegionAvail().x, rowHeight), true);
                 ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 4.0f);
 
-                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.8f, 0.3f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.82f, 0.38f, 1.0f));
                 ImGui::Text("[TEX]");
                 ImGui::PopStyleColor();
                 ImGui::SameLine(0, 12.0f);
@@ -318,7 +308,7 @@ void ContentBrowserPanel::drawFileView() {
             }
         }
     } catch (...) {
-        ImGui::TextColored(ImVec4(1, 0, 0, 1), "Error reading directory");
+        ImGui::TextColored(ImVec4(1, 0.4f, 0.4f, 1), "Error reading directory");
     }
 
     ImGui::EndChild();
@@ -354,7 +344,7 @@ void ContentBrowserPanel::queueAddObjectEvent(const std::string& path, const std
     event.type = EditorEventType::AddObject;
     event.info.meshID = meshID;
     event.info.name = stem;
-    pushEvent(event);
+    EventSystem::pushEvent(event);
 
     Logger::addLog(LOG_INFO, "Add object event queued for " + filename + ".");
 }
@@ -391,19 +381,15 @@ void ContentBrowserPanel::queueAssignTextureEvent(const std::string& metaPath, c
     event.info.entityID = m_selectedEntityIDForTexture;
     event.info.textureID = textureID;
     event.info.name = stem;
-    pushEvent(event);
+    EventSystem::pushEvent(event);
 
     m_textureSelectionMode = false;
     m_currentDirectory = "src/objects";
     m_selectedFilePath.clear();
     memset(m_searchBuffer, 0, sizeof(m_searchBuffer));
 
-    Logger::addLog(LOG_INFO, 
-        "Assign texture event queued. Entity ID: " + std::to_string(m_selectedEntityIDForTexture) + 
-        ", Texture ID: " + std::to_string(textureID) + 
+    Logger::addLog(LOG_INFO,
+        "Assign texture event queued. Entity ID: " + std::to_string(m_selectedEntityIDForTexture) +
+        ", Texture ID: " + std::to_string(textureID) +
         ", File: " + filename + ".");
-}
-
-void ContentBrowserPanel::pushEvent(const EditorEvent& event) {
-    EventSystem::pushEvent(event);
 }

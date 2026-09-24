@@ -1,10 +1,13 @@
 #include "InspectorPanel.h"
 #include "ContentBrowserPanel.h"
 
+#include "../Theme/EditorTheme.h"
 #include "../Materials/imgui.h"
+#include "../../Core/EventSystem/EventSystem.h"
 #include "../../Core/Logger/Logger.h"
 
 #include <cstring>
+#include <string>
 
 void InspectorPanel::setEntityViews(const std::vector<EditorEntityView>* entityViews) {
     m_entityViews = entityViews;
@@ -28,46 +31,50 @@ void InspectorPanel::draw(const EditorLayout& layout) {
     }
 
     applyPanelRect(layout.inspector);
-    ImGui::Begin("Inspector", nullptr, kEditorPanelWindowFlags);
+    ImGui::Begin("##Inspector", nullptr, kEditorPanelWindowFlags);
+    EditorTheme::drawPanelHeader("Inspector", "Properties");
 
     const EditorEntityView* entity = findSelectedEntity();
     if (m_selectedEntityID < 0 || !entity) {
         m_lastSelectedEntityID = -1;
+        ImGui::Dummy(ImVec2(0.0f, 18.0f));
         ImGui::TextDisabled("No entity selected");
+        ImGui::TextDisabled("Pick one in Hierarchy to edit properties.");
         ImGui::End();
         return;
     }
 
-    if (m_lastSelectedEntityID != m_selectedEntityID) {
+    if (m_lastSelectedEntityID != m_selectedEntityID || !ImGui::IsAnyItemActive()) {
         syncSelectedEntityFields(*entity);
         m_lastSelectedEntityID = m_selectedEntityID;
     }
 
+    ImGui::SetNextItemWidth(-1.0f);
     if (ImGui::InputText("##EntityName", m_entityNameBuffer, sizeof(m_entityNameBuffer))) {
-        // /FLAG RenameObject: UI requests renaming the selected entity.
         EditorEvent event;
         event.type = EditorEventType::RenameObject;
         event.info.entityID = (unsigned int)m_selectedEntityID;
         event.info.name = m_entityNameBuffer;
-        pushEvent(event);
+        EventSystem::pushEvent(event);
     }
 
-    ImGui::Text("Entity ID: %d", m_selectedEntityID);
-    ImGui::Separator();
+    ImGui::TextDisabled("ID  %d", m_selectedEntityID);
+    ImGui::Dummy(ImVec2(0.0f, 4.0f));
 
-    const char* gizmoNames[] = { "Translate", "Rotate", "Scale" };
+    const char* gizmoNames[] = { "Move", "Rotate", "Scale" };
     int gizmoIndex = (int)m_gizmoOperation;
-    if (ImGui::Combo("Gizmo", &gizmoIndex, gizmoNames, IM_ARRAYSIZE(gizmoNames))) {
+    ImGui::SetNextItemWidth(-1.0f);
+    if (ImGui::Combo("##Gizmo", &gizmoIndex, gizmoNames, IM_ARRAYSIZE(gizmoNames))) {
         EditorEvent event;
         event.type = EditorEventType::SetGizmoOperation;
         event.info.gizmoOperation = (EditorGizmoOperation)gizmoIndex;
-        pushEvent(event);
+        EventSystem::pushEvent(event);
     }
 
     if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
-        const bool positionChanged = ImGui::DragFloat3("Position", m_position, 0.01f);
-        const bool rotationChanged = ImGui::DragFloat3("Rotation", m_rotation, 0.1f);
-        const bool scaleChanged = ImGui::DragFloat3("Scale", m_scale, 0.01f);
+        const bool positionChanged = drawVec3("Position", m_position, 0.01f);
+        const bool rotationChanged = drawVec3("Rotation", m_rotation, 0.1f);
+        const bool scaleChanged = drawVec3("Scale", m_scale, 0.01f);
 
         if (scaleChanged) {
             for (float& scaleValue : m_scale) {
@@ -84,34 +91,23 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             event.info.position = EditorVec3{ m_position[0], m_position[1], m_position[2] };
             event.info.rotation = EditorVec3{ m_rotation[0], m_rotation[1], m_rotation[2] };
             event.info.scale = EditorVec3{ m_scale[0], m_scale[1], m_scale[2] };
-            pushEvent(event);
+            EventSystem::pushEvent(event);
         };
 
         if (positionChanged) {
-            // /FLAG Translate: UI requests a translation for the selected entity.
             queueTransformEvent(EditorEventType::Translate);
         }
         if (rotationChanged) {
-            // /FLAG Rotate: UI requests a rotation for the selected entity.
             queueTransformEvent(EditorEventType::Rotate);
         }
         if (scaleChanged) {
-            // /FLAG Scale: UI requests a scale change for the selected entity.
             queueTransformEvent(EditorEventType::Scale);
         }
     }
 
-    if (ImGui::CollapsingHeader("MeshRenderer", ImGuiTreeNodeFlags_DefaultOpen)) {
-        char meshIDText[256] = "";
-        const std::string meshID = std::to_string(entity->meshID);
-        strncpy_s(meshIDText, sizeof(meshIDText), meshID.c_str(), _TRUNCATE);
-        ImGui::InputText("Mesh ID", meshIDText, sizeof(meshIDText), ImGuiInputTextFlags_ReadOnly);
-
-        char textureIDText[256] = "";
-        const std::string textureID = std::to_string(entity->textureID);
-        strncpy_s(textureIDText, sizeof(textureIDText), textureID.c_str(), _TRUNCATE);
-        ImGui::InputText("Texture ID", textureIDText, sizeof(textureIDText), ImGuiInputTextFlags_ReadOnly);
-
+    if (ImGui::CollapsingHeader("Mesh Renderer", ImGuiTreeNodeFlags_DefaultOpen)) {
+        ImGui::TextDisabled("Mesh    %llu", (unsigned long long)entity->meshID);
+        ImGui::TextDisabled("Texture %llu", (unsigned long long)entity->textureID);
         ImGui::Separator();
 
         float color[4] = {
@@ -121,17 +117,16 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             entity->color.a
         };
 
-        bool colorChanged = ImGui::ColorEdit4("Color (RGBA)", color);
+        bool colorChanged = ImGui::ColorEdit4("Color", color);
         colorChanged |= ImGui::SliderFloat("Alpha", &color[3], 0.0f, 1.0f);
 
         bool colorEnabled = entity->colorEnabled;
-        if (ImGui::Checkbox("Enable Entity Color", &colorEnabled)) {
-            // /FLAG ToggleEntityColor: UI requests enabling or disabling the entity color.
+        if (ImGui::Checkbox("Use entity color", &colorEnabled)) {
             EditorEvent event;
             event.type = EditorEventType::ToggleEntityColor;
             event.info.entityID = (unsigned int)m_selectedEntityID;
             event.info.colorEnabled = colorEnabled;
-            pushEvent(event);
+            EventSystem::pushEvent(event);
         }
 
         if (colorChanged) {
@@ -144,36 +139,33 @@ void InspectorPanel::draw(const EditorLayout& layout) {
                 }
             }
 
-            // /FLAG ChangeEntityColor: UI requests a color update for the selected entity.
             EditorEvent event;
             event.type = EditorEventType::ChangeEntityColor;
             event.info.entityID = (unsigned int)m_selectedEntityID;
             event.info.color = Color{ color[0], color[1], color[2], color[3] };
-            pushEvent(event);
+            EventSystem::pushEvent(event);
         }
 
         const char* materialNames[] = {
-            "Default", "Unlit", "PBR_Standard", "BlinnPhong",
+            "Default", "Unlit", "PBR Standard", "Blinn-Phong",
             "Glass", "Water", "Terrain", "Skybox", "Custom"
         };
         m_currentMaterial = (int)entity->ShaderID;
+        ImGui::SetNextItemWidth(-1.0f);
         if (ImGui::Combo("Material", &m_currentMaterial, materialNames, IM_ARRAYSIZE(materialNames))) {
-            // /FLAG ChangeEntityMaterial: UI requests a material change for the selected entity.
             EditorEvent event;
             event.type = EditorEventType::ChangeEntityMaterial;
             event.info.entityID = (unsigned int)m_selectedEntityID;
             event.info.ShaderID = (MaterialType)m_currentMaterial;
-            pushEvent(event);
+            EventSystem::pushEvent(event);
         }
     }
 
-    if (ImGui::CollapsingHeader("Shader", ImGuiTreeNodeFlags_DefaultOpen)) {
-        ImGui::Text("Shader Program ID: ---");
-        ImGui::TextDisabled("(determined by material type)");
+    if (ImGui::CollapsingHeader("Shader")) {
+        ImGui::TextDisabled("Program is selected by material type");
     }
 
-    ImGui::Separator();
-
+    ImGui::Dummy(ImVec2(0.0f, 6.0f));
     if (ImGui::Button("Add Component", ImVec2(-1, 0))) {
         ImGui::OpenPopup("AddComponentPopup");
     }
@@ -184,35 +176,28 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             event.type = EditorEventType::AddComponent;
             event.info.entityID = (unsigned int)m_selectedEntityID;
             event.info.componentType = componentType;
-            pushEvent(event);
+            EventSystem::pushEvent(event);
         };
 
         if (ImGui::MenuItem("RigidBody")) {
-            // /FLAG AddComponent: UI requests adding a RigidBody component.
             queueComponentEvent(EditorComponentType::RigidBody);
         }
         if (ImGui::MenuItem("Script")) {
-            // /FLAG AddComponent: UI requests adding a Script component.
             queueComponentEvent(EditorComponentType::Script);
         }
         if (ImGui::MenuItem("Collider")) {
-            // /FLAG AddComponent: UI requests adding a Collider component.
             queueComponentEvent(EditorComponentType::Collider);
         }
         if (ImGui::MenuItem("Light")) {
-            // /FLAG AddComponent: UI requests adding a Light component.
             queueComponentEvent(EditorComponentType::Light);
         }
         if (ImGui::MenuItem("Camera")) {
-            // /FLAG AddComponent: UI requests adding a Camera component.
             queueComponentEvent(EditorComponentType::Camera);
         }
         if (ImGui::MenuItem("Audio Source")) {
-            // /FLAG AddComponent: UI requests adding an AudioSource component.
             queueComponentEvent(EditorComponentType::AudioSource);
         }
         if (ImGui::MenuItem("Texture")) {
-            // /FLAG AssignTexture: UI requests texture selection for the entity.
             if (m_contentBrowser) {
                 Logger::addLog(LOG_INFO,
                     "Texture selection mode activated for Entity ID: " + std::to_string(m_selectedEntityID));
@@ -255,6 +240,31 @@ void InspectorPanel::syncSelectedEntityFields(const EditorEntityView& entity) {
     m_scale[2] = entity.scale.z;
 }
 
-void InspectorPanel::pushEvent(const EditorEvent& event) {
-    EventSystem::pushEvent(event);
+bool InspectorPanel::drawVec3(const char* label, float values[3], float speed) {
+    ImGui::TextUnformatted(label);
+
+    const char* axisLabels[] = { "X", "Y", "Z" };
+    const ImVec4 axisColors[] = {
+        ImVec4(0.78f, 0.28f, 0.28f, 1.0f),
+        ImVec4(0.32f, 0.68f, 0.36f, 1.0f),
+        ImVec4(0.28f, 0.48f, 0.86f, 1.0f)
+    };
+
+    bool changed = false;
+    const float itemWidth = (ImGui::GetContentRegionAvail().x - 16.0f) / 3.0f;
+    for (int i = 0; i < 3; ++i) {
+        ImGui::PushID(i);
+        ImGui::PushStyleColor(ImGuiCol_Button, axisColors[i]);
+        ImGui::Button(axisLabels[i], ImVec2(22.0f, 0.0f));
+        ImGui::PopStyleColor();
+        ImGui::SameLine(0.0f, 4.0f);
+        ImGui::SetNextItemWidth(itemWidth - 26.0f);
+        changed |= ImGui::DragFloat("##v", &values[i], speed);
+        ImGui::PopID();
+        if (i < 2) {
+            ImGui::SameLine();
+        }
+    }
+
+    return changed;
 }

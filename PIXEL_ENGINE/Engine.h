@@ -7,7 +7,7 @@
 #include "RenderSystem/RenderSystem.h"
 #include "SceneSystem/SceneSystem.h"
 #include "Core/Definitions/SceneDefinitons.h"
-#include "UI/EditorUI.h"
+#include "UI/UISystem.h"
 #include "Core/Logger/Logger.h"
 #include "AssetSystem/AssetSystem.h"
 #include <vector>
@@ -16,7 +16,7 @@ class Engine {
 private:
 	RenderSystem* OurRenderSystem;
 	SceneSystem* OurSceneSystem;
-	EditorUI* OurEditorUI;
+	UISystem* OurUISystem;
 	AssetSystem* OurAssetSystem;
 	InputManager OurInputManager;
 	GLFWwindow* OurWindow;

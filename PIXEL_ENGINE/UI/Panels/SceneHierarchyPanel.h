@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../EditorLayout.h"
-#include "../../Core/EventSystem/EventSystem.h"
+#include "../Layout/EditorLayout.h"
+#include "../../Core/EventSystem/EventTypes.h"
 
 #include <vector>
 
@@ -23,11 +23,9 @@ private:
     int m_selectedEntityID = -1;
 
     char m_renameBuffer[128] = "";
-    bool m_renamingEntity = false;
     int m_renamingEntityID = -1;
     bool m_openRenamePopup = false;
 
     void drawEntityList();
     void drawRenamePopup();
-    void pushEvent(const EditorEvent& event);
 };

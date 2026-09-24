@@ -36,9 +36,11 @@ void Engine::visualizeEditorEvents() {
             entity.TransformInfo.ScaleV.z
         };
 
+        view.worldMatrix = entity.TransformInfo.OurMatrix;
+
         EntityViews.push_back(view);
     }
-    OurEditorUI->setEntityViews(EntityViews);
+    OurUISystem->setEntityViews(EntityViews);
 }
 
 void Engine::processEditorEvents() {
@@ -125,7 +127,7 @@ void Engine::processEditorEvents() {
             continue;
 
         case EditorEventType::SetGizmoOperation:
-            OurEditorUI->setGizmoOperation(event.info.gizmoOperation);
+            OurUISystem->setGizmoOperation(event.info.gizmoOperation);
             continue;
         
         case EditorEventType::CameraMoveForward:
@@ -184,8 +186,8 @@ bool Engine::initailize() {
     );
     OurAssetSystem = new AssetSystem();
 
-    OurEditorUI = new EditorUI();
-    OurEditorUI->init(OurWindow, OurSceneSystem);
+    OurUISystem = new UISystem();
+    OurUISystem->init(OurWindow);
 
     return true;
 }
@@ -196,7 +198,7 @@ void Engine::run() {
 
     while (!glfwWindowShouldClose(OurWindow)) {
 
-        if (OurEditorUI->WindowShouldClose()) {
+        if (OurUISystem->WindowShouldClose()) {
             return;
         }
 
@@ -208,7 +210,7 @@ void Engine::run() {
 
         // 2. Получаем координаты кармана от UI и выставляем OpenGL Viewport
         int vX, vY, vW, vH;
-        OurEditorUI->getViewportRect(vX, vY, vW, vH);
+        OurUISystem->getViewportRect(vX, vY, vW, vH);
         glViewport(vX, vY, vW, vH);
 
         // Проверяем флаги на события и отображаем их
@@ -224,9 +226,9 @@ void Engine::run() {
         glViewport(0, 0, screenW, screenH);
 
         // 5. Отрисовываем сам UI поверх всего
-        OurEditorUI->beginFrame();
-        OurEditorUI->render();
-        OurEditorUI->endFrame();
+        OurUISystem->beginFrame();
+        OurUISystem->render();
+        OurUISystem->endFrame();
         //---------------------------------------------------------
 
         glfwSwapBuffers(OurWindow);    // у нас есть буффер для всех пикселей где какой цвет и вот его надо обновлять
@@ -237,8 +239,8 @@ void Engine::run() {
 }
 
 void Engine::terminate() {
-    OurEditorUI->shutdown();
-    delete OurEditorUI;
+    OurUISystem->shutdown();
+    delete OurUISystem;
 
     glfwTerminate();
     return;

@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../EditorLayout.h"
-#include "../../Core/EventSystem/EventSystem.h"
+#include "../Layout/EditorLayout.h"
+#include "../../Core/EventSystem/EventTypes.h"
 
 #include <vector>
 
-class ConsolePanel;
 class ContentBrowserPanel;
 
 class InspectorPanel {
@@ -36,5 +35,5 @@ private:
 
     const EditorEntityView* findSelectedEntity() const;
     void syncSelectedEntityFields(const EditorEntityView& entity);
-    void pushEvent(const EditorEvent& event);
+    bool drawVec3(const char* label, float values[3], float speed);
 };

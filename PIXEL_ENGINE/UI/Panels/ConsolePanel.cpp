@@ -1,5 +1,8 @@
 #include "ConsolePanel.h"
+
+#include "../Theme/EditorTheme.h"
 #include "../Materials/imgui.h"
+#include "../../Core/EventSystem/EventSystem.h"
 #include "../../Core/Logger/Logger.h"
 
 void ConsolePanel::draw(const EditorLayout& layout) {
@@ -10,13 +13,13 @@ void ConsolePanel::draw(const EditorLayout& layout) {
     updateLogsFromBuffer();
 
     applyPanelRect(layout.console);
-    ImGui::Begin("Console", nullptr, kEditorPanelWindowFlags);
+    ImGui::Begin("##Console", nullptr, kEditorPanelWindowFlags);
+    EditorTheme::drawPanelHeader("Console", "Output");
 
     if (ImGui::Button("Clear")) {
-        // /FLAG ClearConsole: UI requests clearing console output.
         EditorEvent event;
         event.type = EditorEventType::ClearConsole;
-        pushEvent(event);
+        EventSystem::pushEvent(event);
         clearLogs();
     }
 
@@ -29,10 +32,8 @@ void ConsolePanel::draw(const EditorLayout& layout) {
     ImGui::SameLine();
     ImGui::Checkbox("Debug", &m_filterDebug);
 
-    ImGui::Separator();
-
     const float footerHeight = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
-    ImGui::BeginChild("LogScrollRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
+    ImGui::BeginChild("LogScrollRegion", ImVec2(0, -footerHeight), true, ImGuiWindowFlags_HorizontalScrollbar);
 
     for (const LogEntry& log : m_logs) {
         if (log.type == LOG_INFO && !m_filterInfo) continue;
@@ -44,25 +45,25 @@ void ConsolePanel::draw(const EditorLayout& layout) {
         const char* prefix = "[LOG]";
         switch (log.type) {
             case LOG_INFO:
-                color = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+                color = ImVec4(0.78f, 0.80f, 0.84f, 1.0f);
                 prefix = "[INFO]";
                 break;
             case LOG_WARNING:
-                color = ImVec4(1.0f, 0.85f, 0.0f, 1.0f);
+                color = ImVec4(1.0f, 0.82f, 0.28f, 1.0f);
                 prefix = "[WARNING]";
                 break;
             case LOG_ERROR:
-                color = ImVec4(1.0f, 0.2f, 0.2f, 1.0f);
+                color = ImVec4(1.0f, 0.38f, 0.38f, 1.0f);
                 prefix = "[ERROR]";
                 break;
             case LOG_DEBUG:
-                color = ImVec4(0.5f, 0.5f, 0.5f, 1.0f);
+                color = ImVec4(0.55f, 0.58f, 0.64f, 1.0f);
                 prefix = "[DEBUG]";
                 break;
         }
 
         ImGui::PushStyleColor(ImGuiCol_Text, color);
-        ImGui::TextWrapped("%s %s", prefix, log.message.c_str());
+        ImGui::TextWrapped("%s  %s", prefix, log.message.c_str());
         ImGui::PopStyleColor();
     }
 
@@ -72,20 +73,17 @@ void ConsolePanel::draw(const EditorLayout& layout) {
 
     ImGui::EndChild();
 
-    ImGui::Separator();
-
     bool reclaimFocus = false;
     ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_EnterReturnsTrue;
     ImGui::SetNextItemWidth(-1);
-    if (ImGui::InputText("##ConsoleInput", m_commandBuffer, sizeof(m_commandBuffer), inputFlags)) {
+    if (ImGui::InputTextWithHint("##ConsoleInput", "Enter command...", m_commandBuffer, sizeof(m_commandBuffer), inputFlags)) {
         if (m_commandBuffer[0] != '\0') {
             const std::string command = m_commandBuffer;
 
-            // /FLAG SubmitConsoleCommand: UI requests command execution outside the UI layer.
             EditorEvent event;
             event.type = EditorEventType::SubmitConsoleCommand;
             event.info.message = command;
-            pushEvent(event);
+            EventSystem::pushEvent(event);
 
             Logger::addLog(LOG_INFO, std::string("> ") + command);
             m_commandBuffer[0] = '\0';
@@ -115,8 +113,4 @@ void ConsolePanel::updateLogsFromBuffer() {
 void ConsolePanel::clearLogs() {
     m_logs.clear();
     Logger::clearLogs();
-}
-
-void ConsolePanel::pushEvent(const EditorEvent& event) {
-    EventSystem::pushEvent(event);
 }
