@@ -1,4 +1,4 @@
-﻿#include "MeshManager.h"
+#include "MeshManager.h"
 
 #include <cstdint>
 #include <filesystem>
@@ -88,7 +88,7 @@ MeshInfo MeshManager::makeMesh(uint64_t MeshID) {
 
     MeshInfo result;
 
-    result = { true, VAO, VBO_Pos, VBO_Tex, EBO, (unsigned int)indices.size(), (unsigned int) textures.size()};
+    result = { true, VAO, VBO_Pos, VBO_Tex, EBO, indices.size(), textures.size() };
 
     return result;
 }

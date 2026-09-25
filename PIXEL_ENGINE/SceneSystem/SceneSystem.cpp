@@ -2,8 +2,13 @@
 
 SceneSystem::SceneSystem(float viewPortWidth, float viewPortHeight)
 	:OurCameraManager(viewPortWidth, viewPortHeight)
-	,OurSceneInfo{OurEntityManager.getEntityList(),OurCameraManager.getActiveCamera()}	// Must be initialized before creating SceneSystem
+	,OurSceneInfo{OurEntityManager.getEntityList(),
+				  OurEntityManager.getActiveEntityID(),
+				  OurCameraManager.getCameraList(),
+				  OurCameraManager.getActiveCamera()}	// Must be initialized before creating SceneSystem
 {
+	this->viewPortWidth = viewPortWidth;
+	this->viewPortHeight = viewPortHeight;
 }
 
 const SceneInfo& SceneSystem::getSceneInfo() const {

@@ -4,43 +4,58 @@
 using namespace std;
 
 void Engine::visualizeEditorEvents() {
-    vector<EditorEntityView> EntityViews;
-    const auto& TempList = OurSceneSystem->getSceneInfo().EntityList;
 
-    for (const auto& element : TempList) {
+    const auto& SceneInfo = OurSceneSystem->getSceneInfo();
+    const auto& EntityList = SceneInfo.EntityList;
+
+    vector<EditorHierarchyView> hierarchyViews;
+
+    // We giving to hierarchy all active entities names and IDs, so we can show them in hierarchy tree
+    for (const auto& element : EntityList) {
         const auto& entity = element.second;
-        EditorEntityView view;
 
         if (!entity.isActive) continue;
+        
+        hierarchyViews.push_back(EditorHierarchyView{ entity.EntityID, entity.name });
+    } 
 
-        view.entityID = entity.EntityID;
-        view.meshID = entity.MeshID;
-        view.textureID = entity.TextureID;
-        view.color = entity.color;
-        view.colorEnabled = entity.isColorActive;
-        view.ShaderID = entity.ShaderID;
-        view.name = entity.name;
-        view.position = EditorVec3{
-            entity.TransformInfo.TranslateV.x,
-            entity.TransformInfo.TranslateV.y,
-            entity.TransformInfo.TranslateV.z
-        };
-        view.rotation = EditorVec3{
-            entity.TransformInfo.RotateV.x,
-            entity.TransformInfo.RotateV.y,
-            entity.TransformInfo.RotateV.z
-        };
-        view.scale = EditorVec3{
-            entity.TransformInfo.ScaleV.x,
-            entity.TransformInfo.ScaleV.y,
-            entity.TransformInfo.ScaleV.z
-        };
+    OurUISystem->setHierarchyViews(hierarchyViews);
 
-        view.worldMatrix = entity.TransformInfo.OurMatrix;
-
-        EntityViews.push_back(view);
+    if (SceneInfo.OurActiveEntityID < 1) {
+        OurUISystem->clearSelectedEntityView();
+        return;
     }
-    OurUISystem->setEntityViews(EntityViews);
+
+    // We must give data about selected Entity
+    const auto& selectedEntity = EntityList.at(SceneInfo.OurActiveEntityID);
+
+    EditorEntityView view;
+
+    view.entityID = selectedEntity.EntityID;
+    view.meshID = selectedEntity.MeshID;
+    view.textureID = selectedEntity.TextureID;
+    view.color = selectedEntity.color;
+    view.colorEnabled = selectedEntity.isColorActive;
+    view.ShaderID = selectedEntity.ShaderID;
+    view.name = selectedEntity.name;
+    view.position = EditorVec3{
+        selectedEntity.TransformInfo.TranslateV.x,
+        selectedEntity.TransformInfo.TranslateV.y,
+        selectedEntity.TransformInfo.TranslateV.z
+    };
+    view.rotation = EditorVec3{
+        selectedEntity.TransformInfo.RotateV.x,
+        selectedEntity.TransformInfo.RotateV.y,
+        selectedEntity.TransformInfo.RotateV.z
+    };
+    view.scale = EditorVec3{
+        selectedEntity.TransformInfo.ScaleV.x,
+        selectedEntity.TransformInfo.ScaleV.y,
+        selectedEntity.TransformInfo.ScaleV.z
+    };
+    view.worldMatrix = selectedEntity.TransformInfo.OurMatrix;
+
+    OurUISystem->setSelectedEntityView(view);
 }
 
 void Engine::processEditorEvents() {
@@ -94,6 +109,7 @@ void Engine::processEditorEvents() {
             continue;
 
         case EditorEventType::ClearScene:
+            m_selectedEntityID = -1;
             OurSceneSystem->SceneClearEntityList();
             Logger::addLog(LOG_INFO, "Scene was cleared successfully\n");
             continue;
@@ -126,10 +142,23 @@ void Engine::processEditorEvents() {
             glfwSetWindowShouldClose(OurWindow, GLFW_TRUE);
             continue;
 
-        case EditorEventType::SetGizmoOperation:
-            OurUISystem->setGizmoOperation(event.info.gizmoOperation);
+        case EditorEventType::GiveEntityInfo:
+            m_selectedEntityID = event.info.entityID;
+            OurSceneSystem->MakeActiveEntity(m_selectedEntityID);
             continue;
-        
+
+        case EditorEventType::SetGizmoTranslate:
+            OurUISystem->setGizmoOperation(EditorGizmoOperation::Translate);
+            continue;
+
+        case EditorEventType::SetGizmoRotate:
+            OurUISystem->setGizmoOperation(EditorGizmoOperation::Rotate);
+            continue;
+
+        case EditorEventType::SetGizmoScale:
+            OurUISystem->setGizmoOperation(EditorGizmoOperation::Scale);
+            continue;
+
         case EditorEventType::CameraMoveForward:
             OurSceneSystem->changePosCamera(event.info.entityID, Forward);
             continue;
@@ -219,7 +248,7 @@ void Engine::run() {
         
         // 3. Рисуем сцену ТОЛЬКО в этом кармане! Твой треугольник будет здесь
         OurRenderSystem->renderScene(OurSceneSystem->getSceneInfo());
-        OurSceneSystem->SceneUpdate(screenW, screenH);
+        OurSceneSystem->SceneUpdate(static_cast<float>(screenW), static_cast<float>(screenH));
 
         // 4. Возвращаем Viewport обратно на ВЕСЬ экран, чтобы UI рисовался правильно
         glfwGetFramebufferSize(OurWindow, &screenW, &screenH);

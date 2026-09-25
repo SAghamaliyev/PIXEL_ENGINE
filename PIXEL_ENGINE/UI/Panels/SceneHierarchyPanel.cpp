@@ -7,8 +7,8 @@
 
 #include <cstring>
 
-void SceneHierarchyPanel::setEntityViews(const std::vector<EditorEntityView>* entityViews) {
-    m_entityViews = entityViews;
+void SceneHierarchyPanel::setHierarchyViews(const std::vector<EditorHierarchyView>* hierarchyViews) {
+    m_hierarchyViews = hierarchyViews;
 }
 
 void SceneHierarchyPanel::draw(const EditorLayout& layout) {
@@ -36,9 +36,8 @@ void SceneHierarchyPanel::draw(const EditorLayout& layout) {
         if (m_selectedEntityID >= 0) {
             EditorEvent event;
             event.type = EditorEventType::DeleteObject;
-            event.info.entityID = (unsigned int)m_selectedEntityID;
+            event.info.entityID = m_selectedEntityID;
             EventSystem::pushEvent(event);
-            m_selectedEntityID = -1;
         }
     }
     ImGui::PopStyleColor(2);
@@ -53,20 +52,20 @@ void SceneHierarchyPanel::draw(const EditorLayout& layout) {
 }
 
 void SceneHierarchyPanel::drawEntityList() {
-    if (!m_entityViews) {
+    if (!m_hierarchyViews) {
         return;
     }
 
-    if (m_entityViews->empty()) {
+    if (m_hierarchyViews->empty()) {
         ImGui::Dummy(ImVec2(0.0f, 18.0f));
         ImGui::TextDisabled("Scene is empty");
         ImGui::TextDisabled("Add an entity or double-click an object in Content.");
         return;
     }
 
-    for (const EditorEntityView& entity : *m_entityViews) {
-        const unsigned int id = entity.entityID;
-        const bool isSelected = (m_selectedEntityID == (int)id);
+    for (const EditorHierarchyView& entity : *m_hierarchyViews) {
+        const long id = entity.entityID;
+        const bool isSelected = (m_selectedEntityID == id);
 
         ImGuiTreeNodeFlags flags =
             ImGuiTreeNodeFlags_OpenOnArrow |
@@ -78,16 +77,20 @@ void SceneHierarchyPanel::drawEntityList() {
             flags |= ImGuiTreeNodeFlags_Selected;
         }
 
-        ImGui::PushID((int)id);
+        ImGui::PushID(id);
         ImGui::TreeNodeEx("##entity", flags, "%s", entity.name.c_str());
         if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen()) {
-            m_selectedEntityID = (int)id;
+            m_selectedEntityID = id;
+            EditorEvent event;
+            event.type = EditorEventType::GiveEntityInfo;
+            event.info.entityID = id;
+            EventSystem::pushEvent(event);
         }
 
         if (ImGui::BeginPopupContextItem()) {
             if (ImGui::MenuItem("Rename")) {
                 m_openRenamePopup = true;
-                m_renamingEntityID = (int)id;
+                m_renamingEntityID = id;
                 strncpy_s(m_renameBuffer, sizeof(m_renameBuffer), entity.name.c_str(), _TRUNCATE);
             }
 
@@ -103,16 +106,13 @@ void SceneHierarchyPanel::drawEntityList() {
                 event.type = EditorEventType::DeleteObject;
                 event.info.entityID = id;
                 EventSystem::pushEvent(event);
-                if (m_selectedEntityID == (int)id) {
-                    m_selectedEntityID = -1;
-                }
             }
 
             ImGui::EndPopup();
         }
 
         ImGui::SameLine(ImGui::GetWindowContentRegionMax().x - 48.0f);
-        ImGui::TextDisabled("#%u", id);
+        ImGui::TextDisabled("#%ld", id);
         ImGui::PopID();
     }
 }
@@ -132,7 +132,7 @@ void SceneHierarchyPanel::drawRenamePopup() {
             if (m_renamingEntityID >= 0) {
                 EditorEvent event;
                 event.type = EditorEventType::RenameObject;
-                event.info.entityID = (unsigned int)m_renamingEntityID;
+                event.info.entityID = m_renamingEntityID;
                 event.info.name = m_renameBuffer;
                 EventSystem::pushEvent(event);
             }

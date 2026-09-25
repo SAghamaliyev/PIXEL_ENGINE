@@ -27,7 +27,7 @@ bool isTextureExtension(const std::filesystem::path& path) {
 
 }
 
-void ContentBrowserPanel::setTextureSelectionMode(bool enabled, unsigned int entityID) {
+void ContentBrowserPanel::setTextureSelectionMode(bool enabled, long entityID) {
     m_textureSelectionMode = enabled;
     m_selectedEntityIDForTexture = entityID;
     if (enabled) {

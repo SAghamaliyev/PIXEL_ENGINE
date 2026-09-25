@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -33,8 +33,8 @@ struct MeshInfo {
     unsigned int VBO_Pos = 0;
     unsigned int VBO_Tex = 0;
     unsigned int EBO = 0;
-    unsigned int indexCount = 0;
-    unsigned int textureCount = 0;
+    size_t indexCount = 0;
+    size_t textureCount = 0;
 };
 
 
@@ -47,11 +47,11 @@ struct Transform {
 
 
 struct EntityUnit {
-    unsigned int EntityID;
-    unsigned int nCopies;	// Numbers of copies of one entity
+    long EntityID = -1;
+    long nCopies;	// Numbers of copies of one entity
     uint64_t MeshID;
     uint64_t TextureID;
-    MaterialType ShaderID;	// Each Shader is working with Entity's material(for liquid we have liquid shader, for solid solid and etc.)
+    MaterialType ShaderID;  // Each Shader is working with Entity's material(for liquid we have liquid shader, for solid solid and etc.)
 
     Color color;
     std::string name;
@@ -75,7 +75,7 @@ struct CameraSettings {
 };
 
 struct CameraUnit {
-    unsigned int CameraID = 0;
+    long CameraID = 0;
 
     // We add this matrix to make object look from our perspective(view)
     glm::mat4 View = glm::mat4(1.0f);
@@ -90,6 +90,9 @@ struct CameraUnit {
 };
 
 struct SceneInfo {
-    const std::unordered_map <unsigned int, EntityUnit>& EntityList;
+    const std::unordered_map <long, EntityUnit>& EntityList;
+    const long& OurActiveEntityID;
+
+    const std::unordered_map <long, CameraUnit>& CameraList;
     const CameraUnit& OurActiveCamera;
 };

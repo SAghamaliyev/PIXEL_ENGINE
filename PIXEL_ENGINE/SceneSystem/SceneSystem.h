@@ -24,35 +24,36 @@ public:
 	// EntityManager functions
 		void SceneClearEntityList();
 		void SceneCreateEntity(unsigned long long int MeshID = 2, MaterialType Type = Default, const std::string& Name = "Object");
-		void SceneDeleteEntity(unsigned int EntityID);
-		void SceneDuplicateEntity(unsigned int EntityID);
+		void SceneDeleteEntity(long EntityID);
+		void SceneDuplicateEntity(long EntityID);
+		void MakeActiveEntity(long EntityID);
 
 		// Changers
-		void ChangeColorEntity(unsigned int EntityID, const Color& targetColor);
-		void ChangeNameEntity(unsigned int EntityID, const std::string& Name);
-		void ChangeMaterialEntity(unsigned int EntityID, MaterialType Type);
-		void ChangeMeshEntity(unsigned int EntityID, uint64_t MeshID);
-		void ChangeTextureEntity(unsigned int EntityID, uint64_t TetxureID);
-		void changeTranslateEntity(unsigned int EntityID, const glm::vec3& TranslateV);
-		void changeRotateEntity(unsigned int EntityID, const glm::vec3& RotateV);
-		void changeScaleEntity(unsigned int EntityID, const glm::vec3& ScaleV);
+		void ChangeColorEntity(long EntityID, const Color& targetColor);
+		void ChangeNameEntity(long EntityID, const std::string& Name);
+		void ChangeMaterialEntity(long EntityID, MaterialType Type);
+		void ChangeMeshEntity(long EntityID, uint64_t MeshID);
+		void ChangeTextureEntity(long EntityID, uint64_t TetxureID);
+		void changeTranslateEntity(long EntityID, const glm::vec3& TranslateV);
+		void changeRotateEntity(long EntityID, const glm::vec3& RotateV);
+		void changeScaleEntity(long EntityID, const glm::vec3& ScaleV);
 			
 		// Turn on/off color of Entity
-		void activateColorEntity(unsigned int EntityID);
-		void deactivateColorEntity(unsigned int EntityID);
+		void activateColorEntity(long EntityID);
+		void deactivateColorEntity(long EntityID);
 		
 		// Getters
-		const Transform& getTransformInfoEntity(unsigned int EntityID) const;
+		const Transform& getTransformInfoEntity(long EntityID) const;
 
 	// CameraManager functions
 		void createSceneCamera();
-		void deleteSceneCamera(unsigned int CameraID);
+		void deleteSceneCamera(long CameraID);
 
 		// Setters
-		void changeFOVdegreeCamera(unsigned int CameraID, float FOVdegree);
-		void changeNearCamera(unsigned int CameraID, float near);
-		void changeFarCamera(unsigned int CameraID, float far);
+		void changeFOVdegreeCamera(long CameraID, float FOVdegree);
+		void changeNearCamera(long CameraID, float near);
+		void changeFarCamera(long CameraID, float far);
 		
-		void changeSpeedCamera(unsigned int CameraID, float targetSpeed);
-		void changePosCamera(unsigned int CameraID, Movement direction);
+		void changeSpeedCamera(long CameraID, float targetSpeed);
+		void changePosCamera(long CameraID, Movement direction);
 };

@@ -1,4 +1,4 @@
-﻿#include "RenderSystem.h"
+#include "RenderSystem.h"
 
 void RenderSystem::renderScene(const SceneInfo& OurSceneInfo) {
 

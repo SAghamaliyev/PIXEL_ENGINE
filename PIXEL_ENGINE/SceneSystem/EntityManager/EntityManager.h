@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "../../Core/Definitions/SceneDefinitons.h"
 #include "../../Core/Logger/Logger.h"
 
@@ -12,47 +12,53 @@
 
 class EntityManager {
 private:
-	unsigned int counter;
-	std::unordered_map <unsigned int, EntityUnit> EntityList;
-	std::vector <unsigned int> DeactivatedList;
+	long counter = 1;
+	std::unordered_map <long, EntityUnit> EntityList;
+	long OurActiveEntityID = -1;
+
+	std::vector <long> DeactivatedList;
 public:
 	EntityManager();
 
 	// Create initial Entity(it can be just basic cube or we can already give it info)
 	void createEntity(uint64_t MeshID = MeshDefault, MaterialType ShaderID = Default,
-						const std::string& Name = "Object");
+					const std::string& Name = "Object");
 
 	// We create Entity which is same(except entity id itself)
-	void duplicateEntity(unsigned int EntityID);
+	void duplicateEntity(long EntityID);
 
 	// Delete all List
 	void clearEntityList();
 
 	// Check if entity exist and active
-	bool hasEntity(unsigned int EntityID);
+	bool hasEntity(long EntityID);
 
 	// Deactivate Entity(we dont delete it instantly bcs we need to warn everyone firstly)
-	void deactivateEntity(unsigned int EntityID);
+	void deactivateEntity(long EntityID);
+
+	// We select defined entity
+	void makeActive(long EntityID);
 
 	// Delete all deactivated Entities
 	void Update();
 
 	// Changers
-	void changeColor(unsigned int EntityID, const Color& targetColor);
-	void changeName(unsigned int EntityID, const std::string& Name);
-	void changeMaterial(unsigned int EntityID, MaterialType ShaderID);
-	void changeMesh(unsigned int EntityID, uint64_t MeshID);
-	void changeTexture(unsigned int EntityID, uint64_t TetxureID);
-	void changeTranslate(unsigned int EntityID, const glm::vec3& TranslateV);
-	void changeRotate(unsigned int EntityID, const glm::vec3& RotateV);
-	void changeScale(unsigned int EntityID, const glm::vec3& ScaleV);
+	void changeColor(long EntityID, const Color& targetColor);
+	void changeName(long EntityID, const std::string& Name);
+	void changeMaterial(long EntityID, MaterialType ShaderID);
+	void changeMesh(long EntityID, uint64_t MeshID);
+	void changeTexture(long EntityID, uint64_t TetxureID);
+	void changeTranslate(long EntityID, const glm::vec3& TranslateV);
+	void changeRotate(long EntityID, const glm::vec3& RotateV);
+	void changeScale(long EntityID, const glm::vec3& ScaleV);
 
 	// Turn on/off color for Entity
-	void deactivateColor(unsigned int EntityID);
-	void activateColor(unsigned int EntityID);
+	void deactivateColor(long EntityID);
+	void activateColor(long EntityID);
 	
 	// Getters
-	EntityUnit& getEntity(unsigned int EntityID);
-	const std::unordered_map <unsigned int, EntityUnit>& getEntityList() const;
-	const Transform& getTransformInfo(unsigned int EntityID) const;
+	long& getActiveEntityID();
+	EntityUnit& getEntity(long EntityID);
+	const std::unordered_map <long, EntityUnit>& getEntityList() const;
+	const Transform& getTransformInfo(long EntityID) const;
 };

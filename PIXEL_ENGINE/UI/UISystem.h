@@ -18,7 +18,9 @@ private:
     GLFWwindow* m_window = nullptr;
     bool m_windowShouldClose = false;
     EditorLayout m_layout;
-    std::vector<EditorEntityView> m_entityViews;
+    std::vector<EditorHierarchyView> m_hierarchyViews;
+    EditorEntityView m_selectedEntity;
+    bool m_hasSelectedEntity = false;
 
     SceneHierarchyPanel m_hierarchy;
     InspectorPanel m_inspector;
@@ -44,9 +46,11 @@ public:
 
     bool WindowShouldClose() const { return m_windowShouldClose; }
 
-    int getSelectedEntityID() const;
+    long getSelectedEntityID() const;
     void getViewportRect(int& outX, int& outY, int& outW, int& outH);
-    void setEntityViews(const std::vector<EditorEntityView>& entityViews);
+    void setHierarchyViews(const std::vector<EditorHierarchyView>& hierarchyViews);
+    void setSelectedEntityView(const EditorEntityView& entityView);
+    void clearSelectedEntityView();
     void setGizmoOperation(EditorGizmoOperation operation);
     EditorGizmoOperation getGizmoOperation() const;
 };

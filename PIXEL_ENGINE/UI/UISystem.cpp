@@ -26,8 +26,7 @@ void UISystem::init(GLFWwindow* window) {
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-    m_hierarchy.setEntityViews(&m_entityViews);
-    m_inspector.setEntityViews(&m_entityViews);
+    m_hierarchy.setHierarchyViews(&m_hierarchyViews);
     m_inspector.setContentBrowserPanel(&m_contentBrowser);
 
     Logger::addLog(LOG_INFO, "UI initialized");
@@ -57,14 +56,24 @@ void UISystem::shutdown() {
     ImGui::DestroyContext();
 }
 
-int UISystem::getSelectedEntityID() const {
-    return m_hierarchy.getSelectedEntityID();
+long UISystem::getSelectedEntityID() const {
+    return m_hasSelectedEntity ? m_selectedEntity.entityID : -1;
 }
 
-void UISystem::setEntityViews(const std::vector<EditorEntityView>& entityViews) {
-    m_entityViews = entityViews;
-    m_hierarchy.setEntityViews(&m_entityViews);
-    m_inspector.setEntityViews(&m_entityViews);
+void UISystem::setHierarchyViews(const std::vector<EditorHierarchyView>& hierarchyViews) {
+    m_hierarchyViews = hierarchyViews;
+    m_hierarchy.setHierarchyViews(&m_hierarchyViews);
+}
+
+void UISystem::setSelectedEntityView(const EditorEntityView& entityView) {
+    m_selectedEntity = entityView;
+    m_hasSelectedEntity = true;
+    m_hierarchy.setSelectedEntityID(entityView.entityID);
+}
+
+void UISystem::clearSelectedEntityView() {
+    m_hasSelectedEntity = false;
+    m_hierarchy.setSelectedEntityID(-1);
 }
 
 void UISystem::setGizmoOperation(EditorGizmoOperation operation) {
@@ -101,14 +110,14 @@ void UISystem::updateLayout() {
 void UISystem::drawPanels() {
     m_hierarchy.draw(m_layout);
 
-    m_inspector.setSelectedEntityID(m_hierarchy.getSelectedEntityID());
+    const EditorEntityView* selected = findSelectedEntityView();
+    m_inspector.setSelectedEntity(selected);
     m_inspector.setGizmoOperation(m_gizmo.getOperation());
     m_inspector.draw(m_layout);
 
     m_contentBrowser.draw(m_layout);
     m_console.draw(m_layout);
 
-    const EditorEntityView* selected = findSelectedEntityView();
     m_viewport.draw(m_layout, m_gizmo.getOperation(), selected);
 
     if (!m_window) {
@@ -122,16 +131,5 @@ void UISystem::drawPanels() {
 }
 
 const EditorEntityView* UISystem::findSelectedEntityView() const {
-    const int selectedEntityID = m_hierarchy.getSelectedEntityID();
-    if (selectedEntityID < 0) {
-        return nullptr;
-    }
-
-    for (const EditorEntityView& entity : m_entityViews) {
-        if (entity.entityID == (unsigned int)selectedEntityID) {
-            return &entity;
-        }
-    }
-
-    return nullptr;
+    return m_hasSelectedEntity ? &m_selectedEntity : nullptr;
 }

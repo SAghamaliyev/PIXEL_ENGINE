@@ -13,13 +13,13 @@ public:
     bool isVisible() const { return m_visible; }
     void setVisible(bool visible) { m_visible = visible; }
 
-    void setTextureSelectionMode(bool enabled, unsigned int entityID = 0);
+    void setTextureSelectionMode(bool enabled, long entityID = 0);
 
 private:
     bool m_visible = true;
 
     bool m_textureSelectionMode = false;
-    unsigned int m_selectedEntityIDForTexture = 0;
+    long m_selectedEntityIDForTexture = 0;
 
     char m_searchBuffer[256] = "";
     std::string m_currentDirectory = "src/objects";

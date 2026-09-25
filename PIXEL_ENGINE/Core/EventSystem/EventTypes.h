@@ -54,7 +54,10 @@ enum class EditorEventType {
     ClearConsole,
     ShowAbout,
     CloseWindow,
-    SetGizmoOperation,
+    GiveEntityInfo,
+    SetGizmoTranslate,
+    SetGizmoRotate,
+    SetGizmoScale,
 
     // Camera movement events
     CameraMoveForward,
@@ -67,7 +70,7 @@ enum class EditorEventType {
 
 // This struct is being used for giving details which we must pass
 struct EditorTypeInfo {
-    unsigned int entityID = 0;
+    long entityID = 0;
     uint64_t meshID = 0;
     uint64_t textureID = 0;
     std::string path;
@@ -81,7 +84,6 @@ struct EditorTypeInfo {
     EditorVec3 rotation = { 0.0f, 0.0f, 0.0f };
     EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
     EditorComponentType componentType = EditorComponentType::RigidBody;
-    EditorGizmoOperation gizmoOperation = EditorGizmoOperation::Translate;
 };
 
 // This is our final struct which we will analyze in Engine.cpp
@@ -90,8 +92,13 @@ struct EditorEvent {
     EditorTypeInfo info;
 };
 
+struct EditorHierarchyView {
+    long entityID = 0;
+    std::string name;
+};
+
 struct EditorEntityView {
-    unsigned int entityID = 0;
+    long entityID = 0;
     uint64_t meshID = 0;
     uint64_t textureID = 0;
     std::string name;

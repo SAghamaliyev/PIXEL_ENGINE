@@ -22,7 +22,7 @@ private:
 	GLFWwindow* OurWindow;
 	int screenW = 0;
 	int screenH = 0;
-
+	long m_selectedEntityID = -1;
 
 	void processEditorEvents();
 	void visualizeEditorEvents();

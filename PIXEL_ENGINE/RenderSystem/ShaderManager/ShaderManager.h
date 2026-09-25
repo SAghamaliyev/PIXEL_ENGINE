@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "../../Core/Definitions/SceneDefinitons.h"
 #include "../../Core/Logger/Logger.h"
 

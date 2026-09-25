@@ -11,22 +11,19 @@ void InputManager::InputEditor() {
 
     if (isGActive && InputManager::IsKeyJustPressed(InputManager::Num1)) {
         EditorEvent event;
-        event.type = EditorEventType::SetGizmoOperation;
-        event.info.gizmoOperation = EditorGizmoOperation::Translate;
+        event.type = EditorEventType::SetGizmoTranslate;
         EventSystem::pushEvent(event);
     }
 
     if (isGActive && InputManager::IsKeyJustPressed(InputManager::Num2)) {
         EditorEvent event;
-        event.type = EditorEventType::SetGizmoOperation;
-        event.info.gizmoOperation = EditorGizmoOperation::Rotate;
+        event.type = EditorEventType::SetGizmoRotate;
         EventSystem::pushEvent(event);
     }
 
     if (isGActive && InputManager::IsKeyJustPressed(InputManager::Num3)) {
         EditorEvent event;
-        event.type = EditorEventType::SetGizmoOperation;
-        event.info.gizmoOperation = EditorGizmoOperation::Scale;
+        event.type = EditorEventType::SetGizmoScale;
         EventSystem::pushEvent(event);
     }
 

@@ -27,7 +27,7 @@ CameraManager::CameraManager(float viewPortWidth, float viewPortHeight)
 	this->counter++;
 }
 
-bool CameraManager::hasCamera(unsigned int CameraID) {
+bool CameraManager::hasCamera(long CameraID) {
 	auto it = CameraList.find(CameraID);
 
 	if (it == CameraList.end()) {
@@ -47,7 +47,7 @@ void CameraManager::createCamera() {
 	this->counter++;
 }
 
-void CameraManager::deleteCamera(unsigned int CameraID) {
+void CameraManager::deleteCamera(long CameraID) {
 	if (hasCamera(CameraID) && CameraID != CameraDefault) {
 		CameraList.erase(CameraID);
 		activateCamera(CameraDefault);
@@ -57,7 +57,7 @@ void CameraManager::deleteCamera(unsigned int CameraID) {
 	}
 }
 
-void CameraManager::activateCamera(unsigned int CameraID) {
+void CameraManager::activateCamera(long CameraID) {
 	if (hasCamera(CameraID)) {
 		this->activeCameraID = CameraID;
 	}
@@ -66,23 +66,23 @@ void CameraManager::activateCamera(unsigned int CameraID) {
 	}
 }
 
-void CameraManager::changeFOVdegree(unsigned int CameraID, float FOVdegree) {
+void CameraManager::changeFOVdegree(long CameraID, float FOVdegree) {
 	CameraList.at(CameraID).SettingsInfo.FOVdegree = FOVdegree;
 }
 
-void CameraManager::changeNear(unsigned int CameraID, float near) {
+void CameraManager::changeNear(long CameraID, float near) {
 	CameraList.at(CameraID).SettingsInfo.near = near;
 }
 
-void CameraManager::changeFar(unsigned int CameraID, float far) {
+void CameraManager::changeFar(long CameraID, float far) {
 	CameraList.at(CameraID).SettingsInfo.far = far;
 }
 
-void CameraManager::changeSpeed(unsigned int CameraID, float TargetSpeed) {
+void CameraManager::changeSpeed(long CameraID, float TargetSpeed) {
 	CameraList.at(CameraID).cameraSpeed = TargetSpeed;
 }
 
-void CameraManager::changePos(unsigned int CameraID, Movement direction) {
+void CameraManager::changePos(long CameraID, Movement direction) {
 
 	auto& camera = CameraList.at(CameraID);
 
@@ -113,18 +113,22 @@ const CameraUnit& CameraManager::getActiveCamera() {
 	return CameraList.at(activeCameraID);
 }
 
-CameraSettings& CameraManager::getCameraSettings(unsigned int CameraID) {
+CameraSettings& CameraManager::getCameraSettings(long CameraID) {
 	return CameraList.at(CameraID).SettingsInfo;
 }
 
-CameraTransform& CameraManager::getCameraTransform(unsigned int CameraID) {
+CameraTransform& CameraManager::getCameraTransform(long CameraID) {
 	return CameraList.at(CameraID).TransformInfo;
 }
 
-glm::mat4& CameraManager::getCameraView(unsigned int CameraID) {
+glm::mat4& CameraManager::getCameraView(long CameraID) {
 	return CameraList.at(CameraID).View;
 }
 
-glm::mat4& CameraManager::getCameraProj(unsigned int CameraID) {
+glm::mat4& CameraManager::getCameraProj(long CameraID) {
 	return CameraList.at(CameraID).Projection;
+}
+
+const unordered_map <long, CameraUnit>& CameraManager::getCameraList() {
+	return CameraList;
 }

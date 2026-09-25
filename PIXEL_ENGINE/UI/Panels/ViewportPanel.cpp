@@ -75,8 +75,9 @@ void ViewportPanel::drawToolbar(const EditorLayout& layout, EditorGizmoOperation
 
         if (ImGui::Button(labels[i], ImVec2(78.0f, 0.0f))) {
             EditorEvent event;
-            event.type = EditorEventType::SetGizmoOperation;
-            event.info.gizmoOperation = operations[i];
+            if (i == 0) event.type = EditorEventType::SetGizmoTranslate;
+            else if (i == 1) event.type = EditorEventType::SetGizmoRotate;
+            else if (i == 2) event.type = EditorEventType::SetGizmoScale;
             EventSystem::pushEvent(event);
         }
 
@@ -137,7 +138,7 @@ void ViewportPanel::drawStatusBar(const EditorLayout& layout, const EditorEntity
     }
 
     if (selectedEntity) {
-        ImGui::Text("%s  ·  ID %u  ·  Mesh %llu",
+        ImGui::Text("%s  ·  ID %ld  ·  Mesh %llu",
             selectedEntity->name.c_str(),
             selectedEntity->entityID,
             (unsigned long long)selectedEntity->meshID);

@@ -4,11 +4,11 @@ void SceneSystem::createSceneCamera() {
 	OurCameraManager.createCamera();
 }
 
-void SceneSystem::deleteSceneCamera(unsigned int CameraID) {
+void SceneSystem::deleteSceneCamera(long CameraID) {
 	OurCameraManager.deleteCamera(CameraID);
 }
 
-void SceneSystem::changeFOVdegreeCamera(unsigned int CameraID, float FOVdegree) {
+void SceneSystem::changeFOVdegreeCamera(long CameraID, float FOVdegree) {
 
 	try{
 		OurCameraManager.changeFOVdegree(CameraID, FOVdegree);
@@ -28,7 +28,7 @@ void SceneSystem::changeFOVdegreeCamera(unsigned int CameraID, float FOVdegree) 
 	}
 }
 
-void SceneSystem::changeNearCamera(unsigned int CameraID, float near) {
+void SceneSystem::changeNearCamera(long CameraID, float near) {
 
 	try {
 		OurCameraManager.changeNear(CameraID, near);
@@ -48,7 +48,7 @@ void SceneSystem::changeNearCamera(unsigned int CameraID, float near) {
 	}
 }
 
-void SceneSystem::changeFarCamera(unsigned int CameraID, float far) {
+void SceneSystem::changeFarCamera(long CameraID, float far) {
 
 	try {
 		OurCameraManager.changeFar(CameraID, far);
@@ -68,7 +68,7 @@ void SceneSystem::changeFarCamera(unsigned int CameraID, float far) {
 	}
 }
 
-void SceneSystem::changeSpeedCamera(unsigned int CameraID, float targetSpeed) {
+void SceneSystem::changeSpeedCamera(long CameraID, float targetSpeed) {
 	
 	try{
 		OurCameraManager.changeSpeed(CameraID, targetSpeed);
@@ -78,7 +78,7 @@ void SceneSystem::changeSpeedCamera(unsigned int CameraID, float targetSpeed) {
 	}
 }
 
-void  SceneSystem::changePosCamera(unsigned int CameraID, Movement direction) {
+void  SceneSystem::changePosCamera(long CameraID, Movement direction) {
 
 	try {
 		OurCameraManager.changePos(CameraID, direction);

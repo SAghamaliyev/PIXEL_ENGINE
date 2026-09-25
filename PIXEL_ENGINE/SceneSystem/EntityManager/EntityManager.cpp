@@ -4,13 +4,14 @@
 using namespace std;
 
 EntityManager::EntityManager() {
-	counter = 0;
+
 }
 
 void EntityManager::createEntity(uint64_t MeshID, MaterialType ShaderID,
 								const string& Name) {
 	EntityUnit OurEntity;
 	OurEntity.EntityID = counter;
+	OurEntity.nCopies = 0;
 	OurEntity.MeshID = MeshID;
 	OurEntity.ShaderID = ShaderID;
 	OurEntity.isActive = true;
@@ -30,7 +31,7 @@ void EntityManager::createEntity(uint64_t MeshID, MaterialType ShaderID,
 	++counter;
 }
 
-void EntityManager::duplicateEntity(unsigned int EntityID) {
+void EntityManager::duplicateEntity(long EntityID) {
 	EntityUnit temp = EntityList[EntityID];
 	
 	temp.EntityID = counter;
@@ -47,7 +48,7 @@ void EntityManager::clearEntityList() {
 	counter = 0;
 }
 
-bool EntityManager::hasEntity(unsigned int EntityID) {
+bool EntityManager::hasEntity(long EntityID) {
 	auto it = EntityList.find(EntityID);
 
 	if (it == EntityList.end() && it->second.isActive)
@@ -55,7 +56,7 @@ bool EntityManager::hasEntity(unsigned int EntityID) {
 	return true;
 }
 
-void EntityManager::deactivateEntity(unsigned int EntityID) {
+void EntityManager::deactivateEntity(long EntityID) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].isActive = false;
 		DeactivatedList.push_back(EntityID);
@@ -63,6 +64,15 @@ void EntityManager::deactivateEntity(unsigned int EntityID) {
 	else {
 		Logger::addLog(LOG_ERROR, "Entity is either already deactivated or not exist");
 		return;
+	}
+}
+
+void EntityManager::makeActive(long EntityID) {
+	
+	auto& it = EntityList.at(EntityID);
+	
+	if (it.isActive) {
+		OurActiveEntityID = it.EntityID;
 	}
 }
 
@@ -76,7 +86,7 @@ void EntityManager::Update() {
 	DeactivatedList.clear();
 }
 
-void EntityManager::changeColor(unsigned int EntityID, const Color& targetColor) {
+void EntityManager::changeColor(long EntityID, const Color& targetColor) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].color = targetColor;
 	}
@@ -87,7 +97,7 @@ void EntityManager::changeColor(unsigned int EntityID, const Color& targetColor)
 	}
 }
 
-void EntityManager::changeName(unsigned int EntityID, const string& Name) {
+void EntityManager::changeName(long EntityID, const string& Name) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].name = Name;
 	}
@@ -98,7 +108,7 @@ void EntityManager::changeName(unsigned int EntityID, const string& Name) {
 	}
 }
 
-void EntityManager::changeMaterial(unsigned int EntityID, MaterialType ShaderID) {
+void EntityManager::changeMaterial(long EntityID, MaterialType ShaderID) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].ShaderID = ShaderID;
 	}
@@ -109,7 +119,7 @@ void EntityManager::changeMaterial(unsigned int EntityID, MaterialType ShaderID)
 	}
 }
 
-void EntityManager::changeMesh(unsigned int EntityID, uint64_t MeshID) {
+void EntityManager::changeMesh(long EntityID, uint64_t MeshID) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].MeshID = MeshID;
 	}
@@ -120,7 +130,7 @@ void EntityManager::changeMesh(unsigned int EntityID, uint64_t MeshID) {
 	}
 }
 
-void EntityManager::changeTexture(unsigned int EntityID, uint64_t TextureID) {
+void EntityManager::changeTexture(long EntityID, uint64_t TextureID) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].TextureID = TextureID;
 	}
@@ -131,7 +141,7 @@ void EntityManager::changeTexture(unsigned int EntityID, uint64_t TextureID) {
 	}
 }
 
-void EntityManager::changeTranslate(unsigned int EntityID, const glm::vec3& TranslateV) {
+void EntityManager::changeTranslate(long EntityID, const glm::vec3& TranslateV) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].TransformInfo.TranslateV = TranslateV;
 	}
@@ -142,7 +152,7 @@ void EntityManager::changeTranslate(unsigned int EntityID, const glm::vec3& Tran
 	}
 }
 
-void EntityManager::changeRotate(unsigned int EntityID, const glm::vec3& RotateV) {
+void EntityManager::changeRotate(long EntityID, const glm::vec3& RotateV) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].TransformInfo.RotateV = RotateV;
 	}
@@ -153,7 +163,7 @@ void EntityManager::changeRotate(unsigned int EntityID, const glm::vec3& RotateV
 	}
 }
 
-void EntityManager::changeScale(unsigned int EntityID, const glm::vec3& ScaleV) {
+void EntityManager::changeScale(long EntityID, const glm::vec3& ScaleV) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].TransformInfo.ScaleV = ScaleV;
 	}
@@ -164,7 +174,7 @@ void EntityManager::changeScale(unsigned int EntityID, const glm::vec3& ScaleV) 
 	}
 }
 
-void EntityManager::activateColor(unsigned int EntityID) {
+void EntityManager::activateColor(long EntityID) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].isColorActive = true;
 	}
@@ -175,7 +185,7 @@ void EntityManager::activateColor(unsigned int EntityID) {
 	}
 }
 
-void EntityManager::deactivateColor(unsigned int EntityID) {
+void EntityManager::deactivateColor(long EntityID) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].isColorActive = false;
 	}
@@ -186,14 +196,18 @@ void EntityManager::deactivateColor(unsigned int EntityID) {
 	}
 }
 
-EntityUnit& EntityManager::getEntity(unsigned int EntityID) {
+long& EntityManager::getActiveEntityID() {
+	return OurActiveEntityID;
+}
+
+EntityUnit& EntityManager::getEntity(long EntityID) {
 	return EntityList.at(EntityID);
 }
 
-const unordered_map <unsigned int, EntityUnit>& EntityManager::getEntityList() const {
+const unordered_map <long, EntityUnit>& EntityManager::getEntityList() const {
 	return EntityList;
 }
 
-const Transform& EntityManager::getTransformInfo(unsigned int EntityID) const {
+const Transform& EntityManager::getTransformInfo(long EntityID) const {
 	return EntityList.at(EntityID).TransformInfo;
 }

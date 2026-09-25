@@ -10,50 +10,60 @@ void SceneSystem::SceneCreateEntity(unsigned long long int MeshID, MaterialType 
 }
 
 
-void SceneSystem::SceneDeleteEntity(unsigned int EntityID) {
+void SceneSystem::SceneDeleteEntity(long EntityID) {
 	OurEntityManager.deactivateEntity(EntityID);
 }
 
-void SceneSystem::SceneDuplicateEntity(unsigned int EntityID) {
+void SceneSystem::SceneDuplicateEntity(long EntityID) {
 	OurEntityManager.duplicateEntity(EntityID);
 }
 
-void SceneSystem::ChangeColorEntity(unsigned int EntityID, const Color& targetColor) {
+void SceneSystem::MakeActiveEntity(long EntityID) {
+
+	try{
+		OurEntityManager.makeActive(EntityID);
+	}
+	catch (const std::out_of_range& error){
+		Logger::addLog(LOG_ERROR, error.what());
+	}
+}
+
+void SceneSystem::ChangeColorEntity(long EntityID, const Color& targetColor) {
 	OurEntityManager.changeColor(EntityID, targetColor);
 }
 
 
-void SceneSystem::ChangeNameEntity(unsigned int EntityID, const string& Name) {
+void SceneSystem::ChangeNameEntity(long EntityID, const string& Name) {
 	OurEntityManager.changeName(EntityID, Name);
 }
 
-void SceneSystem::ChangeMaterialEntity(unsigned int EntityID, MaterialType Type) {
+void SceneSystem::ChangeMaterialEntity(long EntityID, MaterialType Type) {
 	OurEntityManager.changeMaterial(EntityID, Type);
 }
 
-void SceneSystem::ChangeMeshEntity(unsigned int EntityID, uint64_t MeshID) {
+void SceneSystem::ChangeMeshEntity(long EntityID, uint64_t MeshID) {
 	OurEntityManager.changeMesh(EntityID, MeshID);
 }
 
-void SceneSystem::ChangeTextureEntity(unsigned int EntityID, uint64_t TetxureID) {
+void SceneSystem::ChangeTextureEntity(long EntityID, uint64_t TetxureID) {
 	OurEntityManager.changeTexture(EntityID, TetxureID);
 }
 
-void SceneSystem::changeTranslateEntity(unsigned int EntityID, const glm::vec3& TranslateV) {
+void SceneSystem::changeTranslateEntity(long EntityID, const glm::vec3& TranslateV) {
 	OurEntityManager.changeTranslate(EntityID, TranslateV);
 
 	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
 	OurTransformManager.TransformEntity(TempInfo);
 }
 
-void SceneSystem::changeRotateEntity(unsigned int EntityID, const glm::vec3& RotateV) {
+void SceneSystem::changeRotateEntity(long EntityID, const glm::vec3& RotateV) {
 	OurEntityManager.changeRotate(EntityID, RotateV);
 
 	auto& TempInfo = OurEntityManager.getEntity(EntityID).TransformInfo;
 	OurTransformManager.TransformEntity(TempInfo);
 }
 
-void SceneSystem::changeScaleEntity(unsigned int EntityID, const glm::vec3& ScaleV) {
+void SceneSystem::changeScaleEntity(long EntityID, const glm::vec3& ScaleV) {
 	glm::vec3 clampedScale = ScaleV;
 	if (clampedScale.x < 1.0f) {
 		clampedScale.x = 1.0f;
@@ -71,15 +81,15 @@ void SceneSystem::changeScaleEntity(unsigned int EntityID, const glm::vec3& Scal
 	OurTransformManager.TransformEntity(TempInfo);
 }
 
-void SceneSystem::activateColorEntity(unsigned int EntityID) {
+void SceneSystem::activateColorEntity(long EntityID) {
 	OurEntityManager.activateColor(EntityID);
 }
 
-void SceneSystem::deactivateColorEntity(unsigned int EntityID) {
+void SceneSystem::deactivateColorEntity(long EntityID) {
 	OurEntityManager.deactivateColor(EntityID);
 }
 
-const Transform& SceneSystem::getTransformInfoEntity(unsigned int EntityID) const {
+const Transform& SceneSystem::getTransformInfoEntity(long EntityID) const {
 	return OurEntityManager.getTransformInfo(EntityID);
 }
 
