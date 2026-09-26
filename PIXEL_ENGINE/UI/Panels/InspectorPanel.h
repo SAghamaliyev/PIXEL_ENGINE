@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Layout/EditorLayout.h"
+#include "../EditorViews.h"
 #include "../../Core/EventSystem/EventTypes.h"
 
 #include <vector>

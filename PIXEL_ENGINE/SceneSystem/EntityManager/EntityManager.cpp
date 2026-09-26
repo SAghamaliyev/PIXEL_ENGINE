@@ -45,13 +45,14 @@ void EntityManager::duplicateEntity(long EntityID) {
 void EntityManager::clearEntityList() {
 	EntityList.clear();
 	DeactivatedList.clear();
-	counter = 0;
+	OurActiveEntityID = -1;
+	counter = 1;
 }
 
 bool EntityManager::hasEntity(long EntityID) {
 	auto it = EntityList.find(EntityID);
 
-	if (it == EntityList.end() && it->second.isActive)
+	if (it == EntityList.end() || !it->second.isActive)
 		return false;
 	return true;
 }
@@ -60,6 +61,10 @@ void EntityManager::deactivateEntity(long EntityID) {
 	if (hasEntity(EntityID)) {
 		EntityList[EntityID].isActive = false;
 		DeactivatedList.push_back(EntityID);
+
+		if (OurActiveEntityID == EntityID) {
+			OurActiveEntityID = -1;
+		}
 	}
 	else {
 		Logger::addLog(LOG_ERROR, "Entity is either already deactivated or not exist");
@@ -92,7 +97,7 @@ void EntityManager::changeColor(long EntityID, const Color& targetColor) {
 	}
 	else {
 		Logger::addLog(LOG_ERROR,
-			"Failed to find entity and change its Color: " + EntityList[EntityID].name);
+			"Failed to find entity and change its Color: " + std::to_string(EntityID));
 		return;
 	}
 }
@@ -103,7 +108,7 @@ void EntityManager::changeName(long EntityID, const string& Name) {
 	}
 	else {
 		Logger::addLog(LOG_ERROR,
-			"Failed to find entity and change its Name: " + EntityList[EntityID].name);
+			"Failed to find entity and change its Name: " + std::to_string(EntityID));
 		return;
 	}
 }
@@ -114,7 +119,7 @@ void EntityManager::changeMaterial(long EntityID, MaterialType ShaderID) {
 	}
 	else {
 		Logger::addLog(LOG_ERROR,
-			"Failed to find entity and change its Material: " + EntityList[EntityID].name);
+			"Failed to find entity and change its Material: " + std::to_string(EntityID));
 		return;
 	}
 }
@@ -125,7 +130,7 @@ void EntityManager::changeMesh(long EntityID, uint64_t MeshID) {
 	}
 	else {
 		Logger::addLog(LOG_ERROR,
-			"Failed to find entity and change its Mesh: " + EntityList[EntityID].name);
+			"Failed to find entity and change its Mesh: " + std::to_string(EntityID));
 		return;
 	}
 }

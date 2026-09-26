@@ -72,6 +72,9 @@ struct CameraSettings {
     float FOVdegree = 45.0f;
     float near = 0.1f;
     float far = 100.0f;
+    float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+    float pitch = 0.0f;
+    float sensitivity = 0.1f;
 };
 
 struct CameraUnit {

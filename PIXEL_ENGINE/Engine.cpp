@@ -27,7 +27,13 @@ void Engine::visualizeEditorEvents() {
     }
 
     // We must give data about selected Entity
-    const auto& selectedEntity = EntityList.at(SceneInfo.OurActiveEntityID);
+    auto it = EntityList.find(SceneInfo.OurActiveEntityID);
+    if (it == EntityList.end() || !it->second.isActive) {
+        OurUISystem->clearSelectedEntityView();
+        return;
+    }
+
+    const auto& selectedEntity = it->second;
 
     EditorEntityView view;
 
@@ -165,6 +171,10 @@ void Engine::processEditorEvents() {
 
         case EditorEventType::CameraMoveBackward:
             OurSceneSystem->changePosCamera(event.info.entityID, Back);
+            continue;
+
+        case EditorEventType::CameraMouseChange:
+            OurSceneSystem->changeAnglesCamera(event.info.cameraID, event.info.xpos, event.info.ypos);
             continue;
         }
     }

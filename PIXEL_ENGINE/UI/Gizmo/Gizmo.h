@@ -2,6 +2,7 @@
 
 #include "../../Core/EventSystem/EventTypes.h"
 #include "../Layout/EditorLayout.h"
+#include "../EditorViews.h"
 
 class Gizmo {
 public:

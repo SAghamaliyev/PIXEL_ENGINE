@@ -35,6 +35,7 @@ public:
 
 	void changeSpeed(long CameraID, float TargetSpeed);
 	void changePos(long CameraID, Movement direction);
+	void changeAngles(long CameraID, float xPos, float yPos);
 
 	// Getters
 	const CameraUnit& getActiveCamera();

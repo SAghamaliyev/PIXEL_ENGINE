@@ -65,12 +65,15 @@ enum class EditorEventType {
     CameraMoveLeft,
     CameraMoveRight,
     CameraMoveUp,
-    CameraMoveDown
+    CameraMoveDown,
+
+    CameraMouseChange
 };
 
 // This struct is being used for giving details which we must pass
 struct EditorTypeInfo {
     long entityID = 0;
+    long cameraID = 0;
     uint64_t meshID = 0;
     uint64_t textureID = 0;
     std::string path;
@@ -84,6 +87,8 @@ struct EditorTypeInfo {
     EditorVec3 rotation = { 0.0f, 0.0f, 0.0f };
     EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
     EditorComponentType componentType = EditorComponentType::RigidBody;
+    float xpos;
+    float ypos;
 };
 
 // This is our final struct which we will analyze in Engine.cpp
@@ -92,21 +97,3 @@ struct EditorEvent {
     EditorTypeInfo info;
 };
 
-struct EditorHierarchyView {
-    long entityID = 0;
-    std::string name;
-};
-
-struct EditorEntityView {
-    long entityID = 0;
-    uint64_t meshID = 0;
-    uint64_t textureID = 0;
-    std::string name;
-    MaterialType ShaderID = Default;
-    Color color;
-    bool colorEnabled = true;
-    EditorVec3 position;
-    EditorVec3 rotation;
-    EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
-    glm::mat4 worldMatrix = glm::mat4(1.0f);
-};

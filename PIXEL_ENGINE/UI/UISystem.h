@@ -8,6 +8,7 @@
 #include "Gizmo/Gizmo.h"
 #include "MenuBar/MenuBar.h"
 #include "Layout/EditorLayout.h"
+#include "EditorViews.h"
 
 #include <vector>
 

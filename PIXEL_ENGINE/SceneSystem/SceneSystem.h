@@ -56,4 +56,5 @@ public:
 		
 		void changeSpeedCamera(long CameraID, float targetSpeed);
 		void changePosCamera(long CameraID, Movement direction);
+		void changeAnglesCamera(long CameraID, float xPos, float yPos);
 };

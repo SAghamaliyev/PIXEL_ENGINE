@@ -77,6 +77,9 @@ private:
     bool IsKeyJustReleased(Keys key);
     bool IsMouseButtonJustReleased(MouseButtons button);
 
+    // Was mouse moved by user 
+    bool isMousePositionChanged(float& xpos, float& ypos);
+
     // Check current and previous state of keys and mouse buttons
     void UpdateKeyState(GLFWwindow* window);
 
@@ -188,6 +191,9 @@ private:
 
     int MouseButtonsCurrentStates[100] = {0};
     int MouseButtonsPrevStates[100] = {0};
+
+    float MouseCurrentPositions[2] = {0};
+    float MousePrevPositions[2] = {0};
 
     void InputEditor();
     /*void InputGame();*/

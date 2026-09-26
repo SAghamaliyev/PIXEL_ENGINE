@@ -62,3 +62,13 @@ void TransformManager::TransformCameraProj(glm::mat4& ProjectionMatrix, CameraSe
         SettingsInfo.far
     );
 }
+
+void TransformManager::ChangeCameraMousePos(CameraTransform& TransformInfo, CameraSettings& SettingsInfo) {
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(SettingsInfo.yaw)) * cos(glm::radians(SettingsInfo.pitch));
+    direction.y = sin(glm::radians(SettingsInfo.pitch));
+    direction.z = sin(glm::radians(SettingsInfo.yaw)) * cos(glm::radians(SettingsInfo.pitch));
+
+    TransformInfo.cameraFront = glm::normalize(direction);
+}

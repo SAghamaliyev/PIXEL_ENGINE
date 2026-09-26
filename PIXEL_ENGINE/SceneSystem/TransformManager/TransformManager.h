@@ -13,4 +13,6 @@ public:
 	void TransformCameraView(glm::mat4& ViewMatrix, CameraTransform& TransformInfo);
 	void TransformCameraProj(glm::mat4& ProjectionMatrix, CameraSettings& SettingsInfo, 
 							 float viewPortWidth, float viewPortHeight);
+
+	void ChangeCameraMousePos(CameraTransform& TransformInfo, CameraSettings& SettingsInfo);
 };

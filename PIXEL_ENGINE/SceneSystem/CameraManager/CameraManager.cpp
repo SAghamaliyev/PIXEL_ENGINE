@@ -109,6 +109,22 @@ void CameraManager::changePos(long CameraID, Movement direction) {
 	}
 }
 
+void CameraManager::changeAngles(long CameraID, float xPos, float yPos) {
+
+	auto& SettingsInfo = CameraList.at(CameraID).SettingsInfo;
+
+	xPos *= SettingsInfo.sensitivity;
+	yPos *= SettingsInfo.sensitivity;
+
+	SettingsInfo.yaw += xPos;
+	SettingsInfo.pitch += yPos;
+
+	if (SettingsInfo.pitch > 89.0f)
+		SettingsInfo.pitch = 89.0f;
+	if (SettingsInfo.pitch < -89.0f)
+		SettingsInfo.pitch = -89.0f;
+}
+
 const CameraUnit& CameraManager::getActiveCamera() {
 	return CameraList.at(activeCameraID);
 }

@@ -12,6 +12,19 @@ void InputManager::UpdateKeyState(GLFWwindow* window) {
     for (int i = (int)MouseButtons::MouseLeft; i <= (int)MouseButtons::Mouse5; i++) {
         MouseButtonsCurrentStates[i] = (int)glfwGetMouseButton(window, glfwMouseButtons[i]);
     }
+
+    double tempXpos = 0.0;
+    double tempYpos = 0.0;
+
+    double* xpos = &tempXpos;
+    double* ypos = &tempYpos;
+
+    glfwGetCursorPos(window, xpos, ypos);
+
+    MousePrevPositions[0] = MouseCurrentPositions[0];
+    MousePrevPositions[1] = MouseCurrentPositions[1];
+    MouseCurrentPositions[0] = (float)tempXpos;
+    MouseCurrentPositions[1] = (float)tempYpos;
 }
 
 bool InputManager::IsKeyJustPressed(Keys key) {
@@ -65,6 +78,19 @@ bool InputManager::IsMouseButtonHeld(MouseButtons key) {
     }
     else {
         return false;
+    }
+}
+
+bool InputManager::isMousePositionChanged(float& xpos, float& ypos) {
+    if (MousePrevPositions[0] == MouseCurrentPositions[0]
+        && MousePrevPositions[1] == MouseCurrentPositions[1]) {
+
+        return false;
+    }
+    else {
+        xpos = MouseCurrentPositions[0] - MousePrevPositions[0];
+        ypos = MouseCurrentPositions[1] - MousePrevPositions[1];
+        return true;
     }
 }
 

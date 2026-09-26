@@ -38,5 +38,16 @@ void InputManager::InputEditor() {
         event.type = EditorEventType::CameraMoveBackward;
         EventSystem::pushEvent(event);
     }
+    
+    float xpos = 0.0f;
+    float ypos = 0.0f;
+
+    if (InputManager::isMousePositionChanged(xpos, ypos)) {
+        EditorEvent event;
+        event.type = EditorEventType::CameraMouseChange;
+        event.info.xpos = xpos;
+        event.info.ypos = ypos;
+        EventSystem::pushEvent(event);
+    }
 
 }
