@@ -67,7 +67,9 @@ enum class EditorEventType {
     CameraMoveUp,
     CameraMoveDown,
 
-    CameraMouseChange
+    CameraMouseChange,
+    CameraMouseShouldChange,
+    CameraMouseShouldStay
 };
 
 // This struct is being used for giving details which we must pass

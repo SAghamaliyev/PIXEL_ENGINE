@@ -9,7 +9,9 @@ enum Movement{
 	Forward,
 	Back,
 	Right,
-	Left
+	Left,
+	Up,
+	Down
 };
 
 class CameraManager {

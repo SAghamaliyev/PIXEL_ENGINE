@@ -68,6 +68,8 @@ void Engine::processEditorEvents() {
 
     const vector <EditorEvent> events = EventSystem::getEventsList();
 
+    bool camera_should_change = false;
+
     for (const EditorEvent& event : events) {
 
         switch (event.type) {
@@ -173,10 +175,36 @@ void Engine::processEditorEvents() {
             OurSceneSystem->changePosCamera(event.info.entityID, Back);
             continue;
 
-        case EditorEventType::CameraMouseChange:
-            OurSceneSystem->changeAnglesCamera(event.info.cameraID, event.info.xpos, event.info.ypos);
+        case EditorEventType::CameraMoveLeft:
+            OurSceneSystem->changePosCamera(event.info.entityID, Left);
             continue;
+
+        case EditorEventType::CameraMoveRight:
+            OurSceneSystem->changePosCamera(event.info.entityID, Right);
+            continue;
+
+        case EditorEventType::CameraMoveUp:
+            OurSceneSystem->changePosCamera(event.info.entityID, Up);
+            continue;
+
+        case EditorEventType::CameraMoveDown:
+            OurSceneSystem->changePosCamera(event.info.entityID, Down);
+            continue;
+
+        case EditorEventType::CameraMouseChange:
+            if (camera_should_change) {
+                OurSceneSystem->changeAnglesCamera(event.info.cameraID, event.info.xpos, event.info.ypos);
+            }
+            continue;
+
+        case EditorEventType::CameraMouseShouldChange:
+            camera_should_change = true;
+            continue;
+
+        case EditorEventType::CameraMouseShouldStay:
+            camera_should_change = false;
         }
+        
     }
 }
 

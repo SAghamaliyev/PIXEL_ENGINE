@@ -106,6 +106,16 @@ void CameraManager::changePos(long CameraID, Movement direction) {
 		camera.TransformInfo.cameraPos
 			-= camera.cameraSpeed * camera.TransformInfo.cameraRight;
 		break;
+
+	case Up:	
+		camera.TransformInfo.cameraPos
+			+= camera.cameraSpeed * camera.TransformInfo.cameraUp;
+		break;
+
+	case Down:
+		camera.TransformInfo.cameraPos
+			-= camera.cameraSpeed * camera.TransformInfo.cameraUp;
+		break;
 	}
 }
 

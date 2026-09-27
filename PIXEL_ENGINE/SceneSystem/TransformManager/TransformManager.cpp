@@ -71,4 +71,6 @@ void TransformManager::ChangeCameraMousePos(CameraTransform& TransformInfo, Came
     direction.z = sin(glm::radians(SettingsInfo.yaw)) * cos(glm::radians(SettingsInfo.pitch));
 
     TransformInfo.cameraFront = glm::normalize(direction);
+    TransformInfo.cameraRight = glm::normalize(glm::cross(TransformInfo.cameraFront, glm::vec3(0.0f, 1.0f, 0.0f)));
+    TransformInfo.cameraUp = glm::normalize(glm::cross(TransformInfo.cameraRight, TransformInfo.cameraFront));
 }
