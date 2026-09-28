@@ -394,12 +394,6 @@ if (isValid) {
 
 The opening brace stays on the same line as the statement.
 
-## Empty lines
-
-Do not leave empty lines immediately after `{` or immediately before `}`.
-
-Use empty lines to separate logical sections of code.
-
 ## Initialization
 
 Simple default values should be initialized where the member is declared when possible.
