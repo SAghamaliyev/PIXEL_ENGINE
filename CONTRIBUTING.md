@@ -368,8 +368,8 @@ Do not use raw pointers when ownership can be expressed more clearly with refere
 Use `UPPER_SNAKE_CASE`.
 
 ```cpp
-constexpr int MAX_CAMERAS = 16;
-constexpr float PI = 3.14159f;
+#define MAX_CAMERAS 16
+#define PI 3.14159f
 ```
 
 ---
