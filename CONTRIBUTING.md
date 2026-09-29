@@ -339,17 +339,17 @@ float current_speed = 0.0f;
 
 ### Private members
 
-Use the `m` prefix.
+Use the `m_` prefix.
 
 ```cpp
-unsigned int mCameraID;
-CameraUnit mCamera;
+unsigned int m_cameraID;
+CameraUnit m_camera;
 ```
 
 For pointer members, use both the member and pointer prefixes:
 
 ```cpp
-Camera* mpCamera;
+Camera* mp_camera;
 ```
 
 ### Raw pointers
