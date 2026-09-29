@@ -308,6 +308,15 @@ class CameraManager;
 struct VertexData;
 ```
 
+### Private members of Class
+
+Use the `m_` prefix.
+
+```cpp
+unsigned int m_cameraID;
+CameraUnit m_camera;
+```
+
 ### Functions and methods
 
 Use `camelCase`.
@@ -335,15 +344,6 @@ Use `snake_case`.
 ```cpp
 int vertex_count = 0;
 float current_speed = 0.0f;
-```
-
-### Private members
-
-Use the `m_` prefix.
-
-```cpp
-unsigned int m_cameraID;
-CameraUnit m_camera;
 ```
 
 For pointer members, use both the member and pointer prefixes:
