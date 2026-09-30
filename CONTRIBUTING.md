@@ -320,7 +320,7 @@ CameraUnit m_camera;
 For pointer members, use both the member and pointer prefixes:
 
 ```cpp
-Camera* pm_camera;
+Camera* m_pCamera;
 ```
 
 ### Functions and methods
@@ -354,23 +354,26 @@ float current_speed = 0.0f;
 
 ### Raw pointers
 
-Use the `p` prefix.
+Add the `p` prefix to a pointer, following the naming style of its category:
 
 ```cpp
-Camera* pCamera;
-Shader* pActiveShader;
+Camera* m_pCamera;                  // member: m_ + camelCase
+void setCamera(Camera* pCamera);    // parameter: camelCase
+Camera* p_camera = nullptr;         // local variable: snake_case
 ```
 
-Do not use raw pointers when ownership can be expressed more clearly with references or an appropriate smart pointer.
+Do not use raw pointers when ownership can be expressed more clearly with references
+or an appropriate smart pointer.
 
 ### Constants
 
 Use `UPPER_SNAKE_CASE`.
 
 ```cpp
-#define MAX_CAMERAS 16
-#define PI 3.14159f
+constexpr int MAX_CAMERAS = 16;
+constexpr float PI = 3.14159f;
 ```
+
 ---
 
 # Formatting
@@ -391,15 +394,22 @@ void MeshManager::makeMesh(uint64_t meshID) {
 
 ## Braces
 
-Use K&R-style braces:
+Use Stroustrup-style braces:
 
 ```cpp
 if (isValid) {
     processData();
 }
+else if (isRecoverable) {
+    recoverData();
+}
+else {
+    handleError();
+}
 ```
 
 The opening brace stays on the same line as the statement.
+`else` goes on the same line as the closing brace.
 
 ## Initialization
 
@@ -420,13 +430,18 @@ Avoid moving simple initialization into a constructor without a reason.
 
 ### Line length
 
-The limit is **110 characters** per line. If a line does not fit, wrap it.
+There is no hard limit, but keep lines at approximately **110 characters** or less.
+Above that, a line becomes hard to read: it no longer fits next to other code
+or in a side-by-side diff, and the eye loses track of where it ends.
+
+If a line is hard to read even before 110 characters, wrap it anyway.
+Readability matters more than the number.
 
 Before wrapping, check whether the line can be shortened with an intermediate variable
 or a simpler expression.
 
 ```cpp
-// Bad: long chain that needs wrapping
+// Hard to read
 result = someObject.getManager().getMesh(entity.getComponent().meshID, entity.isActive());
 
 // Better: shorter and easier to read
@@ -537,6 +552,22 @@ void renderEntity(Entity entity);
 ```
 
 unless a copy is intentional.
+
+## Namespaces
+
+`using namespace` is allowed only in `.cpp` files.
+
+Never use it in headers: it leaks into every file that includes the header
+and can cause name conflicts that are hard to trace.
+
+```cpp
+// MeshManager.h
+std::vector<float> m_vertices;    // always write std:: in headers
+
+// MeshManager.cpp
+using namespace std;
+vector<float> vertices;           // allowed here
+```
 
 ---
 
