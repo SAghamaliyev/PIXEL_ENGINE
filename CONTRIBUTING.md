@@ -416,9 +416,11 @@ struct Color {
 
 Avoid moving simple initialization into a constructor without a reason.
 
-## Line length
+## Wrapping & alignment
 
-The limit is **110 characters** per line. If a line does not fit, wrap it (see below).
+### Line length
+
+The limit is **110 characters** per line. If a line does not fit, wrap it.
 
 Before wrapping, check whether the line can be shortened with an intermediate variable
 or a simpler expression.
@@ -432,7 +434,7 @@ auto mesh_id = entity.getComponent().meshID;
 result = someObject.getManager().getMesh(mesh_id, entity.isActive());
 ```
 
-## Wrapping and alignment
+### Function calls and declarations
 
 When wrapping function calls, declarations, or conditions, **align continuation lines
 with the first character after the opening bracket**.
@@ -464,12 +466,12 @@ someVeryLongFunctionNameThatTakesALotOfSpace(
     thirdArgument);
 ```
 
-## Logical operators
+### Logical operators
 
 Almost always wrap conditions with `||`, `&&` and similar operators if they are not short.
 
-Put the operator at the **end** of the line and align the next line with the first
-character after the opening bracket of `if`.
+Put the operator at the **beginning** of the next line and align the continuation
+with the first character after the opening bracket of `if`.
 
 ```cpp
 // Short condition: one line is fine
@@ -477,10 +479,10 @@ if (isActive && meshID > 0) {
     // ...
 }
 
-// Not short: wrap at every logical operator
-if (vertices.empty() ||
-    indices.empty() ||
-    textures.size() / 2 != vertices.size() / 3) {
+// Not short: wrap before every logical operator
+if (vertices.empty()
+    || indices.empty()
+    || textures.size() / 2 != vertices.size() / 3) {
     return;
 }
 ```
