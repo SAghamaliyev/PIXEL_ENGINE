@@ -197,8 +197,8 @@ Use `<glm/glm.hpp>` style paths for libraries, never relative paths like `<../..
 
 ### Line length
 
-There is no fixed limit. If a line becomes hard to read or too long, wrap it.
-Readability matters more than any number.
+If a line becomes hard to read or too long, wrap it.
+Readability matters!!!
 
 Before wrapping, check whether the line can be shortened with an intermediate variable
 or a simpler expression.
