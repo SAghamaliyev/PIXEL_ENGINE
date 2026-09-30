@@ -371,7 +371,6 @@ Use `UPPER_SNAKE_CASE`.
 #define MAX_CAMERAS 16
 #define PI 3.14159f
 ```
-
 ---
 
 # Formatting
@@ -381,6 +380,14 @@ Use `UPPER_SNAKE_CASE`.
 Use **4 spaces**.
 
 Do not use tabs.
+
+```cpp
+void MeshManager::makeMesh(uint64_t meshID) {
+    if (meshID > 0) {
+        // ...
+    }
+}
+```
 
 ## Braces
 
@@ -408,6 +415,77 @@ struct Color {
 ```
 
 Avoid moving simple initialization into a constructor without a reason.
+
+## Line length
+
+The limit is **110 characters** per line. If a line does not fit, wrap it (see below).
+
+Before wrapping, check whether the line can be shortened with an intermediate variable
+or a simpler expression.
+
+```cpp
+// Bad: long chain that needs wrapping
+result = someObject.getManager().getMesh(entity.getComponent().meshID, entity.isActive());
+
+// Better: shorter and easier to read
+auto mesh_id = entity.getComponent().meshID;
+result = someObject.getManager().getMesh(mesh_id, entity.isActive());
+```
+
+## Wrapping and alignment
+
+When wrapping function calls, declarations, or conditions, **align continuation lines
+with the first character after the opening bracket**.
+
+```cpp
+glUniformMatrix4fv(projection_matrix_location, 1, GL_FALSE,
+                   value_ptr(active_camera.projection));
+
+glTexImage2D(GL_TEXTURE_2D,
+             0,
+             internal_format,
+             width,
+             height,
+             0,
+             data_format,
+             GL_UNSIGNED_BYTE,
+             data);
+```
+
+Wrap after a comma between arguments. If arguments have different meaning and are hard to tell
+apart (many literals, enums, zeros), put each argument on its own line, as in `glTexImage2D`.
+
+If alignment leaves too little room for the continuation (very long function name),
+use a fixed 4-space indent instead:
+
+```cpp
+someVeryLongFunctionNameThatTakesALotOfSpace(
+    firstArgument, secondArgument,
+    thirdArgument);
+```
+
+## Logical operators
+
+Almost always wrap conditions with `||`, `&&` and similar operators if they are not short.
+
+Put the operator at the **end** of the line and align the next line with the first
+character after the opening bracket of `if`.
+
+```cpp
+// Short condition: one line is fine
+if (isActive && meshID > 0) {
+    // ...
+}
+
+// Not short: wrap at every logical operator
+if (vertices.empty() ||
+    indices.empty() ||
+    textures.size() / 2 != vertices.size() / 3) {
+    return;
+}
+```
+
+Do not mix styles: either the whole condition is on one line, or each operand is on its own line.
 
 ---
 
