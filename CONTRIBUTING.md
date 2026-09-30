@@ -1,298 +1,3 @@
-# Contributing to Pixel Engine
-
-Thanks for taking an interest in Pixel Engine.
-
-This file covers the basic workflow, code style, and architectural rules used in the project. Please follow these guidelines when opening a pull request so that new code fits the existing engine instead of creating a separate way of doing things.
-
-## Workflow
-
-Pixel Engine uses the usual fork and pull request workflow.
-
-### 1. Fork the repository
-
-Fork the repository to your own GitHub account.
-
-### 2. Clone your fork
-
-```bash
-git clone https://github.com/YOUR_USERNAME/PIXEL_ENGINE.git
-cd PIXEL_ENGINE
-```
-
-### 3. Create a branch
-
-Create a separate branch for each change. Do not work directly on `main`.
-
-Use one of these prefixes:
-
-* `feature/` — new functionality
-* `bugfix/` — bug fixes
-* `refactor/` — code or architecture changes
-
-Example:
-
-```bash
-git checkout -b feature/new-camera-system
-```
-
-### 4. Make your changes
-
-Keep changes focused on the purpose of the branch.
-
-Before adding a new system, manager, dependency, or abstraction, check whether the existing architecture already has a place for it.
-
-### 5. Commit
-
-Write a short commit message that describes the change.
-
-```bash
-git commit -m "Add frustum culling to CameraManager"
-```
-
-### 6. Push your branch
-
-```bash
-git push origin feature/new-camera-system
-```
-
-### 7. Open a Pull Request
-
-Open a pull request against the `main` branch.
-
-The description should include:
-
-* What was changed
-* Why the change was needed
-* Any important implementation details
-* Screenshots or a short video if the change affects the editor or rendering
-
-For architectural changes, explain why the change fits the current architecture.
-
-Keep pull requests focused. Avoid mixing unrelated refactors with a feature or bug fix.
-
----
-
-# Architecture
-
-Pixel Engine follows a system-based architecture.
-
-The main goal is to keep systems independent and give each part of the engine a clear responsibility. New code should fit into this structure rather than introducing another way of communicating between systems.
-
-## Engine
-
-`Engine` owns the main application loop and coordinates the major parts of the application.
-
-It should not contain the actual implementation of rendering, scene management, input handling, UI, or asset management.
-
-Avoid turning `Engine.cpp` into a place where unrelated engine logic accumulates.
-
----
-
-## Systems
-
-Each system should have one clear responsibility.
-
-Examples include:
-
-* `RenderSystem` — rendering
-* `SceneSystem` — entities and scene state
-* `AssetSystem` — loading and managing assets
-* `InputManager` — collecting and processing input
-* `CameraManager` — camera state and camera operations
-* UI/editor code — editor interface and editor-specific interaction
-* `EventSystem` — communication through engine/editor events
-
-If a new feature belongs to an existing system, extend that system instead of creating another manager just to hold a few functions.
-
-Create a new system only when it represents a meaningful and independent responsibility.
-
----
-
-## Systems should not depend on each other's internals
-
-Avoid direct dependencies between systems when they are not necessary.
-
-For example, `RenderSystem` should not start managing scene state itself and should not directly modify `SceneSystem`.
-
-If rendering needs scene information, provide the required data through the appropriate interface or shared data structure.
-
-The same principle applies in the other direction.
-
-The goal is to avoid architecture like:
-
-```text
-RenderSystem
-    ↓
-SceneSystem
-    ↓
-AssetSystem
-    ↓
-CameraManager
-    ↓
-UI
-```
-
-where one system slowly becomes dependent on everything else.
-
-Prefer clear boundaries:
-
-```text
-             Engine
-                |
-      +---------+---------+
-      |         |         |
-   Scene     Render      UI
-   System    System     System
-      |         |
-   Entities   Render
-   + Data      Data
-
-       EventSystem
-             |
-     Editor / Engine events
-```
-
-The exact implementation can change as the engine grows, but the separation of responsibilities should remain.
-
----
-
-## Do not move responsibilities to the wrong system
-
-When adding functionality, first ask:
-
-> Which system owns this data or operation?
-
-For example:
-
-* Entity state belongs to `SceneSystem`.
-* Rendering operations belong to `RenderSystem`.
-* Camera state and camera calculations belong to `CameraManager`.
-* Input collection belongs to `InputManager`.
-* Asset loading belongs to `AssetSystem`.
-* Editor interaction belongs to the editor/UI layer.
-* Cross-system events belong to `EventSystem`.
-
-Do not put functionality somewhere simply because that file is convenient to access.
-
-Convenience is not a good reason to create an architectural dependency.
-
----
-
-## Prefer data transfer over system coupling
-
-When one system needs information from another system, prefer passing the required data instead of giving it access to the entire system.
-
-For example, if rendering only needs a list of renderable entities, pass or expose the appropriate render data rather than making `RenderSystem` depend on the complete `SceneSystem`.
-
-This keeps dependencies smaller and makes systems easier to change independently.
-
----
-
-## Events
-
-Use the event system when an action needs to be communicated between otherwise independent parts of the engine.
-
-For example:
-
-```text
-Input
-   ↓
-EditorEvent
-   ↓
-EventSystem
-   ↓
-SceneSystem
-```
-
-Events should represent an actual event or command.
-
-Do not use the event system for every function call. If two pieces of code have a direct ownership relationship and a normal function call is appropriate, use the function call.
-
----
-
-## Shared structures
-
-Do not create one huge `Definitions.h` containing every structure in the engine.
-
-A structure should generally live close to the system or concept that owns it.
-
-For example:
-
-```text
-Camera.h
-    Camera
-    CameraSettings
-
-Material.h
-    Material
-    MaterialType
-
-Entity.h
-    Entity
-    EntityData
-```
-
-If a structure is genuinely shared by several independent systems, it can be placed in a common definitions/data header.
-
-The goal is to avoid both extremes:
-
-* everything in one giant definitions file
-* the same structure being duplicated in several places
-
----
-
-## Ownership and dependencies
-
-Before adding an `#include`, consider why the dependency is required.
-
-Prefer forward declarations where they are sufficient, especially in headers.
-
-For example:
-
-```cpp
-class Shader;
-
-class RenderSystem {
-public:
-    void setShader(Shader* pShader);
-};
-```
-
-Include the full definition where it is actually required, usually in the `.cpp` file.
-
-Do not introduce an include dependency simply because it is convenient.
-
----
-
-## Avoid unnecessary abstractions
-
-Pixel Engine is an engine project, but that does not mean every feature needs an interface, manager, wrapper, or inheritance hierarchy.
-
-Do not add an abstraction just because it looks more "engine-like".
-
-A new abstraction should solve an actual problem such as:
-
-* separating responsibilities
-* removing duplicated logic
-* managing ownership
-* reducing coupling
-* providing a stable interface
-* making future extensions significantly easier
-
-If a simple function or structure is enough, keep it simple.
-
----
-
-## Keep the architecture predictable
-
-When implementing a feature, prefer the existing architectural patterns unless there is a strong reason to change them.
-
-A contributor should not introduce a completely different design for one subsystem without discussing it first.
-
-For larger architectural changes, open an issue or discuss the approach in the pull request before doing a large implementation.
-
----
-
 # Code Style
 
 ## Naming
@@ -380,21 +85,23 @@ constexpr float PI = 3.14159f;
 
 ## Indentation
 
-Use **4 spaces**.
+Always use **4 spaces**. Tabs are **forbidden**.
 
-Do not use tabs.
+Configure your editor to insert spaces when you press Tab, and convert existing tabs
+to spaces before committing.
 
 ```cpp
 void MeshManager::makeMesh(uint64_t meshID) {
-    if (meshID > 0) {
-        // ...
+    if (meshID == 0) {
+        return;
     }
 }
 ```
 
 ## Braces
 
-Use Stroustrup-style braces:
+Use Stroustrup-style braces: the opening brace stays on the same line as the statement,
+`else` and `else if` start on a new line.
 
 ```cpp
 if (isValid) {
@@ -408,8 +115,17 @@ else {
 }
 ```
 
-The opening brace stays on the same line as the statement.
-`else` goes on the same line as the closing brace.
+Braces are required even for a single statement:
+
+```cpp
+// Bad
+if (isValid) processData();
+
+// Good
+if (isValid) {
+    processData();
+}
+```
 
 ## Initialization
 
@@ -426,16 +142,81 @@ struct Color {
 
 Avoid moving simple initialization into a constructor without a reason.
 
+## Includes
+
+### Include everything the file uses
+
+Every file includes all headers for everything it uses itself, even if they are
+already included indirectly through another header.
+
+Never rely on an include made by another file. If that file changes its includes,
+your file would stop compiling.
+
+```cpp
+// Uses glm::vec3 and uint64_t, so it includes both,
+// even though EntityDefinitions.h already brings them in.
+#include <cstdint>
+
+#include <glm/glm.hpp>
+
+#include "Definitions/EntityDefinitions.h"
+```
+
+### Headers and source files
+
+Put an include in the `.h` file only if the header itself needs it
+(types in declarations, members held by value, base classes).
+
+If something is used only inside the `.cpp`, include it in the `.cpp`, not in the header.
+
+Prefer forward declarations in headers when a full definition is not needed
+(pointers and references to a type).
+
+```cpp
+// RenderSystem.h
+class Shader;                       // forward declaration is enough
+
+class RenderSystem {
+public:
+    void setShader(Shader* pShader);
+};
+
+// RenderSystem.cpp
+#include "RenderSystem.h"
+
+#include "Shader.h"                 // full definition is needed only here
+```
+
+### Order
+
+1. The file's own header (in a `.cpp`)
+2. Standard library
+3. Third-party libraries (`glm`, `GLFW`, `glad`)
+4. Project headers
+
+Separate the groups with a blank line.
+
+```cpp
+#include "MeshManager.h"
+
+#include <cstdint>
+#include <vector>
+
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+
+#include "Logger.h"
+```
+
+Use `#pragma once` in every header.
+Use `<glm/glm.hpp>` style paths for libraries, never relative paths like `<../../glm-1.0.3/glm/glm.hpp>`.
+
 ## Wrapping & alignment
 
 ### Line length
 
-There is no hard limit, but keep lines at approximately **110 characters** or less.
-Above that, a line becomes hard to read: it no longer fits next to other code
-or in a side-by-side diff, and the eye loses track of where it ends.
-
-If a line is hard to read even before 110 characters, wrap it anyway.
-Readability matters more than the number.
+There is no fixed limit. If a line becomes hard to read or too long, wrap it.
+Readability matters more than any number.
 
 Before wrapping, check whether the line can be shortened with an intermediate variable
 or a simpler expression.
@@ -500,6 +281,7 @@ if (vertices.empty()
 ## Use early returns
 
 Prefer guard clauses over deeply nested `if` statements.
+Do not write `else` after a branch that ends with `return`.
 
 Instead of:
 
@@ -532,8 +314,6 @@ If a function requires an object but does not take ownership of it, use a refere
 ```cpp
 void updateCamera(Camera& camera);
 ```
-
-instead of unnecessarily passing ownership-like semantics through a pointer.
 
 Use pointers when `nullptr` has a meaningful purpose or when the architecture requires pointer semantics.
 
@@ -582,34 +362,9 @@ Avoid:
 camera.setPosition(position);
 ```
 
-The code already explains what it does.
-
 A useful comment explains something that cannot be understood directly from the code:
 
 ```cpp
 // GLFW reports the cursor position relative to the window,
 // so the Y value has to be inverted before applying camera rotation.
 ```
-
-If something needs a large comment to explain, consider whether the code or architecture can be made clearer instead.
-
----
-
-# Pull Request Checklist
-
-Before opening a PR, check the following:
-
-* [ ] The project builds successfully.
-* [ ] The changed functionality has been tested.
-* [ ] No unrelated files or changes were included.
-* [ ] Naming follows the project conventions.
-* [ ] Formatting uses 4 spaces.
-* [ ] New dependencies are actually necessary.
-* [ ] The change does not create unnecessary system coupling.
-* [ ] Existing architecture is followed.
-* [ ] New abstractions have a clear reason to exist.
-* [ ] Generated files and local configuration are not committed.
-* [ ] Screenshots or video are included when the change affects the editor or rendering.
-* [ ] The PR description explains architectural changes when applicable.
-
-Thanks for contributing to Pixel Engine.
