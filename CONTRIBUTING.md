@@ -457,15 +457,6 @@ glTexImage2D(GL_TEXTURE_2D,
 Wrap after a comma between arguments. If arguments have different meaning and are hard to tell
 apart (many literals, enums, zeros), put each argument on its own line, as in `glTexImage2D`.
 
-If alignment leaves too little room for the continuation (very long function name),
-use a fixed 4-space indent instead:
-
-```cpp
-someVeryLongFunctionNameThatTakesALotOfSpace(
-    firstArgument, secondArgument,
-    thirdArgument);
-```
-
 ### Logical operators
 
 Almost always wrap conditions with `||`, `&&` and similar operators if they are not short.
