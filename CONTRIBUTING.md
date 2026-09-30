@@ -169,24 +169,6 @@ Put an include in the `.h` file only if the header itself needs it
 
 If something is used only inside the `.cpp`, include it in the `.cpp`, not in the header.
 
-Prefer forward declarations in headers when a full definition is not needed
-(pointers and references to a type).
-
-```cpp
-// RenderSystem.h
-class Shader;                       // forward declaration is enough
-
-class RenderSystem {
-public:
-    void setShader(Shader* pShader);
-};
-
-// RenderSystem.cpp
-#include "RenderSystem.h"
-
-#include "Shader.h"                 // full definition is needed only here
-```
-
 ### Order
 
 1. The file's own header (in a `.cpp`)
