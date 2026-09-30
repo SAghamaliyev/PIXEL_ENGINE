@@ -317,6 +317,12 @@ unsigned int m_cameraID;
 CameraUnit m_camera;
 ```
 
+For pointer members, use both the member and pointer prefixes:
+
+```cpp
+Camera* pm_camera;
+```
+
 ### Functions and methods
 
 Use `camelCase`.
@@ -344,12 +350,6 @@ Use `snake_case`.
 ```cpp
 int vertex_count = 0;
 float current_speed = 0.0f;
-```
-
-For pointer members, use both the member and pointer prefixes:
-
-```cpp
-Camera* mp_camera;
 ```
 
 ### Raw pointers
