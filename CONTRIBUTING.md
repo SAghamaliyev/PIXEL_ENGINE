@@ -478,8 +478,6 @@ if (vertices.empty()
 }
 ```
 
-Do not mix styles: either the whole condition is on one line, or each operand is on its own line.
-
 ---
 
 # C++ Practices
