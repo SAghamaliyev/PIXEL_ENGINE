@@ -28,14 +28,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetSystem\AssetSystem.cpp" />
-    <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp" />
-    <ClCompile Include="AssetSystem\AssetSystemTEX.cpp" />
     <ClCompile Include="Core\EventSystem\EventSystem.cpp" />
     <ClCompile Include="dependencies\glad\src\glad.c" />
     <ClCompile Include="dependencies\ImGuizmo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Core\InputSystem\InputSystem.cpp" />
-    <ClCompile Include="Core\InputSystem\InputEditor.cpp" />
+    <ClCompile Include="Core\InputSystem\EditorInput.cpp" />
     <ClCompile Include="Core\Logger\Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderSystem\MeshManager\MeshManager.cpp" />
@@ -46,18 +44,25 @@
     <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
     <ClCompile Include="SceneSystem\SceneSystem.cpp" />
     <ClCompile Include="SceneSystem\SceneSystemEntity.cpp" />
-    <ClCompile Include="UI\EditorTheme.cpp" />
-    <ClCompile Include="UI\EditorUI.cpp" />
+    <ClCompile Include="UI\Theme\EditorTheme.cpp" />
+    <ClCompile Include="UI\UISystem.cpp" />
+    <ClCompile Include="UI\Gizmo\Gizmo.cpp" />
+    <ClCompile Include="UI\MenuBar\MenuBar.cpp" />
     <ClCompile Include="UI\Panels\ConsolePanel.cpp" />
     <ClCompile Include="UI\Panels\ContentBrowserPanel.cpp" />
     <ClCompile Include="UI\Panels\InspectorPanel.cpp" />
     <ClCompile Include="UI\Panels\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="UI\Panels\ViewportPanel.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="UI\Materials\imgui.cpp" />
     <ClCompile Include="UI\Materials\imgui_draw.cpp" />
     <ClCompile Include="UI\Materials\imgui_tables.cpp" />
     <ClCompile Include="UI\Materials\imgui_widgets.cpp" />
+    <ClCompile Include="SceneSystem\CameraManager\CameraManager.cpp" />
+    <ClCompile Include="SceneSystem\SceneSystemCamera.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemMesh.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetSystem\AssetSystem.h" />
@@ -79,10 +84,12 @@
     <ClInclude Include="SceneSystem\TransformManager\TransformManager.h" />
     <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
     <ClInclude Include="SceneSystem\SceneSystem.h" />
-    <ClInclude Include="src\Definitions.h" />
-    <ClInclude Include="UI\EditorLayout.h" />
-    <ClInclude Include="UI\EditorTheme.h" />
-    <ClInclude Include="UI\EditorUI.h" />
+    <ClInclude Include="UI\Layout\EditorLayout.h" />
+    <ClInclude Include="UI\EditorViews.h" />
+    <ClInclude Include="UI\Theme\EditorTheme.h" />
+    <ClInclude Include="UI\UISystem.h" />
+    <ClInclude Include="UI\Gizmo\Gizmo.h" />
+    <ClInclude Include="UI\MenuBar\MenuBar.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
     <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
@@ -96,7 +103,15 @@
     <ClInclude Include="UI\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="UI\Panels\InspectorPanel.h" />
     <ClInclude Include="UI\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="UI\Panels\ViewportPanel.h" />
     <ClInclude Include="Core\EventSystem\EventTypes.h" />
+    <ClInclude Include="Core\Definitions\CameraDefinitions.h" />
+    <ClInclude Include="Core\Definitions\EntityDefinitions.h" />
+    <ClInclude Include="Core\Definitions\MaterialDefinitions.h" />
+    <ClInclude Include="Core\Definitions\MeshDefinitions.h" />
+    <ClInclude Include="Core\Definitions\SceneDefinitions.h" />
+    <ClInclude Include="SceneSystem\CameraManager\CameraManager.h" />
+    <ClInclude Include="Core\Definitions\CommonDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\DefaultShader.vert" />

@@ -102,14 +102,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)dependencies\include;$(ProjectDir)UI\Materials\Backends;$(ProjectDir)UI\Materials;$(ProjectDir)dependencies\glad\include;$(ProjectDir)dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)third_party;$(ProjectDir)third_party\include;$(ProjectDir)third_party\glm-1.0.3;$(ProjectDir)third_party\glad\include;$(ProjectDir)third_party\glfw\include;$(ProjectDir)src\Systems\UI\Materials;$(ProjectDir)src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)dependencies\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)third_party\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib
 ;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -122,102 +122,118 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)dependencies\include;$(ProjectDir)UI\Materials\Backends;$(ProjectDir)UI\Materials;$(ProjectDir)dependencies\glad\include;$(ProjectDir)dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)third_party;$(ProjectDir)third_party\include;$(ProjectDir)third_party\glm-1.0.3;$(ProjectDir)third_party\glad\include;$(ProjectDir)third_party\glfw\include;$(ProjectDir)src\Systems\UI\Materials;$(ProjectDir)src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)dependencies\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)third_party\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib
 ;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AssetSystem\AssetSystem.cpp" />
-    <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp" />
-    <ClCompile Include="AssetSystem\AssetSystemTEX.cpp" />
-    <ClCompile Include="Core\EventSystem\EventSystem.cpp" />
-    <ClCompile Include="dependencies\glad\src\glad.c" />
-    <ClCompile Include="dependencies\ImGuizmo.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Core\InputSystem\InputSystem.cpp" />
-    <ClCompile Include="Core\InputSystem\InputEditor.cpp" />
-    <ClCompile Include="Core\Logger\Logger.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="RenderSystem\MeshManager\MeshManager.cpp" />
-    <ClCompile Include="RenderSystem\RenderSystem.cpp" />
-    <ClCompile Include="RenderSystem\ShaderManager\ShaderManager.cpp" />
-    <ClCompile Include="RenderSystem\TextureManager\TextureManager.cpp" />
-    <ClCompile Include="SceneSystem\TransformManager\TransformManager.cpp" />
-    <ClCompile Include="SceneSystem\EntityManager\EntityManager.cpp" />
-    <ClCompile Include="SceneSystem\SceneSystem.cpp" />
-    <ClCompile Include="SceneSystem\SceneSystemEntity.cpp" />
-    <ClCompile Include="UI\EditorTheme.cpp" />
-    <ClCompile Include="UI\EditorUI.cpp" />
-    <ClCompile Include="UI\Panels\ConsolePanel.cpp" />
-    <ClCompile Include="UI\Panels\ContentBrowserPanel.cpp" />
-    <ClCompile Include="UI\Panels\InspectorPanel.cpp" />
-    <ClCompile Include="UI\Panels\SceneHierarchyPanel.cpp" />
-    <Text Include="src\Shaders\DefaultShader.frag">
+    <ClCompile Include="src\Systems\Asset\AssetSystem.cpp" />
+    <ClCompile Include="src\Systems\Asset\AssetSystemMesh.cpp" />
+    <ClCompile Include="src\Systems\Asset\AssetSystemTexture.cpp" />
+    <ClCompile Include="src\\Core\EventSystem\EventSystem.cpp" />
+    <ClCompile Include="third_party\glad\src\glad.c" />
+    <ClCompile Include="third_party\ImGuizmo.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\\Core\InputSystem\InputSystem.cpp" />
+    <ClCompile Include="src\Core\InputSystem\EditorInput.cpp" />
+    <ClCompile Include="src\\Core\Logger\Logger.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Systems\Render\MeshManager\MeshManager.cpp" />
+    <ClCompile Include="src\Systems\Render\RenderSystem.cpp" />
+    <ClCompile Include="src\Systems\Render\ShaderManager\ShaderManager.cpp" />
+    <ClCompile Include="src\Systems\Render\TextureManager\TextureManager.cpp" />
+    <ClCompile Include="src\Systems\Scene\CameraManager\CameraManager.cpp" />
+    <ClCompile Include="src\Systems\Scene\SceneSystemCamera.cpp" />
+    <ClCompile Include="src\Systems\Scene\TransformManager\TransformManager.cpp" />
+    <ClCompile Include="src\Systems\Scene\EntityManager\EntityManager.cpp" />
+    <ClCompile Include="src\Systems\Scene\SceneSystem.cpp" />
+    <ClCompile Include="src\Systems\Scene\SceneSystemEntity.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Theme\EditorTheme.cpp" />
+    <ClCompile Include="src\\Systems\\UI\UISystem.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Gizmo\Gizmo.cpp" />
+    <ClCompile Include="src\\Systems\\UI\MenuBar\MenuBar.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Panels\ConsolePanel.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Panels\ContentBrowserPanel.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Panels\InspectorPanel.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Panels\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Panels\ViewportPanel.cpp" />
+    <Text Include="assets\Shaders\DefaultShader.frag">
       <FileType>Document</FileType>
     </Text>
-    <ClCompile Include="UI\Materials\Backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="UI\Materials\Backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="UI\Materials\imgui.cpp" />
-    <ClCompile Include="UI\Materials\imgui_draw.cpp" />
-    <ClCompile Include="UI\Materials\imgui_tables.cpp" />
-    <ClCompile Include="UI\Materials\imgui_widgets.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Materials\Backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Materials\Backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Materials\imgui.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Materials\imgui_draw.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Materials\imgui_tables.cpp" />
+    <ClCompile Include="src\\Systems\\UI\Materials\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssetSystem\AssetSystem.h" />
-    <ClInclude Include="dependencies\glad\include\glad\glad.h" />
-    <ClInclude Include="dependencies\glad\include\KHR\khrplatform.h" />
-    <ClInclude Include="dependencies\glfw\include\GLFW\glfw3.h" />
-    <ClInclude Include="dependencies\ImGuizmo.h" />
-    <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
-    <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
-    <ClInclude Include="dependencies\stb_image.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Core\EventSystem\EventSystem.h" />
-    <ClInclude Include="Core\EventSystem\EventTypes.h" />
-    <ClInclude Include="Core\InputSystem\InputSystem.h" />
-    <ClInclude Include="Core\Logger\Logger.h" />
-    <ClInclude Include="RenderSystem\MeshManager\MeshManager.h" />
-    <ClInclude Include="RenderSystem\RenderSystem.h" />
-    <ClInclude Include="RenderSystem\ShaderManager\ShaderManager.h" />
-    <ClInclude Include="RenderSystem\TextureManager\TextureManager.h" />
-    <ClInclude Include="SceneSystem\TransformManager\TransformManager.h" />
-    <ClInclude Include="SceneSystem\EntityManager\EntityManager.h" />
-    <ClInclude Include="SceneSystem\SceneSystem.h" />
-    <ClInclude Include="src\Definitions.h" />
-    <ClInclude Include="UI\EditorLayout.h" />
-    <ClInclude Include="UI\EditorTheme.h" />
-    <ClInclude Include="UI\EditorUI.h" />
-    <ClInclude Include="UI\Materials\Backends\imgui_impl_glfw.h" />
-    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3.h" />
-    <ClInclude Include="UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="UI\Materials\imconfig.h" />
-    <ClInclude Include="UI\Materials\imgui.h" />
-    <ClInclude Include="UI\Materials\imgui_internal.h" />
-    <ClInclude Include="UI\Materials\imstb_rectpack.h" />
-    <ClInclude Include="UI\Materials\imstb_textedit.h" />
-    <ClInclude Include="UI\Materials\imstb_truetype.h" />
-    <ClInclude Include="UI\Panels\ConsolePanel.h" />
-    <ClInclude Include="UI\Panels\ContentBrowserPanel.h" />
-    <ClInclude Include="UI\Panels\InspectorPanel.h" />
-    <ClInclude Include="UI\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\Systems\Asset\AssetSystem.h" />
+    <ClInclude Include="src\Core\Definitions\SceneDefinitions.h" />
+    <ClInclude Include="third_party\glad\include\glad\glad.h" />
+    <ClInclude Include="third_party\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="third_party\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="third_party\ImGuizmo.h" />
+    <ClInclude Include="third_party\include\GLFW\glfw3.h" />
+    <ClInclude Include="third_party\include\GLFW\glfw3native.h" />
+    <ClInclude Include="third_party\stb_image.h" />
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\\Core\EventSystem\EventSystem.h" />
+    <ClInclude Include="src\\Core\EventSystem\EventTypes.h" />
+    <ClInclude Include="src\\Core\InputSystem\InputSystem.h" />
+    <ClInclude Include="src\\Core\Logger\Logger.h" />
+    <ClInclude Include="src\Systems\Render\MeshManager\MeshManager.h" />
+    <ClInclude Include="src\Systems\Render\RenderSystem.h" />
+    <ClInclude Include="src\Systems\Render\ShaderManager\ShaderManager.h" />
+    <ClInclude Include="src\Systems\Render\TextureManager\TextureManager.h" />
+    <ClInclude Include="src\Systems\Scene\CameraManager\CameraManager.h" />
+    <ClInclude Include="src\Systems\Scene\TransformManager\TransformManager.h" />
+    <ClInclude Include="src\Systems\Scene\EntityManager\EntityManager.h" />
+    <ClInclude Include="src\Systems\Scene\SceneSystem.h" />
+    <ClInclude Include="src\\Systems\\UI\Layout\EditorLayout.h" />
+    <ClInclude Include="src\\Systems\\UI\EditorViews.h" />
+    <ClInclude Include="src\\Systems\\UI\Theme\EditorTheme.h" />
+    <ClInclude Include="src\\Systems\\UI\UISystem.h" />
+    <ClInclude Include="src\\Systems\\UI\Gizmo\Gizmo.h" />
+    <ClInclude Include="src\\Systems\\UI\MenuBar\MenuBar.h" />
+    <ClInclude Include="src\\Systems\\UI\Materials\Backends\imgui_impl_glfw.h" />
+    <ClInclude Include="src\\Systems\\UI\Materials\Backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\\Systems\\UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Systems\UI\Materials\imconfig.h" />
+    <ClInclude Include="src\Systems\UI\Materials\imgui.h" />
+    <ClInclude Include="src\Systems\UI\Materials\imgui_internal.h" />
+    <ClInclude Include="src\Systems\UI\Materials\imstb_rectpack.h" />
+    <ClInclude Include="src\Systems\UI\Materials\imstb_textedit.h" />
+    <ClInclude Include="src\Systems\UI\Materials\imstb_truetype.h" />
+    <ClInclude Include="src\\Systems\\UI\Panels\ConsolePanel.h" />
+    <ClInclude Include="src\\Systems\\UI\Panels\ContentBrowserPanel.h" />
+    <ClInclude Include="src\\Systems\\UI\Panels\InspectorPanel.h" />
+    <ClInclude Include="src\\Systems\\UI\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\\Systems\\UI\Panels\ViewportPanel.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\Objects\Triangle.obj">
+    <Text Include="assets\Objects\Triangle.obj">
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Shaders\DefaultShader.vert" />
+    <None Include="assets\Shaders\DefaultShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
+
+
+
+
+
+
