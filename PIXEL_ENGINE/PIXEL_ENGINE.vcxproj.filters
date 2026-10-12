@@ -28,14 +28,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetSystem\AssetSystem.cpp" />
-    <ClCompile Include="AssetSystem\AssetSystemOBJ.cpp" />
-    <ClCompile Include="AssetSystem\AssetSystemTEX.cpp" />
     <ClCompile Include="Core\EventSystem\EventSystem.cpp" />
     <ClCompile Include="dependencies\glad\src\glad.c" />
     <ClCompile Include="dependencies\ImGuizmo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Core\InputSystem\InputSystem.cpp" />
-    <ClCompile Include="Core\InputSystem\InputEditor.cpp" />
+    <ClCompile Include="Core\InputSystem\EditorInput.cpp" />
     <ClCompile Include="Core\Logger\Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderSystem\MeshManager\MeshManager.cpp" />
@@ -63,6 +61,8 @@
     <ClCompile Include="UI\Materials\imgui_widgets.cpp" />
     <ClCompile Include="SceneSystem\CameraManager\CameraManager.cpp" />
     <ClCompile Include="SceneSystem\SceneSystemCamera.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemMesh.cpp" />
+    <ClCompile Include="AssetSystem\AssetSystemTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetSystem\AssetSystem.h" />
@@ -105,8 +105,13 @@
     <ClInclude Include="UI\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="UI\Panels\ViewportPanel.h" />
     <ClInclude Include="Core\EventSystem\EventTypes.h" />
-    <ClInclude Include="Core\Definitions\SceneDefinitons.h" />
+    <ClInclude Include="Core\Definitions\CameraDefinitions.h" />
+    <ClInclude Include="Core\Definitions\EntityDefinitions.h" />
+    <ClInclude Include="Core\Definitions\MaterialDefinitions.h" />
+    <ClInclude Include="Core\Definitions\MeshDefinitions.h" />
+    <ClInclude Include="Core\Definitions\SceneDefinitions.h" />
     <ClInclude Include="SceneSystem\CameraManager\CameraManager.h" />
+    <ClInclude Include="Core\Definitions\CommonDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\DefaultShader.vert" />
