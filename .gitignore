@@ -357,6 +357,9 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
+# Dear ImGui UI layout and window state settings
+imgui.ini
+
 # OpenCover UI analysis results
 OpenCover/
 
