@@ -1,3 +1,0 @@
-C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/CMakeFiles/PIXEL_ENGINE.dir
-C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/CMakeFiles/ZERO_CHECK.dir
