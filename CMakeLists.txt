@@ -31,7 +31,7 @@ else()
 endif()
 
 # Paths to engine and third-party directories
-set(ENGINE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/PIXEL_ENGINE")
+set(ENGINE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 set(SRC_DIR "${ENGINE_ROOT}/src")
 set(THIRD_PARTY_DIR "${ENGINE_ROOT}/third_party")
 
