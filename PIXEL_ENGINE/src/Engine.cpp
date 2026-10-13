@@ -10,18 +10,7 @@
 #include "Core/Logger/Logger.h"
 
 using namespace std;
-
-namespace {
-
-    glm::vec3 toGlmVec3(const EditorVec3& vector) {
-        return glm::vec3(vector.x, vector.y, vector.z);
-    }
-
-    EditorVec3 toEditorVec3(const glm::vec3& vector) {
-        return EditorVec3{ vector.x, vector.y, vector.z };
-    }
-
-}
+using namespace glm;
 
 void Engine::visualizeEditorEvents() {
     const auto& scene_info = m_pSceneSystem->getSceneInfo();
@@ -40,16 +29,16 @@ void Engine::visualizeEditorEvents() {
         hierarchy_views.push_back(EditorHierarchyView{ entity.entityID, entity.name });
     }
 
-    m_uiSystem.setHierarchyViews(hierarchy_views);
+    m_pUiSystem->setHierarchyViews(hierarchy_views);
 
     if (scene_info.activeEntityID < 1) {
-        m_uiSystem.clearSelectedEntityView();
+        m_pUiSystem->clearSelectedEntityView();
         return;
     }
 
     auto it = entity_list.find(scene_info.activeEntityID);
     if (it == entity_list.end() || !it->second.isActive) {
-        m_uiSystem.clearSelectedEntityView();
+        m_pUiSystem->clearSelectedEntityView();
         return;
     }
 
@@ -64,12 +53,29 @@ void Engine::visualizeEditorEvents() {
     view.colorEnabled = selected_entity.isColorTintEnabled;
     view.shaderID = selected_entity.materialType;
     view.name = selected_entity.name;
-    view.position = toEditorVec3(selected_entity.transform.translation);
-    view.rotation = toEditorVec3(selected_entity.transform.rotation);
-    view.scale = toEditorVec3(selected_entity.transform.scale);
+
+    EditorVec3 Temp;
+
+
+    Temp = { selected_entity.transform.translation.x, 
+             selected_entity.transform.translation.y,   
+             selected_entity.transform.translation.z};
+    view.position = Temp;
+
+    Temp = { selected_entity.transform.rotation.x,
+             selected_entity.transform.rotation.y,
+             selected_entity.transform.rotation.z };
+    view.rotation = Temp;
+
+    Temp = { selected_entity.transform.scale.x,
+             selected_entity.transform.scale.y,
+             selected_entity.transform.scale.z };
+    view.scale = Temp;
+
+
     view.worldMatrix = selected_entity.transform.matrix;
 
-    m_uiSystem.setSelectedEntityView(view);
+    m_pUiSystem->setSelectedEntityView(view);
 }
 
 void Engine::processEditorEvents() {
@@ -94,7 +100,7 @@ void Engine::processEditorEvents() {
 
         case EditorEventType::RegisterMesh:
         case EditorEventType::RegisterTexture:
-            m_assetSystem.registerFile(event.info.path);
+            m_pAssetSystem->registerFile(event.info.path);
             break;
 
         case EditorEventType::ChangeEntityColor:
@@ -111,18 +117,23 @@ void Engine::processEditorEvents() {
             break;
 
         case EditorEventType::Translate:
+            EditorVec3 Temp = event.info.position;
             m_pSceneSystem->changeTranslateEntity(event.info.entityID,
-                toGlmVec3(event.info.position));
+                                                  vec3(Temp.x, Temp.y, Temp.z));
             break;
 
         case EditorEventType::Rotate:
+            EditorVec3 Temp = event.info.rotation;
+
             m_pSceneSystem->changeRotateEntity(event.info.entityID,
-                toGlmVec3(event.info.rotation));
+                                               vec3(Temp.x, Temp.y, Temp.z));
             break;
 
         case EditorEventType::Scale:
+            EditorVec3 Temp = event.info.scale;
+
             m_pSceneSystem->changeScaleEntity(event.info.entityID,
-                toGlmVec3(event.info.scale));
+                                              vec3(Temp.x, Temp.y, Temp.z));
             break;
 
         case EditorEventType::ClearScene:
@@ -160,15 +171,15 @@ void Engine::processEditorEvents() {
             break;
 
         case EditorEventType::SetGizmoTranslate:
-            m_uiSystem.setGizmoOperation(GizmoOperation::Translate);
+            m_pUiSystem->setGizmoOperation(GizmoOperation::Translate);
             break;
 
         case EditorEventType::SetGizmoRotate:
-            m_uiSystem.setGizmoOperation(GizmoOperation::Rotate);
+            m_pUiSystem->setGizmoOperation(GizmoOperation::Rotate);
             break;
 
         case EditorEventType::SetGizmoScale:
-            m_uiSystem.setGizmoOperation(GizmoOperation::Scale);
+            m_pUiSystem->setGizmoOperation(GizmoOperation::Scale);
             break;
 
         case EditorEventType::CameraMoveForward:
@@ -256,20 +267,26 @@ bool Engine::initialize() {
     // SceneSystem needs the window size at construction, so it can't exist
     // before the window does.
     m_pSceneSystem = new SceneSystem(m_viewportWidth, m_viewportHeight);
-    m_uiSystem.init(m_pWindow);
+
+    m_pAssetSystem = new AssetSystem();
+    m_pRenderSystem = new RenderSystem();
+    m_pInputManager = new InputManager();
+    m_pUiSystem = new UISystem();
+
+    m_pUiSystem->init(m_pWindow);
 
     return true;
 }
 
 void Engine::run() {
-    m_assetSystem.run();
+    m_pAssetSystem->run();
 
     while (!glfwWindowShouldClose(m_pWindow)) {
-        if (m_uiSystem.windowShouldClose()) {
+        if (m_pUiSystem->windowShouldClose()) {
             break;
         }
 
-        m_inputManager.processInput(m_pWindow);
+        m_pInputManager->processInput(m_pWindow);
 
         // The background is visible behind the UI panels.
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -281,13 +298,13 @@ void Engine::run() {
         int viewport_y = 0;
         int viewport_width = 0;
         int viewport_height = 0;
-        m_uiSystem.getViewportRect(viewport_x, viewport_y, viewport_width, viewport_height);
+        m_pUiSystem->getViewportRect(viewport_x, viewport_y, viewport_width, viewport_height);
         glViewport(viewport_x, viewport_y, viewport_width, viewport_height);
 
         processEditorEvents();
         visualizeEditorEvents();
 
-        m_renderSystem.renderScene(m_pSceneSystem->getSceneInfo());
+        m_pRenderSystem->renderScene(m_pSceneSystem->getSceneInfo());
         m_pSceneSystem->sceneUpdate(m_viewportWidth,
             m_viewportHeight);
 
@@ -295,9 +312,9 @@ void Engine::run() {
         glfwGetFramebufferSize(m_pWindow, &m_viewportWidth, &m_viewportHeight);
         glViewport(0, 0, m_viewportWidth, m_viewportHeight);
 
-        m_uiSystem.beginFrame();
-        m_uiSystem.render();
-        m_uiSystem.endFrame();
+        m_pUiSystem->beginFrame();
+        m_pUiSystem->render();
+        m_pUiSystem->endFrame();
 
         glfwSwapBuffers(m_pWindow);
         glfwPollEvents();
@@ -305,7 +322,7 @@ void Engine::run() {
 }
 
 void Engine::terminate() {
-    m_uiSystem.shutdown();
+    m_pUiSystem->shutdown();
 
     delete m_pSceneSystem;
     m_pSceneSystem = nullptr;

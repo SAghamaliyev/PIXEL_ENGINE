@@ -85,64 +85,74 @@ ShaderManager::ShaderManager() {
     string vertex_source;
     string fragment_source;
 
-    // Reading file
-    for (const auto& entry : fs::directory_iterator("src/Shaders")) {
-        if (!entry.is_regular_file()) {
-            continue;
+    const fs::path shaders_dir = fs::path("assets") / "Shaders";
+    if (!fs::exists(shaders_dir)) {
+        Logger::addLog(LogType::LOG_ERROR, "Shaders directory not found: " + shaders_dir.string());
+        return;
+    }
+
+    try {
+        // Reading file
+        for (const auto& entry : fs::directory_iterator(shaders_dir)) {
+            if (!entry.is_regular_file()) {
+                continue;
+            }
+
+            fs::path vertex_path = entry.path();
+
+            // We are only looking for .vert files
+            if (vertex_path.extension().string() != ".vert") {
+                continue;
+            }
+
+            // A vertex shader is valid only when its matching("twin") fragment shader exists
+            fs::path fragment_path = vertex_path;
+            fragment_path.replace_extension(".frag");
+            if (!fs::exists(fragment_path)) {
+                continue;
+            }
+
+            Logger::addLog(LogType::LOG_INFO, "Loading vertex shader: " + vertex_path.string());
+            Logger::addLog(LogType::LOG_INFO, "Loading fragment shader: " + fragment_path.string());
+
+
+            ifstream vert_file(vertex_path);
+            if (!vert_file.is_open()) {
+                Logger::addLog(LogType::LOG_ERROR,
+                    "Can't open shader from Shaders folder" + vertex_path.filename().string());
+
+                return;
+            }
+
+            ifstream frag_file(fragment_path);
+            if (!frag_file.is_open()) {
+                Logger::addLog(LogType::LOG_ERROR,
+                    "Can't open shader from Shaders folder" + fragment_path.filename().string());
+
+                return;
+            }
+
+            // If both of them exist we start creating our shader program 
+            string line;
+            string final_line;
+            while (getline(vert_file, line)) {
+                line += "\n";
+                final_line += line;
+            }
+            vertex_source = final_line;
+
+            line = final_line = "";
+            while (getline(frag_file, line)) {
+                line += "\n";
+                final_line += line;
+            }
+            fragment_source = final_line;
+
+            createShader(vertex_source, fragment_source);
         }
-
-        fs::path vertex_path = entry.path();
-
-        // We are only looking for .vert files
-        if (vertex_path.extension().string() != ".vert") {
-            continue;
-        }
-
-        // A vertex shader is valid only when its matching("twin") fragment shader exists
-        fs::path fragment_path = vertex_path;
-        fragment_path.replace_extension(".frag");
-        if (!fs::exists(fragment_path)) {
-            continue;
-        }
-
-        Logger::addLog(LogType::LOG_INFO, "Loading vertex shader: " + vertex_path.string());
-        Logger::addLog(LogType::LOG_INFO, "Loading fragment shader: " + fragment_path.string());
-
-
-        ifstream vert_file(vertex_path);
-        if (!vert_file.is_open()) {
-            Logger::addLog(LogType::LOG_ERROR,
-                "Can't open shader from Shaders folder" + vertex_path.filename().string());
-
-            return;
-        }
-
-        ifstream frag_file(fragment_path);
-        if (!frag_file.is_open()) {
-            Logger::addLog(LogType::LOG_ERROR,
-                "Can't open shader from Shaders folder" + fragment_path.filename().string());
-
-            return;
-        }
-
-        // If both of them exist we start creating our shader program 
-        string line;
-        string final_line;
-        while (getline(vert_file, line)) {
-            line += "\n";
-            final_line += line;
-        }
-        vertex_source = final_line;
-
-        line = final_line = "";
-        while (getline(frag_file, line)) {
-            line += "\n";
-            final_line += line;
-        }
-        fragment_source = final_line;
-
-        createShader(vertex_source, fragment_source);
-
+    }
+    catch(...){
+        Logger::addLog(LogType::LOG_ERROR, "Something went wrong");
     }
 }
 

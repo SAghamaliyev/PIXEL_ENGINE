@@ -11,11 +11,11 @@ struct GLFWwindow;
 
 class Engine {
 private:
-    RenderSystem m_renderSystem;
+    RenderSystem* m_pRenderSystem;
     SceneSystem* m_pSceneSystem;
-    UISystem m_uiSystem;
-    AssetSystem m_assetSystem;
-    InputManager m_inputManager;
+    UISystem* m_pUiSystem;
+    AssetSystem* m_pAssetSystem;
+    InputManager* m_pInputManager;
     GLFWwindow* m_pWindow;
 
     int m_viewportWidth = 0;
