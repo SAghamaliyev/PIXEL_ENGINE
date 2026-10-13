@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0F059C5C-C5D5-3D83-A966-F180E3ECCCD1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>PIXEL_ENGINE</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PIXEL_ENGINE.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PIXEL_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PIXEL_ENGINE.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PIXEL_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">PIXEL_ENGINE.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">PIXEL_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">PIXEL_ENGINE.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">PIXEL_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Copying assets to output directory...	Copying imgui.ini to output directory...</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/assets C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Debug/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/imgui.ini C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Debug/imgui.ini
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\lib\glfw3.lib;comdlg32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Debug/PIXEL_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Debug/PIXEL_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Copying assets to output directory...	Copying imgui.ini to output directory...</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/assets C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Release/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/imgui.ini C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Release/imgui.ini
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\lib\glfw3.lib;comdlg32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Release/PIXEL_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/Release/PIXEL_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Copying assets to output directory...	Copying imgui.ini to output directory...</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/assets C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/MinSizeRel/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/imgui.ini C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/MinSizeRel/imgui.ini
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\lib\glfw3.lib;comdlg32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/MinSizeRel/PIXEL_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/MinSizeRel/PIXEL_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\include;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glm-1.0.3;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Copying assets to output directory...	Copying imgui.ini to output directory...</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/assets C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/RelWithDebInfo/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/PIXEL_ENGINE/imgui.ini C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/RelWithDebInfo/imgui.ini
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glfw\lib\glfw3.lib;comdlg32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/RelWithDebInfo/PIXEL_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/RelWithDebInfo/PIXEL_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE -BC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build --check-stamp-file C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompilerABI.c;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompilerABI.cpp;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCompilerIdDetection.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerABI.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerSupport.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeFindBinUtils.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitIncludeInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseLibraryArchitecture.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystem.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCompilerCommon.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMCC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CrayClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Diab-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVHPC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OrangeC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PellesC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Renesas-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TIClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Tasking-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CompilerId\VS-10.vcxproj.in;C:\Program Files\CMake\share\cmake-4.4\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeDetermineLinkerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCXXLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\FeatureTesting.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Determine-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCXXCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE -BC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build --check-stamp-file C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompilerABI.c;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompilerABI.cpp;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCompilerIdDetection.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerABI.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerSupport.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeFindBinUtils.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitIncludeInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseLibraryArchitecture.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystem.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCompilerCommon.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMCC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CrayClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Diab-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVHPC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OrangeC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PellesC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Renesas-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TIClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Tasking-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CompilerId\VS-10.vcxproj.in;C:\Program Files\CMake\share\cmake-4.4\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeDetermineLinkerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCXXLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\FeatureTesting.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Determine-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCXXCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE -BC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build --check-stamp-file C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompilerABI.c;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompilerABI.cpp;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCompilerIdDetection.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerABI.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerSupport.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeFindBinUtils.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitIncludeInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseLibraryArchitecture.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystem.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCompilerCommon.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMCC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CrayClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Diab-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVHPC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OrangeC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PellesC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Renesas-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TIClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Tasking-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CompilerId\VS-10.vcxproj.in;C:\Program Files\CMake\share\cmake-4.4\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeDetermineLinkerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCXXLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\FeatureTesting.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Determine-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCXXCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE -BC:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build --check-stamp-file C:/Users/User/Desktop/PIXEL_ENGINE/Project/PIXEL_ENGINE/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCCompilerABI.c;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXCompilerABI.cpp;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCompilerIdDetection.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerABI.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineCompilerSupport.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeDetermineSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeFindBinUtils.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitIncludeInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeParseLibraryArchitecture.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCCompiler.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystem.cmake.in;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestCompilerCommon.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CMakeTestRCCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMCC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\ARMClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CrayClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Diab-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVHPC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\OrangeC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\PellesC-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Renesas-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TI-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TIClang-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Tasking-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\CompilerId\VS-10.vcxproj.in;C:\Program Files\CMake\share\cmake-4.4\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeDetermineLinkerId.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeInspectCXXLinker.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Internal\FeatureTesting.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Determine-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeCXXCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\4.4.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\main.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Engine.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Engine.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Definitions\CameraDefinitions.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Definitions\CommonDefinitions.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Definitions\EntityDefinitions.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Definitions\MaterialDefinitions.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Definitions\MeshDefinitions.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Definitions\SceneDefinitions.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\EventSystem\EventSystem.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\EventSystem\EventSystem.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\EventSystem\EventTypes.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\InputSystem\InputSystem.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\InputSystem\InputSystem.cpp" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\InputSystem\EditorInput.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Logger\Logger.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Core\Logger\Logger.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Asset\AssetSystem.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Asset\AssetSystem.cpp" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Asset\AssetSystemMesh.cpp" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Asset\AssetSystemTexture.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\RenderSystem.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\RenderSystem.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\MeshManager\MeshManager.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\MeshManager\MeshManager.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\ShaderManager\ShaderManager.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\ShaderManager\ShaderManager.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\TextureManager\TextureManager.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Render\TextureManager\TextureManager.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\SceneSystem.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\SceneSystem.cpp" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\SceneSystemCamera.cpp" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\SceneSystemEntity.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\CameraManager\CameraManager.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\CameraManager\CameraManager.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\EntityManager\EntityManager.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\EntityManager\EntityManager.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\TransformManager\TransformManager.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\Scene\TransformManager\TransformManager.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\UISystem.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\UISystem.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\EditorViews.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Gizmo\Gizmo.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Gizmo\Gizmo.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Layout\EditorLayout.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\MenuBar\MenuBar.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\MenuBar\MenuBar.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\ConsolePanel.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\ConsolePanel.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\ContentBrowserPanel.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\ContentBrowserPanel.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\InspectorPanel.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\InspectorPanel.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\SceneHierarchyPanel.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\SceneHierarchyPanel.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\ViewportPanel.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Panels\ViewportPanel.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Theme\EditorTheme.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Theme\EditorTheme.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imconfig.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imgui.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imgui.cpp" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imgui_draw.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imgui_internal.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imgui_tables.cpp" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imgui_widgets.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imstb_rectpack.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imstb_textedit.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\imstb_truetype.h" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends\imgui_impl_glfw.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends\imgui_impl_glfw.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends\imgui_impl_opengl3.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends\imgui_impl_opengl3.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\src\Systems\UI\Materials\Backends\imgui_impl_opengl3_loader.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\glad\src\glad.c" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\ImGuizmo.h" />
+    <ClCompile Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\ImGuizmo.cpp" />
+    <ClInclude Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\PIXEL_ENGINE\third_party\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\User\Desktop\PIXEL_ENGINE\Project\PIXEL_ENGINE\build\ZERO_CHECK.vcxproj">
+      <Project>{80F8981B-588E-32D0-ABCC-95799273B3DD}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
