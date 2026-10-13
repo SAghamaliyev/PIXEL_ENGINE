@@ -34,6 +34,23 @@ build/
 [Ll]og/
 [Ll]ogs/
 
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+install_manifest.txt
+Testing/
+*.ninja
+.ninja_deps
+.ninja_log
+
+# Models and images
+*.bin
+*.mtl
+*.png
+*.jpg
+
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -362,9 +379,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-# Assets and Images
-*.bin
-*.mtl
-*.png
-*.jpg
