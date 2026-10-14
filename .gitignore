@@ -50,7 +50,17 @@ Testing/
 *.mtl
 *.png
 *.jpg
+
+# Documentation exceptions (allow docs folder and its images/assets)
+!docs/
 !docs/**
+!docs/**/*.png
+!docs/**/*.jpg
+!docs/**/*.jpeg
+!docs/**/*.svg
+!docs/**/*.gif
+!docs/**/*.webp
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
