@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="docs/images/logo.png" alt="Pixel Engine Logo" width="650"/>
+  <img src="docs/images/banner.svg" alt="Pixel Engine Banner" width="100%"/>
 </p>
-
-<h1 align="center">Pixel Engine</h1>
 
 <p align="center">
   <strong>A modular, lightweight 3D game engine and interactive editor built in C++17 and OpenGL 3.3 Core.</strong>

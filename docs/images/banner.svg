@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="35%" style="stop-color:#0d2137"/>
+      <stop offset="65%" style="stop-color:#122a3a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+
+    <!-- Wave gradient -->
+    <linearGradient id="wave1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a6b6e;stop-opacity:0.4"/>
+      <stop offset="50%" style="stop-color:#c9944a;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#1a6b6e;stop-opacity:0.4"/>
+    </linearGradient>
+    <linearGradient id="wave2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9944a;stop-opacity:0.15"/>
+      <stop offset="50%" style="stop-color:#2a8a8e;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#c9944a;stop-opacity:0.15"/>
+    </linearGradient>
+    <linearGradient id="wave3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2a8a8e;stop-opacity:0.2"/>
+      <stop offset="40%" style="stop-color:#4a6fa5;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#c9944a;stop-opacity:0.2"/>
+    </linearGradient>
+
+    <!-- Glow for title -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Cube gradient faces -->
+    <linearGradient id="cubeTop" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6b7db3;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#4a5a8a;stop-opacity:0.6"/>
+    </linearGradient>
+    <linearGradient id="cubeLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3a4a7a;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#4a5a8a;stop-opacity:0.5"/>
+    </linearGradient>
+    <linearGradient id="cubeRight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9944a;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#a07838;stop-opacity:0.5"/>
+    </linearGradient>
+
+    <!-- Star/particle -->
+    <radialGradient id="particle">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Gold text gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8c874"/>
+      <stop offset="50%" style="stop-color:#c9944a"/>
+      <stop offset="100%" style="stop-color:#e8c874"/>
+    </linearGradient>
+
+    <!-- Accent line gradient -->
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9944a;stop-opacity:0"/>
+      <stop offset="20%" style="stop-color:#c9944a;stop-opacity:0.8"/>
+      <stop offset="50%" style="stop-color:#e8c874;stop-opacity:1"/>
+      <stop offset="80%" style="stop-color:#c9944a;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#c9944a;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04" stroke="#4a8a9e" stroke-width="0.5">
+    <line x1="0" y1="160" x2="1280" y2="160"/>
+    <line x1="0" y1="320" x2="1280" y2="320"/>
+    <line x1="0" y1="480" x2="1280" y2="480"/>
+    <line x1="320" y1="0" x2="320" y2="640"/>
+    <line x1="640" y1="0" x2="640" y2="640"/>
+    <line x1="960" y1="0" x2="960" y2="640"/>
+  </g>
+
+  <!-- Flowing waves (bottom area) -->
+  <path d="M0,520 C200,480 400,540 640,500 C880,460 1080,530 1280,490 L1280,640 L0,640 Z" fill="url(#wave1)"/>
+  <path d="M0,560 C250,530 450,580 640,545 C830,510 1050,570 1280,540 L1280,640 L0,640 Z" fill="url(#wave2)"/>
+  <path d="M0,590 C300,570 500,600 640,580 C780,560 1000,595 1280,575 L1280,640 L0,640 Z" fill="url(#wave3)"/>
+
+  <!-- Flowing waves (top area) -->
+  <path d="M0,120 C300,150 500,90 740,130 C980,170 1100,100 1280,140 L1280,0 L0,0 Z" fill="url(#wave1)" opacity="0.5"/>
+  <path d="M0,80 C250,60 500,100 700,70 C900,40 1100,90 1280,65 L1280,0 L0,0 Z" fill="url(#wave2)" opacity="0.4"/>
+
+  <!-- Decorative isometric cubes — left cluster -->
+  <g transform="translate(120, 280)" opacity="0.5">
+    <!-- Cube 1 -->
+    <polygon points="0,-20 20,-10 20,10 0,20 -20,10 -20,-10" fill="url(#cubeTop)" stroke="#6b7db3" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,20 20,10 20,30 0,40" fill="url(#cubeRight)" stroke="#c9944a" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,20 -20,10 -20,30 0,40" fill="url(#cubeLeft)" stroke="#4a5a8a" stroke-width="0.5" stroke-opacity="0.3"/>
+  </g>
+  <g transform="translate(155, 265)" opacity="0.4">
+    <polygon points="0,-15 15,-7.5 15,7.5 0,15 -15,7.5 -15,-7.5" fill="url(#cubeTop)" stroke="#6b7db3" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,15 15,7.5 15,22.5 0,30" fill="url(#cubeRight)" stroke="#c9944a" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,15 -15,7.5 -15,22.5 0,30" fill="url(#cubeLeft)" stroke="#4a5a8a" stroke-width="0.5" stroke-opacity="0.3"/>
+  </g>
+  <g transform="translate(100, 320)" opacity="0.3">
+    <polygon points="0,-12 12,-6 12,6 0,12 -12,6 -12,-6" fill="url(#cubeTop)" stroke="#6b7db3" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,12 12,6 12,18 0,24" fill="url(#cubeRight)" stroke="#c9944a" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,12 -12,6 -12,18 0,24" fill="url(#cubeLeft)" stroke="#4a5a8a" stroke-width="0.5" stroke-opacity="0.3"/>
+  </g>
+
+  <!-- Decorative isometric cubes — right cluster -->
+  <g transform="translate(1140, 300)" opacity="0.5">
+    <polygon points="0,-20 20,-10 20,10 0,20 -20,10 -20,-10" fill="url(#cubeTop)" stroke="#6b7db3" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,20 20,10 20,30 0,40" fill="url(#cubeRight)" stroke="#c9944a" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,20 -20,10 -20,30 0,40" fill="url(#cubeLeft)" stroke="#4a5a8a" stroke-width="0.5" stroke-opacity="0.3"/>
+  </g>
+  <g transform="translate(1170, 270)" opacity="0.35">
+    <polygon points="0,-16 16,-8 16,8 0,16 -16,8 -16,-8" fill="url(#cubeTop)" stroke="#6b7db3" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,16 16,8 16,24 0,32" fill="url(#cubeRight)" stroke="#c9944a" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,16 -16,8 -16,24 0,32" fill="url(#cubeLeft)" stroke="#4a5a8a" stroke-width="0.5" stroke-opacity="0.3"/>
+  </g>
+  <g transform="translate(1100, 340)" opacity="0.25">
+    <polygon points="0,-12 12,-6 12,6 0,12 -12,6 -12,-6" fill="url(#cubeTop)" stroke="#6b7db3" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,12 12,6 12,18 0,24" fill="url(#cubeRight)" stroke="#c9944a" stroke-width="0.5" stroke-opacity="0.3"/>
+    <polygon points="0,12 -12,6 -12,18 0,24" fill="url(#cubeLeft)" stroke="#4a5a8a" stroke-width="0.5" stroke-opacity="0.3"/>
+  </g>
+
+  <!-- Scattered small cubes -->
+  <g transform="translate(250, 180)" opacity="0.2">
+    <polygon points="0,-8 8,-4 8,4 0,8 -8,4 -8,-4" fill="url(#cubeTop)"/>
+    <polygon points="0,8 8,4 8,12 0,16" fill="url(#cubeRight)"/>
+    <polygon points="0,8 -8,4 -8,12 0,16" fill="url(#cubeLeft)"/>
+  </g>
+  <g transform="translate(1050, 180)" opacity="0.2">
+    <polygon points="0,-8 8,-4 8,4 0,8 -8,4 -8,-4" fill="url(#cubeTop)"/>
+    <polygon points="0,8 8,4 8,12 0,16" fill="url(#cubeRight)"/>
+    <polygon points="0,8 -8,4 -8,12 0,16" fill="url(#cubeLeft)"/>
+  </g>
+  <g transform="translate(350, 440)" opacity="0.15">
+    <polygon points="0,-10 10,-5 10,5 0,10 -10,5 -10,-5" fill="url(#cubeTop)"/>
+    <polygon points="0,10 10,5 10,15 0,20" fill="url(#cubeRight)"/>
+    <polygon points="0,10 -10,5 -10,15 0,20" fill="url(#cubeLeft)"/>
+  </g>
+  <g transform="translate(950, 430)" opacity="0.15">
+    <polygon points="0,-10 10,-5 10,5 0,10 -10,5 -10,-5" fill="url(#cubeTop)"/>
+    <polygon points="0,10 10,5 10,15 0,20" fill="url(#cubeRight)"/>
+    <polygon points="0,10 -10,5 -10,15 0,20" fill="url(#cubeLeft)"/>
+  </g>
+
+  <!-- Particle dots -->
+  <circle cx="200" cy="150" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="380" cy="200" r="1" fill="white" opacity="0.4"/>
+  <circle cx="500" cy="120" r="1.2" fill="white" opacity="0.35"/>
+  <circle cx="780" cy="100" r="1" fill="white" opacity="0.45"/>
+  <circle cx="900" cy="170" r="1.5" fill="white" opacity="0.3"/>
+  <circle cx="1050" cy="130" r="1" fill="white" opacity="0.5"/>
+  <circle cx="1180" cy="200" r="1.2" fill="white" opacity="0.35"/>
+  <circle cx="160" cy="420" r="1" fill="#c9944a" opacity="0.4"/>
+  <circle cx="300" cy="500" r="1.5" fill="#c9944a" opacity="0.3"/>
+  <circle cx="1000" cy="480" r="1" fill="#c9944a" opacity="0.35"/>
+  <circle cx="1150" cy="430" r="1.2" fill="#c9944a" opacity="0.4"/>
+  <circle cx="450" cy="350" r="0.8" fill="white" opacity="0.25"/>
+  <circle cx="850" cy="370" r="0.8" fill="white" opacity="0.25"/>
+  <circle cx="600" cy="150" r="2" fill="url(#particle)"/>
+  <circle cx="1100" cy="160" r="1.8" fill="url(#particle)" opacity="0.6"/>
+
+  <!-- Wireframe triangle accents -->
+  <polygon points="220,380 240,350 260,380" fill="none" stroke="#4a8a9e" stroke-width="0.5" opacity="0.15"/>
+  <polygon points="1020,370 1045,345 1070,370" fill="none" stroke="#c9944a" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Main title: PIXEL ENGINE -->
+  <text x="640" y="295" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="86" font-weight="700" letter-spacing="12" text-anchor="middle" filter="url(#glow)">
+    <tspan fill="#f0f4f8">PIXEL </tspan><tspan fill="url(#goldGrad)">ENGINE</tspan>
+  </text>
+
+  <!-- Accent line under title -->
+  <rect x="390" y="315" width="500" height="2" rx="1" fill="url(#accentLine)"/>
+
+  <!-- Tagline -->
+  <text x="640" y="365" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#8fa8bf" letter-spacing="6" text-anchor="middle" font-weight="300">MODULAR 3D ENGINE</text>
+
+  <!-- Tech badges row -->
+  <text x="640" y="405" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#5a7a8e" letter-spacing="4" text-anchor="middle" font-weight="400">C++17  ·  OpenGL 3.3  ·  ImGui  ·  CMake</text>
+
+  <!-- Subtle vignette overlay -->
+  <rect width="1280" height="640" fill="url(#bg)" opacity="0">
+    <animate attributeName="opacity" values="0;0" dur="1s"/>
+  </rect>
+
+  <!-- Corner accents -->
+  <line x1="30" y1="30" x2="80" y2="30" stroke="#c9944a" stroke-width="1" opacity="0.3"/>
+  <line x1="30" y1="30" x2="30" y2="80" stroke="#c9944a" stroke-width="1" opacity="0.3"/>
+
+  <line x1="1250" y1="30" x2="1200" y2="30" stroke="#c9944a" stroke-width="1" opacity="0.3"/>
+  <line x1="1250" y1="30" x2="1250" y2="80" stroke="#c9944a" stroke-width="1" opacity="0.3"/>
+
+  <line x1="30" y1="610" x2="80" y2="610" stroke="#4a8a9e" stroke-width="1" opacity="0.3"/>
+  <line x1="30" y1="610" x2="30" y2="560" stroke="#4a8a9e" stroke-width="1" opacity="0.3"/>
+
+  <line x1="1250" y1="610" x2="1200" y2="610" stroke="#4a8a9e" stroke-width="1" opacity="0.3"/>
+  <line x1="1250" y1="610" x2="1250" y2="560" stroke="#4a8a9e" stroke-width="1" opacity="0.3"/>
+</svg>
