@@ -73,7 +73,7 @@ void AssetSystem::registerTextureFile(const string& path) {
         return;
     }
 
-    const filesystem::path textures_dir = filesystem::path("src") / "Textures";
+    const filesystem::path textures_dir = filesystem::path("assets") / "Textures";
     const filesystem::path dest_path = textures_dir / src_path.filename();
 
     try {
@@ -119,7 +119,7 @@ void AssetSystem::makeTextureMeta(const filesystem::path& texturePath) {
         static_cast<uint64_t>(local_time.tm_sec);
 
     const string rel_path =
-        (filesystem::path("src") / "Textures" / texturePath.filename()).generic_string();
+        (filesystem::path("assets") / "Textures" / texturePath.filename()).generic_string();
 
     ofstream meta_file(texturePath.string() + ".meta", ios::trunc);
     if (!meta_file.is_open()) {

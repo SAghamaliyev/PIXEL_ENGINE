@@ -2,7 +2,6 @@
 
 #include <chrono>
 #include <cstdint>
-#include <ctime>
 #include <filesystem>
 #include <fstream>
 #include <sstream>
@@ -63,7 +62,7 @@ void AssetSystem::registerMeshFile(const string& path) {
         return;
     }
 
-    const filesystem::path meshes_dir = filesystem::path("src") / "Objects";
+    const filesystem::path meshes_dir = filesystem::path("assets") / "Objects";
     const filesystem::path dest_path = meshes_dir / src_path.filename();
 
     try {
@@ -109,7 +108,7 @@ void AssetSystem::makeMeshMeta(const filesystem::path& meshPath) {
         static_cast<uint64_t>(local_time.tm_sec);
 
     const string rel_path =
-        (filesystem::path("src") / "Objects" / meshPath.filename()).generic_string();
+        (filesystem::path("assets") / "Objects" / meshPath.filename()).generic_string();
 
     ofstream meta_file(meshPath.string() + ".meta", ios::trunc);
     if (!meta_file.is_open()) {

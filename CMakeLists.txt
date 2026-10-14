@@ -142,7 +142,6 @@ target_include_directories(PIXEL_ENGINE PRIVATE
     "${SRC_DIR}"
     "${THIRD_PARTY_DIR}"
     "${THIRD_PARTY_DIR}/include"
-    "${THIRD_PARTY_DIR}/glfw/include"
     "${THIRD_PARTY_DIR}/glad/include"
     "${THIRD_PARTY_DIR}/glm-1.0.3"
     "${SRC_DIR}/Systems/UI/Materials"
@@ -154,17 +153,14 @@ find_package(OpenGL REQUIRED)
 target_link_libraries(PIXEL_ENGINE PRIVATE OpenGL::GL)
 
 # GLFW
-find_package(glfw3 QUIET)
-if(TARGET glfw)
-    target_link_libraries(PIXEL_ENGINE PRIVATE glfw)
-elseif(TARGET glfw3)
-    target_link_libraries(PIXEL_ENGINE PRIVATE glfw3)
-elseif(WIN32 AND MSVC AND (CMAKE_SIZEOF_VOID_P EQUAL 8))
-    target_link_libraries(PIXEL_ENGINE PRIVATE "${THIRD_PARTY_DIR}/glfw/lib/glfw3.lib")
-else()
-    find_package(glfw3 REQUIRED)
-    target_link_libraries(PIXEL_ENGINE PRIVATE glfw)
-endif()
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(third_party/glfw)
+
+target_link_libraries(PIXEL_ENGINE PRIVATE glfw)
 
 # Windows platform libraries
 if(WIN32)

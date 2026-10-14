@@ -2,9 +2,9 @@
 
 std::queue<LogEntry> Logger::m_logBuffer;
 
-void Logger::addLog(LogType logType, const std::string& message) {
+void Logger::addLog(const LogType logType, const std::string& message) {
 
-    LogEntry OurLog = { logType, message };
+    const LogEntry OurLog = { logType, message };
     m_logBuffer.push(OurLog);
 }
 

@@ -54,23 +54,24 @@ void Engine::visualizeEditorEvents() {
     view.shaderID = selected_entity.materialType;
     view.name = selected_entity.name;
 
-    EditorVec3 Temp;
+    EditorVec3 temp_Translate;
 
+    temp_Translate = { selected_entity.transform.translation.x,
+                          selected_entity.transform.translation.y,
+                          selected_entity.transform.translation.z};
+    view.position = temp_Translate;
 
-    Temp = { selected_entity.transform.translation.x, 
-             selected_entity.transform.translation.y,   
-             selected_entity.transform.translation.z};
-    view.position = Temp;
+    EditorVec3 temp_Rotate;
+    temp_Rotate = { selected_entity.transform.rotation.x,
+                       selected_entity.transform.rotation.y,
+                       selected_entity.transform.rotation.z };
+    view.rotation = temp_Rotate;
 
-    Temp = { selected_entity.transform.rotation.x,
-             selected_entity.transform.rotation.y,
-             selected_entity.transform.rotation.z };
-    view.rotation = Temp;
-
-    Temp = { selected_entity.transform.scale.x,
-             selected_entity.transform.scale.y,
-             selected_entity.transform.scale.z };
-    view.scale = Temp;
+    EditorVec3 temp_Scale;
+    temp_Scale = { selected_entity.transform.scale.x,
+                      selected_entity.transform.scale.y,
+                      selected_entity.transform.scale.z };
+    view.scale = temp_Scale;
 
 
     view.worldMatrix = selected_entity.transform.matrix;
@@ -87,141 +88,154 @@ void Engine::processEditorEvents() {
 
     for (const EditorEvent& event : events) {
         switch (event.type) {
-        case EditorEventType::AddEntity:
-            if (event.info.isEmptyEntity) {
-                m_pSceneSystem->sceneCreateEntity();
+            case EditorEventType::AddEntity:
+                if (event.info.isEmptyEntity) {
+                    m_pSceneSystem->sceneCreateEntity();
+                }
+                else {
+                    m_pSceneSystem->sceneCreateEntity(event.info.meshID,
+                        event.info.materialType,
+                        event.info.name);
+                }
+                break;
+
+            case EditorEventType::RegisterMesh:
+            case EditorEventType::RegisterTexture:
+                m_pAssetSystem->registerFile(event.info.path);
+                break;
+
+            case EditorEventType::ChangeEntityColor:
+                m_pSceneSystem->changeColorEntity(event.info.entityID, event.info.color);
+                break;
+
+            case EditorEventType::ToggleEntityColor:
+                if (event.info.isColorTintEnabled) {
+                    m_pSceneSystem->enableColorTintEntity(event.info.entityID);
+                }
+                else {
+                    m_pSceneSystem->disableColorTintEntity(event.info.entityID);
+                }
+                break;
+
+            case EditorEventType::Translate: {
+                const EditorVec3 temp = event.info.position;
+                m_pSceneSystem->changeTranslateEntity(event.info.entityID,
+                                                      vec3(temp.x, temp.y, temp.z));
+                break;
             }
-            else {
-                m_pSceneSystem->sceneCreateEntity(event.info.meshID,
-                    event.info.materialType,
-                    event.info.name);
+
+            case EditorEventType::Rotate: {
+                const EditorVec3 temp = event.info.rotation;
+                m_pSceneSystem->changeRotateEntity(event.info.entityID,
+                                                   vec3(temp.x, temp.y, temp.z));
+                break;
             }
-            break;
 
-        case EditorEventType::RegisterMesh:
-        case EditorEventType::RegisterTexture:
-            m_pAssetSystem->registerFile(event.info.path);
-            break;
-
-        case EditorEventType::ChangeEntityColor:
-            m_pSceneSystem->changeColorEntity(event.info.entityID, event.info.color);
-            break;
-
-        case EditorEventType::ToggleEntityColor:
-            if (event.info.isColorTintEnabled) {
-                m_pSceneSystem->enableColorTintEntity(event.info.entityID);
+            case EditorEventType::Scale: {
+                const EditorVec3 temp = event.info.scale;
+                m_pSceneSystem->changeScaleEntity(event.info.entityID,
+                                                  vec3(temp.x, temp.y, temp.z));
+                break;
             }
-            else {
-                m_pSceneSystem->disableColorTintEntity(event.info.entityID);
-            }
-            break;
 
-        case EditorEventType::Translate:
-            EditorVec3 Temp = event.info.position;
-            m_pSceneSystem->changeTranslateEntity(event.info.entityID,
-                                                  vec3(Temp.x, Temp.y, Temp.z));
-            break;
+            case EditorEventType::ClearScene:
+                m_pSceneSystem->sceneClearEntities();
+                Logger::addLog(LogType::LOG_INFO, "Scene was cleared successfully\n");
+                break;
 
-        case EditorEventType::Rotate:
-            EditorVec3 Temp = event.info.rotation;
+            case EditorEventType::ShowAbout:
+                Logger::addLog(LogType::LOG_INFO, event.info.message);
+                break;
 
-            m_pSceneSystem->changeRotateEntity(event.info.entityID,
-                                               vec3(Temp.x, Temp.y, Temp.z));
-            break;
+            case EditorEventType::DeleteEntity:
+                m_pSceneSystem->sceneDeleteEntity(event.info.entityID);
+                break;
 
-        case EditorEventType::Scale:
-            EditorVec3 Temp = event.info.scale;
+            case EditorEventType::RenameEntity:
+                m_pSceneSystem->changeNameEntity(event.info.entityID, event.info.name);
+                break;
 
-            m_pSceneSystem->changeScaleEntity(event.info.entityID,
-                                              vec3(Temp.x, Temp.y, Temp.z));
-            break;
+            case EditorEventType::DuplicateEntity:
+                m_pSceneSystem->sceneDuplicateEntity(event.info.entityID);
+                break;
 
-        case EditorEventType::ClearScene:
-            m_pSceneSystem->sceneClearEntities();
-            Logger::addLog(LogType::LOG_INFO, "Scene was cleared successfully\n");
-            break;
+            case EditorEventType::AssignTexture:
+                m_pSceneSystem->changeTextureEntity(event.info.entityID,
+                    event.info.textureID);
+                break;
 
-        case EditorEventType::ShowAbout:
-            Logger::addLog(LogType::LOG_INFO, event.info.message);
-            break;
+            case EditorEventType::CloseWindow:
+                glfwSetWindowShouldClose(m_pWindow, GLFW_TRUE);
+                break;
 
-        case EditorEventType::DeleteEntity:
-            m_pSceneSystem->sceneDeleteEntity(event.info.entityID);
-            break;
+            case EditorEventType::RequestEntityInfo:
+                m_pSceneSystem->sceneSelectEntity(event.info.entityID);
+                break;
 
-        case EditorEventType::RenameEntity:
-            m_pSceneSystem->changeNameEntity(event.info.entityID, event.info.name);
-            break;
+            case EditorEventType::SetGizmoTranslate:
+                m_pUiSystem->setGizmoOperation(GizmoOperation::Translate);
+                break;
 
-        case EditorEventType::DuplicateEntity:
-            m_pSceneSystem->sceneDuplicateEntity(event.info.entityID);
-            break;
+            case EditorEventType::SetGizmoRotate:
+                m_pUiSystem->setGizmoOperation(GizmoOperation::Rotate);
+                break;
 
-        case EditorEventType::AssignTexture:
-            m_pSceneSystem->changeTextureEntity(event.info.entityID,
-                event.info.textureID);
-            break;
+            case EditorEventType::SetGizmoScale:
+                m_pUiSystem->setGizmoOperation(GizmoOperation::Scale);
+                break;
 
-        case EditorEventType::CloseWindow:
-            glfwSetWindowShouldClose(m_pWindow, GLFW_TRUE);
-            break;
+            case EditorEventType::CameraMoveForward:
+                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Forward);
+                break;
 
-        case EditorEventType::RequestEntityInfo:
-            m_pSceneSystem->sceneSelectEntity(event.info.entityID);
-            break;
+            case EditorEventType::CameraMoveBackward:
+                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Back);
+                break;
 
-        case EditorEventType::SetGizmoTranslate:
-            m_pUiSystem->setGizmoOperation(GizmoOperation::Translate);
-            break;
+            case EditorEventType::CameraMoveLeft:
+                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Left);
+                break;
 
-        case EditorEventType::SetGizmoRotate:
-            m_pUiSystem->setGizmoOperation(GizmoOperation::Rotate);
-            break;
+            case EditorEventType::CameraMoveRight:
+                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Right);
+                break;
 
-        case EditorEventType::SetGizmoScale:
-            m_pUiSystem->setGizmoOperation(GizmoOperation::Scale);
-            break;
+            case EditorEventType::CameraMoveUp:
+                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Up);
+                break;
 
-        case EditorEventType::CameraMoveForward:
-            m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Forward);
-            break;
+            case EditorEventType::CameraMoveDown:
+                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Down);
+                break;
 
-        case EditorEventType::CameraMoveBackward:
-            m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Back);
-            break;
+            case EditorEventType::UpdateCameraRotation:
+                if (camera_should_change) {
+                    m_pSceneSystem->changeRotationCamera(event.info.cameraID,
+                        event.info.mouseOffsetX,
+                        event.info.mouseOffsetY);
+                }
+                break;
 
-        case EditorEventType::CameraMoveLeft:
-            m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Left);
-            break;
-
-        case EditorEventType::CameraMoveRight:
-            m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Right);
-            break;
-
-        case EditorEventType::CameraMoveUp:
-            m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Up);
-            break;
-
-        case EditorEventType::CameraMoveDown:
-            m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Down);
-            break;
-
-        case EditorEventType::UpdateCameraRotation:
-            if (camera_should_change) {
-                m_pSceneSystem->changeRotationCamera(event.info.cameraID,
-                    event.info.mouseOffsetX,
-                    event.info.mouseOffsetY);
-            }
-            break;
-
-        case EditorEventType::SetCameraMouseEnabled:
-            if (camera_should_change) {
-                camera_should_change = false;
-            }
-            else {
-                camera_should_change = true;
-            }
-            break;
+            case EditorEventType::SetCameraMouseEnabled:
+                if (camera_should_change) {
+                    camera_should_change = false;
+                }
+                else {
+                    camera_should_change = true;
+                }
+                break;
+            case EditorEventType::SetEntityMaterial:
+                break;
+            case EditorEventType::OpenScene:
+                break;
+            case EditorEventType::SaveScene:
+                break;
+            case EditorEventType::SaveSceneAs:
+                break;
+            case EditorEventType::SubmitConsoleCommand:
+                break;
+            case EditorEventType::ClearConsole:
+                break;
         }
     }
 }

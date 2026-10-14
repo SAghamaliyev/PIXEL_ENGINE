@@ -1,22 +1,18 @@
 #pragma once
 
 #include "Core/InputSystem/InputSystem.h"
-#include "Core/Logger/Logger.h"
 #include "Systems/Asset/AssetSystem.h"
 #include "Systems/Render/RenderSystem.h"
 #include "Systems/Scene/SceneSystem.h"
 #include "Systems/UI/UISystem.h"
 
-struct GLFWwindow;
-
 class Engine {
-private:
-    RenderSystem* m_pRenderSystem;
-    SceneSystem* m_pSceneSystem;
-    UISystem* m_pUiSystem;
-    AssetSystem* m_pAssetSystem;
-    InputManager* m_pInputManager;
-    GLFWwindow* m_pWindow;
+    RenderSystem* m_pRenderSystem = nullptr;
+    SceneSystem* m_pSceneSystem = nullptr;
+    UISystem* m_pUiSystem = nullptr;
+    AssetSystem* m_pAssetSystem = nullptr;
+    InputManager* m_pInputManager = nullptr;
+    GLFWwindow* m_pWindow = nullptr;
 
     int m_viewportWidth = 0;
     int m_viewportHeight = 0;
