@@ -279,9 +279,11 @@ bool Engine::initialize() {
     }
 
     // SceneSystem needs the window size at construction, so it can't exist
-    // before the window does.
+    // before the window does
     m_pSceneSystem = new SceneSystem(m_viewportWidth, m_viewportHeight);
 
+    // Сreate core subsystems.
+    // Be CAREFUL about order of creation!
     m_pAssetSystem = new AssetSystem();
     m_pRenderSystem = new RenderSystem();
     m_pInputManager = new InputManager();
