@@ -238,12 +238,12 @@ Ensure you have the following installed on your system:
 
 2. **Configure the project:**
    ```bash
-   cmake -B build -DCMAKE_BUILD_TYPE=Release
+   cmake -B build 
    ```
 
 3. **Build the target:**
    ```bash
-   cmake --build build --config Release
+   cmake --build build
    ```
 
 4. **Launch the engine:**
@@ -254,6 +254,7 @@ Ensure you have the following installed on your system:
    *(Assets and default configs are automatically copied to the executable directory during post-build).*
 
 ### Building with Visual Studio or CLion
+- You can build and run this project in any IDE that supports CMake. Here are instructions for 2 of them, which I have used: 
 - **Visual Studio**: Open the root folder (`File -> Open -> Folder...`), let CMake configure, select `PIXEL_ENGINE.exe` as the startup item, and press **F5**.
 - **CLion**: Open the project directory, select the `PIXEL_ENGINE` run configuration, and press **Run** or **Debug**.
 
