@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>A modular, lightweight 3D game engine and interactive editor built in C++17 and OpenGL 3.3 Core.</strong>
+  <strong>A modular, lightweight 3D engine and interactive editor built in C++17 and OpenGL 3.3 Core.</strong>
 </p>
 
 <p align="center">
@@ -28,9 +28,9 @@
 
 ## About the Project
 
-**Pixel Engine** is a high-performance, modular 3D game engine and interactive scene editor developed in **C++17** and **OpenGL 3.3 Core Profile**. It is designed around decoupled subsystems, a centralized event-driven communication bus, a robust offline-to-runtime asset pipeline with binary caching, and an intuitive Dear ImGui-based editor with interactive 3D transformation gizmos.
+**Pixel Engine** is a high-performance, modular 3D engine and interactive scene editor developed in **C++17** and **OpenGL 3.3 Core Profile**. It is designed around decoupled subsystems, a centralized event-driven communication bus, a robust offline-to-runtime asset pipeline with binary caching, and an intuitive Dear ImGui-based editor with interactive 3D transformation gizmos.
 
-Whether managing entity hierarchies, tweaking materials and color tints in real time, or navigating 3D scenes with 6-DOF camera controls, Pixel Engine provides a clean, extensible foundation for 3D graphics applications and game development experiments.
+Whether managing entity hierarchies, tweaking materials and color tints in real time, or navigating 3D scenes with 6-DOF camera controls, Pixel Engine provides a clean, extensible foundation for 3D graphics applications and   development experiments.
 
 ---
 
