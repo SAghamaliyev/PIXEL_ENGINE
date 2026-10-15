@@ -86,7 +86,7 @@ void Gizmo::draw(const EditorEntityView* pSelectedEntity, const EditorLayout& la
         EditorEvent event;
         event.type = type;
         event.info.entityID = pSelectedEntity->entityID;
-        event.info.position = EditorVec3{ pNewTranslation[0], pNewTranslation[1], pNewTranslation[2] };
+        event.info.translation = EditorVec3{ pNewTranslation[0], pNewTranslation[1], pNewTranslation[2] };
         event.info.rotation = EditorVec3{ pNewRotation[0], pNewRotation[1], pNewRotation[2] };
         event.info.scale = EditorVec3{ pNewScale[0], pNewScale[1], pNewScale[2] };
         EventSystem::pushEvent(event);
@@ -282,7 +282,7 @@ void Gizmo::drawRotateGizmo(const EditorEntityView& entity, float viewportX, flo
         EditorEvent rotate_event;
         rotate_event.type = EditorEventType::Rotate;
         rotate_event.info.entityID = entity.entityID;
-        rotate_event.info.position = EditorVec3{ cur_translation[0], cur_translation[1], cur_translation[2] };
+        rotate_event.info.translation = EditorVec3{ cur_translation[0], cur_translation[1], cur_translation[2] };
         rotate_event.info.rotation = EditorVec3{ new_rotation[0], new_rotation[1], new_rotation[2] };
         rotate_event.info.scale = EditorVec3{ cur_scale[0], cur_scale[1], cur_scale[2] };
         EventSystem::pushEvent(rotate_event);

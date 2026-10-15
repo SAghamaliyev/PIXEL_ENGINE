@@ -3,16 +3,10 @@
 #include <cstdint>
 #include <string>
 
+#include <glm/glm.hpp>
+
 #include "Core/Definitions/CommonDefinitions.h"
 #include "Core/Definitions/MaterialDefinitions.h"
-
-// This struct is used for passing position/scale/rotation.
-// I use it instead of glm::vec3 so we don't need to include the GLM library.
-struct EditorVec3 {
-    float x = 0.0f;
-    float y = 0.0f;
-    float z = 0.0f;
-};
 
 enum class EditorEventType {
     AddEntity,
@@ -70,9 +64,9 @@ struct EditorEventData {
     bool isColorTintEnabled = false;
     bool isEmptyEntity = false;
     bool cameraMouseEnabled = false;
-    EditorVec3 position = { 0.0f, 0.0f, 0.0f };
-    EditorVec3 rotation = { 0.0f, 0.0f, 0.0f };
-    EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
+    glm::vec3 translation = { 0.0f, 0.0f, 0.0f };
+    glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
+    glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
     float mouseOffsetX;
     float mouseOffsetY;
 };

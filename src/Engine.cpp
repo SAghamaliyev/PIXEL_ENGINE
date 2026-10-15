@@ -16,9 +16,45 @@ void Engine::visualizeEditorEvents() {
     const auto& scene_info = m_pSceneSystem->getSceneInfo();
     const auto& entity_list = scene_info.entityList;
 
-    vector<EditorHierarchyView> hierarchy_views;
+    // If our active entity's id is less than 1, it means we don't have any entities and must show nothing
+    if (scene_info.activeEntityID < 1) {
+        m_pUiSystem->clearSelectedEntityView();
+        return;
+    }
 
-    // The hierarchy tree needs names and IDs of active entities only.
+    // If active entity is no longer active or doesn't exist, we clear inspector part which showed information
+    // about this entity (set active entity ID to -1)
+    auto it = entity_list.find(scene_info.activeEntityID);
+    if (it == entity_list.end() || !it->second.isActive) {
+        m_pUiSystem->clearSelectedEntityView();
+        return;
+    }
+
+    // Pass the active entity's data to the inspector (= EditorEntityView)
+    const auto& active_entity = it->second;
+
+    EditorEntityView view;
+
+    view.entityID = active_entity.entityID;
+    view.meshID = active_entity.meshID;
+    view.textureID = active_entity.textureID;
+    view.color = active_entity.color;
+    view.colorEnabled = active_entity.isColorTintEnabled;
+    view.shaderID = active_entity.materialType;
+    view.name = active_entity.name;
+
+    view.position = active_entity.transform.translation;
+    view.rotation = active_entity.transform.rotation;
+    view.scale = active_entity.transform.scale;
+
+
+    view.worldMatrix = active_entity.transform.matrix;
+
+    m_pUiSystem->setSelectedEntityView(view);
+
+
+    // The hierarchy tree shows only names and IDs of entities (therefore we pass only these 2 details)
+    vector<EditorHierarchyView> hierarchy_views;
     for (const auto& element : entity_list) {
         const auto& entity = element.second;
 
@@ -30,60 +66,13 @@ void Engine::visualizeEditorEvents() {
     }
 
     m_pUiSystem->setHierarchyViews(hierarchy_views);
-
-    if (scene_info.activeEntityID < 1) {
-        m_pUiSystem->clearSelectedEntityView();
-        return;
-    }
-
-    auto it = entity_list.find(scene_info.activeEntityID);
-    if (it == entity_list.end() || !it->second.isActive) {
-        m_pUiSystem->clearSelectedEntityView();
-        return;
-    }
-
-    const auto& selected_entity = it->second;
-
-    EditorEntityView view;
-
-    view.entityID = selected_entity.entityID;
-    view.meshID = selected_entity.meshID;
-    view.textureID = selected_entity.textureID;
-    view.color = selected_entity.color;
-    view.colorEnabled = selected_entity.isColorTintEnabled;
-    view.shaderID = selected_entity.materialType;
-    view.name = selected_entity.name;
-
-    EditorVec3 temp_Translate;
-
-    temp_Translate = { selected_entity.transform.translation.x,
-                          selected_entity.transform.translation.y,
-                          selected_entity.transform.translation.z};
-    view.position = temp_Translate;
-
-    EditorVec3 temp_Rotate;
-    temp_Rotate = { selected_entity.transform.rotation.x,
-                       selected_entity.transform.rotation.y,
-                       selected_entity.transform.rotation.z };
-    view.rotation = temp_Rotate;
-
-    EditorVec3 temp_Scale;
-    temp_Scale = { selected_entity.transform.scale.x,
-                      selected_entity.transform.scale.y,
-                      selected_entity.transform.scale.z };
-    view.scale = temp_Scale;
-
-
-    view.worldMatrix = selected_entity.transform.matrix;
-
-    m_pUiSystem->setSelectedEntityView(view);
 }
 
 void Engine::processEditorEvents() {
     const vector<EditorEvent> events = EventSystem::getEvents();
 
-    // Mouse movement events arrive every frame, but should rotate the camera
-    // only between the "should change" and "should stay" events.
+    // Mouse movement events arrive every frame, but they should rotate the camera
+    // only while rotation is enabled (toggled by SetCameraMouseEnabled)
     bool camera_should_change = false;
 
     for (const EditorEvent& event : events) {
@@ -94,8 +83,8 @@ void Engine::processEditorEvents() {
                 }
                 else {
                     m_pSceneSystem->sceneCreateEntity(event.info.meshID,
-                        event.info.materialType,
-                        event.info.name);
+                                                      event.info.materialType,
+                                                      event.info.name);
                 }
                 break;
 
@@ -118,23 +107,20 @@ void Engine::processEditorEvents() {
                 break;
 
             case EditorEventType::Translate: {
-                const EditorVec3 temp = event.info.position;
                 m_pSceneSystem->changeTranslateEntity(event.info.entityID,
-                                                      vec3(temp.x, temp.y, temp.z));
+                                                      event.info.translation);
                 break;
             }
 
             case EditorEventType::Rotate: {
-                const EditorVec3 temp = event.info.rotation;
                 m_pSceneSystem->changeRotateEntity(event.info.entityID,
-                                                   vec3(temp.x, temp.y, temp.z));
+                                                   event.info.rotation);
                 break;
             }
 
             case EditorEventType::Scale: {
-                const EditorVec3 temp = event.info.scale;
                 m_pSceneSystem->changeScaleEntity(event.info.entityID,
-                                                  vec3(temp.x, temp.y, temp.z));
+                                                  event.info.scale);
                 break;
             }
 
@@ -211,8 +197,8 @@ void Engine::processEditorEvents() {
             case EditorEventType::UpdateCameraRotation:
                 if (camera_should_change) {
                     m_pSceneSystem->changeRotationCamera(event.info.cameraID,
-                        event.info.mouseOffsetX,
-                        event.info.mouseOffsetY);
+                                                         event.info.mouseOffsetX,
+                                                         event.info.mouseOffsetY);
                 }
                 break;
 
@@ -246,19 +232,23 @@ bool Engine::initialize() {
         return false;
     }
 
+    // These functions tell OpenGL which version of it should be used (3.3)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+    // Also we must indicate that we want to use only the core profile
+    // (fewer functions, no deprecated ones from old OpenGL versions)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWmonitor* p_monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* p_video_mode = glfwGetVideoMode(p_monitor);
 
-    // Passing the monitor makes the window fullscreen at the native resolution.
+    // Passing the monitor makes the window fullscreen at the native resolution
     m_pWindow = glfwCreateWindow(p_video_mode->width,
-        p_video_mode->height,
-        "PixelEngine",
-        p_monitor,
-        nullptr);
+                                 p_video_mode->height,
+                                 "Pixel Engine",
+                                 p_monitor,
+                                 nullptr);
 
     if (m_pWindow == nullptr) {
         cout << "Failed to create a window\n";
@@ -270,8 +260,6 @@ bool Engine::initialize() {
     glfwMakeContextCurrent(m_pWindow);
     glfwSwapInterval(1);
 
-    // OpenGL function addresses are resolved at runtime by the driver,
-    // glad loads them so we don't have to do it by hand.
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         cout << "Failed to load GLAD\n";
         glfwTerminate();
@@ -309,7 +297,7 @@ void Engine::run() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // The UI decides which part of the window is left for the scene,
-        // so the scene must be rendered only inside that rectangle.
+        // so the scene must be rendered only inside that part
         int viewport_x = 0;
         int viewport_y = 0;
         int viewport_width = 0;
@@ -321,10 +309,15 @@ void Engine::run() {
         visualizeEditorEvents();
 
         m_pRenderSystem->renderScene(m_pSceneSystem->getSceneInfo());
-        m_pSceneSystem->sceneUpdate(m_viewportWidth,
-            m_viewportHeight);
 
-        // The UI is drawn over the whole window, so the viewport has to be restored.
+        // Updates the scene: removes inactive entities, and if the viewport size has changed
+        // changes cameras' settings
+        m_pSceneSystem->sceneUpdate(m_viewportWidth, m_viewportHeight);
+
+        // The UI is drawn over the whole window, so we restore the viewport.
+        // First, we set the viewport to the area reserved for the 3D scene.
+        // Then, we restore it to the full window for UI rendering,
+        // but we don't render anything at this moment.
         glfwGetFramebufferSize(m_pWindow, &m_viewportWidth, &m_viewportHeight);
         glViewport(0, 0, m_viewportWidth, m_viewportHeight);
 
