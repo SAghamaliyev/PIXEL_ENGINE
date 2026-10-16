@@ -1,6 +1,10 @@
 #include "InputSystem.h"
 
+#include <vector>
+
 #include "Core/EventSystem/EventSystem.h"
+
+using namespace std;
 
 void InputManager::processEditorInput() {
     if (InputManager::isKeyJustPressed(InputManager::Key::Escape)) {
@@ -9,22 +13,24 @@ void InputManager::processEditorInput() {
         EventSystem::pushEvent(event);
     }
 
-    const bool isGActive = InputManager::isKeyHeld(InputManager::Key::G)
-        || InputManager::isKeyJustPressed(InputManager::Key::G);
+    // G acts as a modifier key: G + 1 switches the gizmo to translate mode,
+    // G + 2 to rotate mode, G + 3 to scale mode
+    const bool is_G_active = InputManager::isKeyHeld(InputManager::Key::G)
+                           || InputManager::isKeyJustPressed(InputManager::Key::G);
 
-    if (isGActive && InputManager::isKeyJustPressed(InputManager::Key::Num1)) {
+    if (is_G_active && InputManager::isKeyJustPressed(InputManager::Key::Num1)) {
         EditorEvent event;
         event.type = EditorEventType::SetGizmoTranslate;
         EventSystem::pushEvent(event);
     }
 
-    if (isGActive && InputManager::isKeyJustPressed(InputManager::Key::Num2)) {
+    if (is_G_active && InputManager::isKeyJustPressed(InputManager::Key::Num2)) {
         EditorEvent event;
         event.type = EditorEventType::SetGizmoRotate;
         EventSystem::pushEvent(event);
     }
 
-    if (isGActive && InputManager::isKeyJustPressed(InputManager::Key::Num3)) {
+    if (is_G_active && InputManager::isKeyJustPressed(InputManager::Key::Num3)) {
         EditorEvent event;
         event.type = EditorEventType::SetGizmoScale;
         EventSystem::pushEvent(event);
@@ -80,16 +86,13 @@ void InputManager::processEditorInput() {
         EventSystem::pushEvent(event);
     }
 
-
-    float xOffset = 0.0f;
-    float yOffset = 0.0f;
-
-    if (InputManager::isMousePositionChanged(xOffset, yOffset)) {
+    if (InputManager::isMousePositionChanged()) {
         EditorEvent event;
         event.type = EditorEventType::SetCameraMouseEnabled;
-        event.info.mouseOffsetX = xOffset;
-        event.info.mouseOffsetY = yOffset;
+
+        vector<float> answer = getMouseOffsets();
+        event.info.mouseOffsetX = answer[0];
+        event.info.mouseOffsetY = answer[1];
         EventSystem::pushEvent(event);
     }
-
 }

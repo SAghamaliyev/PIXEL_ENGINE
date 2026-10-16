@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <vector>
 
 #include <glad/glad.h>
@@ -9,8 +8,8 @@
 #include "Core/EventSystem/EventSystem.h"
 
 class InputManager {
-private:
 
+    // Engine's own keyboard key names (values match GLFW codes)
     enum class Key {
 
         Num0,
@@ -57,34 +56,17 @@ private:
         Tilde
     };
 
+    // Engine's own mouse button names (values match GLFW codes)
     enum class MouseButton {
-        MouseLeft = GLFW_MOUSE_BUTTON_LEFT, 
+        MouseLeft = GLFW_MOUSE_BUTTON_LEFT,
         MouseRight = GLFW_MOUSE_BUTTON_RIGHT,
         MouseMiddle = GLFW_MOUSE_BUTTON_MIDDLE,
         Mouse4 = GLFW_MOUSE_BUTTON_4,
         Mouse5 = GLFW_MOUSE_BUTTON_5
     };
 
-    // These are self-made functions for getting state of key/mouse_button
-
-    // Is key/mouse_button being held
-    bool isKeyHeld(Key key);
-    bool isMouseButtonHeld(MouseButton button);
-
-    // Was key/mouse_button pressed ONE Time(Frame)
-    bool isKeyJustPressed(Key key);
-    bool isMouseButtonJustPressed(MouseButton button);
-
-    // Was key/mouse_button released only in THIS Time(Frame)
-    bool isKeyJustReleased(Key key);
-    bool isMouseButtonJustReleased(MouseButton button);
-
-    // Was mouse moved by user 
-    bool isMousePositionChanged(float& xOffset, float& yOffset);
-
-    // Check current and previous state of keys and mouse_buttons
-    void updateKeyState(GLFWwindow* window);
-
+    // GLFW doesn't understand engine's own homemade keys/mouse buttons,
+    // so we map them to GLFW key codes (the order must match the Key enum)
     int m_glfwKeys[100] = {
         // Numbers
         GLFW_KEY_0,
@@ -179,7 +161,6 @@ private:
         GLFW_KEY_BACKSLASH,
         GLFW_KEY_GRAVE_ACCENT
     };
-
     int m_glfwMouseButtons[100] = {
         GLFW_MOUSE_BUTTON_1,
         GLFW_MOUSE_BUTTON_2,
@@ -197,11 +178,32 @@ private:
     float m_mouseCurrentPositions[2] = {0};
     float m_mousePreviousPositions[2] = {0};
 
+    // Below are homemade functions for getting state of keys/mouse buttons
+
+    // Is key/mouse_button being held
+    bool isKeyHeld(Key key);
+    bool isMouseButtonHeld(MouseButton button);
+
+    // Was key/mouse_button pressed in current frame
+    bool isKeyJustPressed(Key key);
+    bool isMouseButtonJustPressed(MouseButton button);
+
+    // Was key/mouse_button released in current frame
+    bool isKeyJustReleased(Key key);
+    bool isMouseButtonJustReleased(MouseButton button);
+
+    // Was the mouse moved by the user
+    bool isMousePositionChanged();
+    std::vector<float> getMouseOffsets(); // If mouse was moved, this function returns offsets (x, y)
+
+    // Updates the current and previous state of keys and mouse buttons
+    void updateKeyState(GLFWwindow* window);
+
+    // Process all inputs in Engine (editor mode)
     void processEditorInput();
-    /*void InputGame();*/
 
 public:
-
+    // This function just updates window's resolution and calls processEditorInput()
     void processInput(GLFWwindow* window);
 };
 
