@@ -63,8 +63,6 @@ set(ENGINE_SOURCES
     # Systems / Asset
     "${SRC_DIR}/Systems/Asset/AssetSystem.h"
     "${SRC_DIR}/Systems/Asset/AssetSystem.cpp"
-    "${SRC_DIR}/Systems/Asset/AssetSystemMesh.cpp"
-    "${SRC_DIR}/Systems/Asset/AssetSystemTexture.cpp"
 
     # Systems / Render
     "${SRC_DIR}/Systems/Render/RenderSystem.h"

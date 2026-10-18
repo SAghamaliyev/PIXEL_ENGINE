@@ -3,6 +3,7 @@
 #include <cstring>
 #include <string>
 
+#include <glm/glm.hpp>
 #include <imgui.h>
 
 #include "Core/EventSystem/EventSystem.h"
@@ -94,9 +95,9 @@ void InspectorPanel::draw(const EditorLayout& layout) {
             EditorEvent transform_event;
             transform_event.type = type;
             transform_event.info.entityID = selected_entity_id;
-            transform_event.info.translation = EditorVec3{ m_position[0], m_position[1], m_position[2] };
-            transform_event.info.rotation = EditorVec3{ m_rotation[0], m_rotation[1], m_rotation[2] };
-            transform_event.info.scale = EditorVec3{ m_scale[0], m_scale[1], m_scale[2] };
+            transform_event.info.translation = glm::vec3{ m_position[0], m_position[1], m_position[2] };
+            transform_event.info.rotation = glm::vec3{ m_rotation[0], m_rotation[1], m_rotation[2] };
+            transform_event.info.scale = glm::vec3{ m_scale[0], m_scale[1], m_scale[2] };
             EventSystem::pushEvent(transform_event);
         };
 

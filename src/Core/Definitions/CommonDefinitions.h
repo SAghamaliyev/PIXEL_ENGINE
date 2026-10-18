@@ -1,4 +1,5 @@
-// Please put here some basic, ordinary structures and enum classes
+// Below are only small, dependency-free types that are used by several modules
+// (actually I want to divide these structures in future to several files)
 
 #pragma once
 
