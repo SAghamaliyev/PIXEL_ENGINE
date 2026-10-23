@@ -2,6 +2,9 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Core/Definitions/CameraDefinitions.h"
+#include "Core/Definitions/EntityDefinitions.h"
+
 void TransformManager::resetMatrix(glm::mat4& matrix) {
     matrix = glm::mat4(1.0f);
 }

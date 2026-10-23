@@ -53,9 +53,9 @@ enum class EditorEventType {
 // Data attached to an editor event. Each event type uses only the fields it needs
 struct EditorEventData {
     long entityID = 0;
-    long cameraID = 0;
-    uint64_t meshID = 0;
-    uint64_t textureID = 0;
+    long cameraID = CAMERA_DEFAULT;
+    uint64_t meshID = MESH_DEFAULT_ID;
+    uint64_t textureID = TEXTURE_DEFAULT_ID;
     std::string path;
     std::string name;
     std::string message;

@@ -20,7 +20,7 @@ struct CameraSettings {
 };
 
 struct CameraUnit {
-    long cameraID = 0;
+    long cameraID;
 
     glm::mat4 view = glm::mat4(1.0f);        // View matrix (world-to-camera space transform)
     glm::mat4 projection = glm::mat4(1.0f);  // Projection matrix (camera-to-clip space transform)

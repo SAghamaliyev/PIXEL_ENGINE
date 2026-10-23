@@ -15,10 +15,10 @@ struct Transform {
 };
 
 struct EntityUnit {
-    long entityID = -1;
-    long copyCount = 0;  // Number of copies/duplicates of this entity
-    uint64_t meshID = 0;
-    uint64_t textureID = 0;
+    long entityID;
+    long copyCount;  // Number of copies/duplicates of this entity
+    uint64_t meshID;
+    uint64_t textureID;
     MaterialType materialType = MaterialType::Default; // Material/shader type is being used for rendering entities in different way(if needed)
 
     Color color;

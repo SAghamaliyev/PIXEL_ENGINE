@@ -16,7 +16,21 @@ void Engine::visualizeEditorEvents() {
     const auto& scene_info = m_pSceneSystem->getSceneInfo();
     const auto& entity_list = scene_info.entityList;
 
-    // If our active entity's id is less than 1, it means we don't have any entities and must show nothing
+    // The hierarchy tree shows only names and IDs of entities (therefore we pass only these 2 details)
+    vector<EditorHierarchyView> hierarchy_views;
+    for (const auto& element : entity_list) {
+        const auto& entity = element.second;
+
+        if (!entity.isActive) {
+            continue;
+        }
+
+        hierarchy_views.push_back(EditorHierarchyView{ entity.entityID, entity.name });
+    }
+
+    m_pUiSystem->setHierarchyViews(hierarchy_views);
+
+    // If our selected entity's id is less than 1, it means we don't have any entities and must show nothing
     if (scene_info.activeEntityID < 1) {
         m_pUiSystem->clearSelectedEntityView();
         return;
@@ -51,21 +65,6 @@ void Engine::visualizeEditorEvents() {
     view.worldMatrix = active_entity.transform.matrix;
 
     m_pUiSystem->setSelectedEntityView(view);
-
-
-    // The hierarchy tree shows only names and IDs of entities (therefore we pass only these 2 details)
-    vector<EditorHierarchyView> hierarchy_views;
-    for (const auto& element : entity_list) {
-        const auto& entity = element.second;
-
-        if (!entity.isActive) {
-            continue;
-        }
-
-        hierarchy_views.push_back(EditorHierarchyView{ entity.entityID, entity.name });
-    }
-
-    m_pUiSystem->setHierarchyViews(hierarchy_views);
 }
 
 void Engine::processEditorEvents() {
@@ -171,27 +170,27 @@ void Engine::processEditorEvents() {
                 break;
 
             case EditorEventType::CameraMoveForward:
-                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Forward);
+                m_pSceneSystem->changePositionCamera(event.info.cameraID, Movement::Forward);
                 break;
 
             case EditorEventType::CameraMoveBackward:
-                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Back);
+                m_pSceneSystem->changePositionCamera(event.info.cameraID, Movement::Back);
                 break;
 
             case EditorEventType::CameraMoveLeft:
-                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Left);
+                m_pSceneSystem->changePositionCamera(event.info.cameraID, Movement::Left);
                 break;
 
             case EditorEventType::CameraMoveRight:
-                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Right);
+                m_pSceneSystem->changePositionCamera(event.info.cameraID, Movement::Right);
                 break;
 
             case EditorEventType::CameraMoveUp:
-                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Up);
+                m_pSceneSystem->changePositionCamera(event.info.cameraID, Movement::Up);
                 break;
 
             case EditorEventType::CameraMoveDown:
-                m_pSceneSystem->changePositionCamera(event.info.entityID, Movement::Down);
+                m_pSceneSystem->changePositionCamera(event.info.cameraID, Movement::Down);
                 break;
 
             case EditorEventType::UpdateCameraRotation:

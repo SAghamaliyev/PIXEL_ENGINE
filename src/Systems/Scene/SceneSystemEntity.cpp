@@ -11,6 +11,11 @@ void SceneSystem::sceneClearEntities() {
     m_entityManager.clearEntities();
 }
 
+void SceneSystem::sceneCreateEntity() {
+
+    m_entityManager.createEntity();
+}
+
 void SceneSystem::sceneCreateEntity(unsigned long long int meshID, 
                                     MaterialType materialType, 
                                     const string& name) {

@@ -1,8 +1,17 @@
 #include "RenderSystem.h"
 
+#include <vector>
+
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/glm.hpp>
+
+#include "Core/Definitions/EntityDefinitions.h"
+#include "Core/Definitions/SceneDefinitions.h"
+#include "Core/Logger/Logger.h"
+#include "glm/gtc/type_ptr.hpp"
+#include "Systems/Render/MeshManager/MeshManager.h"
+#include "Systems/Render/ShaderManager/ShaderManager.h"
+#include "Systems/Render/TextureManager/TextureManager.h"
 
 void RenderSystem::initializeRender() {
     glEnable(GL_DEPTH_TEST);
@@ -19,18 +28,18 @@ void RenderSystem::renderScene(const SceneInfo& sceneInfo) {
         const EntityUnit& entity = it.second;
 
         MeshInfo entity_mesh = m_meshManager.getMesh(entity.meshID,
-            entity.isActive);
-        // If indexCount is negative, it means entity is deactivated and mesh for it is not valid anymore
-        if (entity_mesh.indexCount < 0) {
-            continue;
-        }
+                                                     entity.isActive);
 
+        // We must pass entity even if it's deactivated, because textureManager must remove it from its Map
         unsigned int entity_texture = m_textureManager.getTexture(entity.textureID,
-            entity.isActive);
+                                                                  entity.isActive);
+
         // If texture is equal to 0, it means entity is deactivated and texture for it is not valid anymore
         if (entity_texture == 0) {
             continue;
         }
+
+        initializeRender();
 
         unsigned int entity_shader = m_shaderManager.getShader(entity.materialType);
         bool is_color_tint_enabled = entity.isColorTintEnabled;

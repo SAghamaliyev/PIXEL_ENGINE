@@ -15,8 +15,6 @@
 
 struct GLFWwindow;
 
-struct GLFWwindow;
-
 class UISystem {
 private:
     GLFWwindow* m_pWindow = nullptr;

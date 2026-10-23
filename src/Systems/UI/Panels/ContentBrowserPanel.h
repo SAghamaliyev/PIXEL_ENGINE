@@ -24,7 +24,7 @@ private:
     long m_selectedEntityIDForTexture = 0;
 
     char m_searchBuffer[256] = "";
-    std::string m_currentDirectory = "src/objects";
+    std::string m_currentDirectory = "assets/Objects";
     std::string m_selectedFilePath;
 
     void drawToolbar();

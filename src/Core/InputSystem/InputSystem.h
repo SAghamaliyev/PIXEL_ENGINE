@@ -8,7 +8,11 @@
 #include "Core/EventSystem/EventSystem.h"
 
 class InputManager {
+public:
+    // This function just updates window's resolution and calls processEditorInput()
+    void processInput(GLFWwindow* window);
 
+private:
     // Engine's own keyboard key names (values match GLFW codes)
     enum class Key {
 
@@ -201,10 +205,6 @@ class InputManager {
 
     // Process all inputs in Engine (editor mode)
     void processEditorInput();
-
-public:
-    // This function just updates window's resolution and calls processEditorInput()
-    void processInput(GLFWwindow* window);
 };
 
 

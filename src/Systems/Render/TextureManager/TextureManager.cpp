@@ -8,6 +8,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Core/Definitions/CommonDefinitions.h"
 #include "Core/Logger/Logger.h"
 
 using namespace std;
@@ -93,8 +94,8 @@ void TextureManager::makeTexture(uint64_t textureID) {
         return;
     }
 
+    // Choose the OpenGL format by the number of channels (1 = grayscale, 3 = RGB, 4 = RGBA)
     GLenum format = GL_RGB;
-
     if (nrChannels == 1) {
         format = GL_RED;
     }
@@ -133,6 +134,7 @@ void TextureManager::makeTexture(uint64_t textureID) {
                  GL_UNSIGNED_BYTE,
                  data);
 
+    // Generate smaller versions of the texture for rendering at a distance
     glGenerateMipmap(GL_TEXTURE_2D);
 
     m_textureMap[textureID] = texture;
@@ -140,29 +142,50 @@ void TextureManager::makeTexture(uint64_t textureID) {
     delete[] data;
 }
 
+void TextureManager::makeDefaultTexture() {
+    unsigned int texture = 0;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    // 4 байта: R=255, G=255, B=255, A=255 (чистый белый цвет)
+    unsigned char whitePixel[4] = { 255, 255, 255, 255 };
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, whitePixel);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    m_textureMap[TEXTURE_DEFAULT_ID] = texture;
+
+}
+
 unsigned int TextureManager::getTexture(uint64_t textureID, bool isActive) {
 
     // If Entity is active 
     if (isActive) {
-        // If no any texture was found for Entity, we must create it
+        // If the entity's texture isn't loaded yet, load it
         if (m_textureMap.find(textureID) == m_textureMap.end()) {
-            makeTexture(textureID);
 
-            auto result = m_textureMap.find(textureID);
-            if (result != m_textureMap.end()) {
-
-                return result->second;
+            if (textureID == TEXTURE_DEFAULT_ID) {
+                makeDefaultTexture();
             }
-            // If creation of texture failed
             else {
-                Logger::addLog(LogType::LOG_ERROR, "Failed to load texture. ID: " + std::to_string(textureID));
-                return 0;
+                makeTexture(textureID);
+
+                auto result = m_textureMap.find(textureID);
+                if (result != m_textureMap.end()) {
+
+                    return result->second;
+                }
+
+                // Loading failed: return a zero
+                else {
+                    Logger::addLog(LogType::LOG_ERROR, "Failed to load texture. ID: " + std::to_string(textureID));
+                    return 0;
+                }
             }
         }
 
         return m_textureMap[textureID];
     }
-    // If Entity is diactivated
+    // If Entity is deactivated
     else {
         auto it = m_textureMap.find(textureID);
 

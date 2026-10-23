@@ -8,16 +8,6 @@
 #include "Core/Definitions/CommonDefinitions.h"
 
 class CameraManager {
-private:
-    long m_counter = 0;
-
-    std::unordered_map <long, CameraUnit> m_cameraMap;
-    long m_activeCameraID;
-
-    float m_viewportWidth;
-    float m_viewportHeight;
-
-    bool hasCamera(long cameraID);
 public:
     CameraManager(float viewPortWidth, float viewPortHeight);
 
@@ -43,4 +33,15 @@ public:
     CameraTransform& getTransform(long cameraID);
     glm::mat4& getView(long cameraID);
     glm::mat4& getProjection(long cameraID);
+
+private:
+    long m_counter = 1;
+
+    std::unordered_map <long, CameraUnit> m_cameraMap;
+    long m_activeCameraID;
+
+    float m_viewportWidth;
+    float m_viewportHeight;
+
+    bool hasCamera(long cameraID);
 };
