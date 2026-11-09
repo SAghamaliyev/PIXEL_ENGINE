@@ -23,6 +23,8 @@ private:
     std::vector<EditorHierarchyView> m_hierarchyViews;
     EditorEntityView m_selectedEntity;
     bool m_hasSelectedEntity = false;
+    EditorCameraView m_cameraView;
+    bool m_hasCameraView = false;
 
     SceneHierarchyPanel m_hierarchy;
     InspectorPanel m_inspector;
@@ -55,6 +57,7 @@ public:
     void setHierarchyViews(const std::vector<EditorHierarchyView>& hierarchyViews);
     void setSelectedEntityView(const EditorEntityView& entityView);
     void clearSelectedEntityView();
+    void setActiveCameraView(const EditorCameraView& cameraView);
     void setGizmoOperation(GizmoOperation operation);
     GizmoOperation getGizmoOperation() const;
 };

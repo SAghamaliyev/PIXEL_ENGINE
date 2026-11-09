@@ -3,10 +3,10 @@
 #include <glm/glm.hpp>
 
 struct CameraTransform {
-    glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f);  // Camera position in world space
-    glm::vec3 front    = glm::vec3(0.0f, 0.0f, -1.0f); // Normalized forward direction vector (Z axis)
+    glm::vec3 position = glm::vec3(0.0f, 2.0f, 5.0f);  // Camera position in world space
+    glm::vec3 front    = glm::vec3(0.0f, -0.34202014f, -0.93969262f); // Normalized forward direction vector (Z axis)
     glm::vec3 right    = glm::vec3(1.0f, 0.0f, 0.0f);  // Normalized right direction vector (X axis)
-    glm::vec3 up       = glm::vec3(0.0f, 1.0f, 0.0f);  // Normalized up direction vector (Y axis)
+    glm::vec3 up       = glm::vec3(0.0f, 0.93969262f, -0.34202014f);  // Normalized up direction vector (Y axis)
 };
 
 struct CameraSettings {
@@ -14,7 +14,7 @@ struct CameraSettings {
     float nearPlane = 0.1f;      // Near clipping plane distance
     float farPlane = 100.0f;     // Far clipping plane distance
     float yaw = -90.0f;          // Yaw angle in degrees (-90.0 points toward negative Z axis)
-    float pitch = 0.0f;          // Pitch angle in degrees
+    float pitch = -20.0f;          // Pitch angle in degrees
     float sensitivity = 0.1f;    // Mouse look sensitivity
     float speed = 0.05f;
 };

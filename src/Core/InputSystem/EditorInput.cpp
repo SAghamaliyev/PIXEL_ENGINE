@@ -88,7 +88,7 @@ void InputManager::processEditorInput() {
 
     if (InputManager::isMousePositionChanged()) {
         EditorEvent event;
-        event.type = EditorEventType::SetCameraMouseEnabled;
+        event.type = EditorEventType::UpdateCameraRotation;
 
         vector<float> answer = getMouseOffsets();
         event.info.mouseOffsetX = answer[0];

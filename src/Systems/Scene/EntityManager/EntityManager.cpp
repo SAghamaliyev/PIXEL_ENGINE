@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 
+#include <cmath>
 #include <cstdint>
 #include <string>
 
@@ -188,7 +189,15 @@ void EntityManager::changeScale(long entityID, const glm::vec3& scale) {
         return;
     }
 
-    m_entityMap[entityID].transform.scale = scale;
+    float min_scale = 0.0001f;
+    glm::vec3 clamped_scale = scale;
+    for (int i = 0; i < 3; ++i) {
+        if (!std::isfinite(clamped_scale[i]) || clamped_scale[i] < min_scale) {
+            clamped_scale[i] = min_scale;
+        }
+    }
+
+    m_entityMap[entityID].transform.scale = clamped_scale;
 }
 
 void EntityManager::enableColorTint(long entityID) {

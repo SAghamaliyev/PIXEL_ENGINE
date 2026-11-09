@@ -30,6 +30,16 @@ void Engine::visualizeEditorEvents() {
 
     m_pUiSystem->setHierarchyViews(hierarchy_views);
 
+    // We must send all matrices(including camera's view and projection) for Gizmo
+    const auto camera_it = scene_info.cameraList.find(scene_info.activeCameraID);
+    if (camera_it != scene_info.cameraList.end()) {
+        EditorCameraView camera_view;
+        camera_view.cameraID = camera_it->second.cameraID;
+        camera_view.view = camera_it->second.view;
+        camera_view.projection = camera_it->second.projection;
+        m_pUiSystem->setActiveCameraView(camera_view);
+    }
+
     // If our selected entity's id is less than 1, it means we don't have any entities and must show nothing
     if (scene_info.activeEntityID < 1) {
         m_pUiSystem->clearSelectedEntityView();

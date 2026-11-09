@@ -83,14 +83,6 @@ void InspectorPanel::draw(const EditorLayout& layout) {
         const bool rotation_changed = drawVec3("Rotation", m_rotation, 0.1f);
         const bool scale_changed = drawVec3("Scale", m_scale, 0.01f);
 
-        if (scale_changed) {
-            for (float& scale_value : m_scale) {
-                if (scale_value < 1.0f) {
-                    scale_value = 1.0f;
-                }
-            }
-        }
-
         auto queue_transform_event = [this, selected_entity_id](EditorEventType type) {
             EditorEvent transform_event;
             transform_event.type = type;
