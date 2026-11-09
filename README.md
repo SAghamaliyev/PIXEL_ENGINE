@@ -235,18 +235,21 @@ Ensure you have the following installed on your system:
    git clone https://github.com/your-username/PIXEL_ENGINE.git
    cd PIXEL_ENGINE
    ```
-
-2. **Configure the project:**
+2. **Load ThirdParty files:**
+   ```bash
+   git submodule update --init --recursive
+   ```
+4. **Configure the project:**
    ```bash
    cmake -B build 
    ```
 
-3. **Build the target:**
+5. **Build the target:**
    ```bash
    cmake --build build
    ```
 
-4. **Launch the engine:**
+6. **Launch the engine:**
    ```bash
    # On Windows:
    ./build/Release/PIXEL_ENGINE.exe
