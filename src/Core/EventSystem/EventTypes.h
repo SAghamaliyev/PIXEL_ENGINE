@@ -8,6 +8,7 @@
 #include "Core/Definitions/CommonDefinitions.h"
 #include "Core/Definitions/MaterialDefinitions.h"
 
+// Events which can be called in Engine's editor mode
 enum class EditorEventType {
     AddEntity,
     RegisterMesh,
@@ -19,7 +20,6 @@ enum class EditorEventType {
     ChangeEntityColor,
     ToggleEntityColor,
     SetEntityMaterial,
-
 
     ClearScene,
     OpenScene,
@@ -50,12 +50,12 @@ enum class EditorEventType {
     SetCameraMouseEnabled
 };
 
-// This struct is used for providing additional details that must be passed
+// Data attached to an editor event. Each event type uses only the fields it needs
 struct EditorEventData {
     long entityID = 0;
-    long cameraID = 0;
-    uint64_t meshID = 0;
-    uint64_t textureID = 0;
+    long cameraID = CAMERA_DEFAULT;
+    uint64_t meshID = MESH_DEFAULT_ID;
+    uint64_t textureID = TEXTURE_DEFAULT_ID;
     std::string path;
     std::string name;
     std::string message;

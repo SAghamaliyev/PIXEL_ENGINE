@@ -11,6 +11,9 @@ private:
     std::unordered_map<uint64_t, unsigned int> m_textureMap;
     void makeTexture(uint64_t textureID);
 
+    // It's just a white texture
+    void makeDefaultTexture();
+
     // Read texture data from a .bin file
     void readBinaryTexture(uint64_t textureID,
                            unsigned char*& data,

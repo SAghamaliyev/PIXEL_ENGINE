@@ -6,11 +6,6 @@
 #include "Core/Definitions/EntityDefinitions.h"
 
 class TransformManager {
-private:
-    void resetMatrix(glm::mat4& matrix);
-    void translate(glm::mat4& matrix, const glm::vec3& translation);
-    void rotate(glm::mat4& matrix, const glm::vec3& rotation);
-    void scale(glm::mat4& matrix, const glm::vec3& scale);
 public:
     void updateEntityMatrix(Transform& transform);
 
@@ -20,4 +15,10 @@ public:
 
     // Recalculates front/right/up vectors from yaw and pitch
     void updateCameraRotation(CameraTransform& transform, CameraSettings& settings);
+
+private:
+    void resetMatrix(glm::mat4& matrix);
+    void translate(glm::mat4& matrix, const glm::vec3& translation);
+    void rotate(glm::mat4& matrix, const glm::vec3& rotation);
+    void scale(glm::mat4& matrix, const glm::vec3& scale);
 };

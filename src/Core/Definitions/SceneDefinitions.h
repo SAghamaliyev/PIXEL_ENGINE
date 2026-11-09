@@ -5,7 +5,7 @@
 #include "Core/Definitions/CameraDefinitions.h"
 #include "Core/Definitions/EntityDefinitions.h"
 
-// Data about the whole scene which is being passed to Render System
+// Data about the whole scene which will be passed to Render System
 struct SceneInfo {
     const std::unordered_map<long, EntityUnit>& entityList;
     long activeEntityID;

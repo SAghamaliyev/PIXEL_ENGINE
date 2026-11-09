@@ -5,6 +5,7 @@
 
 enum class LogType { LOG_INFO, LOG_WARNING, LOG_ERROR, LOG_DEBUG };
 
+// This struct is used to write information into m_logBuffer
 struct LogEntry {
     LogType type;
     std::string message;
@@ -12,14 +13,12 @@ struct LogEntry {
 
 class Logger {
 public:
-    // Add Log's type and then message
-    static void addLog(LogType logType, const std::string& message);
-
-    // Clear all Logs from LogBuffer
-    static void clearLogs();
-
+    static void addLog(LogType logType, std::string message);
+    static void clearLogs();  // Clear all Logs from m_logBuffer
     static std::queue<LogEntry> getLogs();
 
 private:
+
+    // Queue of logs that are read and shown in terminal each frame
     static std::queue<LogEntry> m_logBuffer;
 };

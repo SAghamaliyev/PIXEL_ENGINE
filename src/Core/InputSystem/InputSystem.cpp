@@ -11,24 +11,22 @@ void InputManager::updateKeyState(GLFWwindow* window) {
         m_keysCurrentStates[i] = (int)glfwGetKey(window, m_glfwKeys[i]);
     }
 
-
     std::memcpy(m_mouseButtonsPreviousStates, m_mouseButtonsCurrentStates, sizeof(m_mouseButtonsCurrentStates));
     for (int i = (int)MouseButton::MouseLeft; i <= (int)MouseButton::Mouse5; i++) {
         m_mouseButtonsCurrentStates[i] = (int)glfwGetMouseButton(window, m_glfwMouseButtons[i]);
     }
 
+    double temp_x_pos = 0.0;
+    double temp_y_pos = 0.0;
+    double* x_pos = &temp_x_pos;
+    double* y_pos = &temp_y_pos;
 
-    double tempXpos = 0.0;
-    double tempYpos = 0.0;
-    double* xpos = &tempXpos;
-    double* ypos = &tempYpos;
-
-    glfwGetCursorPos(window, xpos, ypos);
+    glfwGetCursorPos(window, x_pos, y_pos);
 
     m_mousePreviousPositions[0] = m_mouseCurrentPositions[0];
     m_mousePreviousPositions[1] = m_mouseCurrentPositions[1];
-    m_mouseCurrentPositions[0] = (float)tempXpos;
-    m_mouseCurrentPositions[1] = (float)tempYpos;
+    m_mouseCurrentPositions[0] = (float)temp_x_pos;
+    m_mouseCurrentPositions[1] = (float)temp_y_pos;
 }
 
 bool InputManager::isKeyJustPressed(Key key) {
@@ -102,21 +100,24 @@ bool InputManager::isMouseButtonHeld(MouseButton key) {
     }
 }
 
-bool InputManager::isMousePositionChanged(float& xOffset, float& yOffset) {
+bool InputManager::isMousePositionChanged() {
     if (m_mousePreviousPositions[0] == m_mouseCurrentPositions[0]
         && m_mousePreviousPositions[1] == m_mouseCurrentPositions[1]) {
 
         return false;
     }
     else {
-        xOffset = m_mouseCurrentPositions[0] - m_mousePreviousPositions[0];
-        yOffset = m_mouseCurrentPositions[1] - m_mousePreviousPositions[1];
         return true;
     }
 }
 
+std::vector<float> InputManager::getMouseOffsets() {
+    float x_offset = m_mouseCurrentPositions[0] - m_mousePreviousPositions[0];
+    float y_offset = m_mouseCurrentPositions[1] - m_mousePreviousPositions[1];
+    return {x_offset, y_offset};
+}
+
 void InputManager::processInput(GLFWwindow* window) {
     updateKeyState(window);
-
     processEditorInput();
 }

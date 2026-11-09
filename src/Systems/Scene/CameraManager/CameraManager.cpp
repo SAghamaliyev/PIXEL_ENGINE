@@ -5,10 +5,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Core/Logger/Logger.h"
+#include "Core/Definitions/CommonDefinitions.h"
 
 using namespace std;
-
-constexpr long CAMERA_DEFAULT = 0;
 
 CameraManager::CameraManager(float viewportWidth, float viewportHeight){
 

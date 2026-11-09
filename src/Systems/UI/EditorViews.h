@@ -22,8 +22,14 @@ struct EditorEntityView {
     MaterialType shaderID = MaterialType::Default;
     Color color;
     bool colorEnabled = true;
-    EditorVec3 position;
-    EditorVec3 rotation;
-    EditorVec3 scale = { 1.0f, 1.0f, 1.0f };
+    glm::vec3 position = { 0.0f, 0.0f, 0.0f };
+    glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
+    glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
     glm::mat4 worldMatrix = glm::mat4(1.0f);
+};
+
+struct EditorCameraView {
+    long cameraID = 0;
+    glm::mat4 view = glm::mat4(1.0f);
+    glm::mat4 projection = glm::mat4(1.0f);
 };

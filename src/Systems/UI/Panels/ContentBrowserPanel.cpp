@@ -34,10 +34,10 @@ void ContentBrowserPanel::setTextureSelectionMode(bool enabled, long entityID) {
     m_textureSelectionMode = enabled;
     m_selectedEntityIDForTexture = entityID;
     if (enabled) {
-        m_currentDirectory = "src/Textures";
+        m_currentDirectory = "assets/Textures";
     }
     else {
-        m_currentDirectory = "src/objects";
+        m_currentDirectory = "assets/Objects";
     }
     m_selectedFilePath.clear();
     memset(m_searchBuffer, 0, sizeof(m_searchBuffer));
@@ -69,21 +69,28 @@ void ContentBrowserPanel::draw(const EditorLayout& layout) {
 
 void ContentBrowserPanel::drawToolbar() {
     if (ImGui::Button("Home")) {
-        m_currentDirectory = "src";
+        m_currentDirectory = "assets";
         m_selectedFilePath.clear();
     }
 
     ImGui::SameLine();
     if (ImGui::Button("Objects")) {
-        std::filesystem::create_directories("src/objects");
-        m_currentDirectory = "src/objects";
+        std::filesystem::create_directories("assets/Objects");
+        m_currentDirectory = "assets/Objects";
         m_selectedFilePath.clear();
     }
 
     ImGui::SameLine();
     if (ImGui::Button("Textures")) {
-        std::filesystem::create_directories("src/Textures");
-        m_currentDirectory = "src/Textures";
+        std::filesystem::create_directories("assets/Textures");
+        m_currentDirectory = "assets/Textures";
+        m_selectedFilePath.clear();
+    }
+
+    ImGui::SameLine();
+    if (ImGui::Button("Shaders")) {
+        std::filesystem::create_directories("assets/Shaders");
+        m_currentDirectory = "assets/Shaders";
         m_selectedFilePath.clear();
     }
 
@@ -101,7 +108,7 @@ void ContentBrowserPanel::drawToolbar() {
         ImGui::SameLine();
         if (ImGui::Button("Cancel")) {
             m_textureSelectionMode = false;
-            m_currentDirectory = "src/objects";
+            m_currentDirectory = "assets/Objects";
             m_selectedFilePath.clear();
         }
     }
@@ -113,19 +120,26 @@ void ContentBrowserPanel::drawToolbar() {
 void ContentBrowserPanel::drawFolderTree() {
     ImGui::BeginChild("FolderTree", ImVec2(0.0f, 0.0f), true);
 
-    std::filesystem::create_directories("src/objects");
-    std::filesystem::create_directories("src/Textures");
+    std::filesystem::create_directories("assets/Objects");
+    std::filesystem::create_directories("assets/Textures");
+    std::filesystem::create_directories("assets/Shaders");
 
-    if (ImGui::TreeNodeEx("src", ImGuiTreeNodeFlags_DefaultOpen)) {
-        const std::string objects_path = "src/objects";
-        if (ImGui::Selectable("objects", m_currentDirectory == objects_path)) {
+    if (ImGui::TreeNodeEx("assets", ImGuiTreeNodeFlags_DefaultOpen)) {
+        const std::string objects_path = "assets/Objects";
+        if (ImGui::Selectable("Objects", m_currentDirectory == objects_path)) {
             m_currentDirectory = objects_path;
             m_selectedFilePath.clear();
         }
 
-        const std::string textures_path = "src/Textures";
+        const std::string textures_path = "assets/Textures";
         if (ImGui::Selectable("Textures", m_currentDirectory == textures_path)) {
             m_currentDirectory = textures_path;
+            m_selectedFilePath.clear();
+        }
+
+        const std::string shaders_path = "assets/Shaders";
+        if (ImGui::Selectable("Shaders", m_currentDirectory == shaders_path)) {
+            m_currentDirectory = shaders_path;
             m_selectedFilePath.clear();
         }
 
@@ -206,7 +220,90 @@ void ContentBrowserPanel::drawFileView() {
 
     try {
         for (const auto& entry : std::filesystem::directory_iterator(m_currentDirectory)) {
+            // Render subdirectories
             if (entry.is_directory()) {
+                if (entry.path().filename() == "bins") {
+                    continue;
+                }
+
+                const std::string dir_name = entry.path().filename().string();
+                if (m_searchBuffer[0] != '\0' && dir_name.find(m_searchBuffer) == std::string::npos) {
+                    continue;
+                }
+
+                const std::string dir_path = entry.path().string();
+                const bool is_selected = (m_selectedFilePath == dir_path);
+
+                ImGui::PushID(item_index++);
+                if (is_selected) {
+                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.24f, 0.42f, 0.62f, 0.35f));
+                }
+
+                ImGui::BeginChild(("##item" + std::to_string(item_index)).c_str(), ImVec2(ImGui::GetContentRegionAvail().x, row_height), true);
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
+
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.85f, 0.3f, 1.0f));
+                ImGui::Text("[DIR]");
+                ImGui::PopStyleColor();
+                ImGui::SameLine(0.0f, 10.0f);
+
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 4.0f);
+                ImGui::Text("%s", dir_name.c_str());
+
+                ImGui::EndChild();
+
+                if (ImGui::IsItemClicked()) {
+                    m_selectedFilePath = dir_path;
+                }
+                if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+                    m_currentDirectory = dir_path;
+                    m_selectedFilePath.clear();
+                }
+
+                if (is_selected) {
+                    ImGui::PopStyleColor();
+                }
+                ImGui::PopID();
+                continue;
+            }
+
+            // Render shaders
+            const std::string ext = entry.path().extension().string();
+            if (ext == ".vert" || ext == ".frag" || ext == ".glsl") {
+                const std::string filename = entry.path().filename().string();
+                if (m_searchBuffer[0] != '\0' && filename.find(m_searchBuffer) == std::string::npos) {
+                    continue;
+                }
+
+                const std::string file_path = entry.path().string();
+                const bool is_selected = (m_selectedFilePath == file_path);
+
+                ImGui::PushID(item_index++);
+                if (is_selected) {
+                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.24f, 0.42f, 0.62f, 0.35f));
+                }
+
+                ImGui::BeginChild(("##item" + std::to_string(item_index)).c_str(), ImVec2(ImGui::GetContentRegionAvail().x, row_height), true);
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 3.0f);
+
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.9f, 0.5f, 1.0f));
+                ImGui::Text("[SHD]");
+                ImGui::PopStyleColor();
+                ImGui::SameLine(0.0f, 10.0f);
+
+                ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 4.0f);
+                ImGui::Text("%s", filename.c_str());
+
+                ImGui::EndChild();
+
+                if (ImGui::IsItemClicked()) {
+                    m_selectedFilePath = file_path;
+                }
+
+                if (is_selected) {
+                    ImGui::PopStyleColor();
+                }
+                ImGui::PopID();
                 continue;
             }
 
@@ -397,7 +494,7 @@ void ContentBrowserPanel::queueAssignTextureEvent(const std::string& metaPath, c
     EventSystem::pushEvent(assign_event);
 
     m_textureSelectionMode = false;
-    m_currentDirectory = "src/objects";
+    m_currentDirectory = "assets/Objects";
     m_selectedFilePath.clear();
     memset(m_searchBuffer, 0, sizeof(m_searchBuffer));
 

@@ -81,7 +81,11 @@ void ShaderManager::createShader(const string& vertexSource, const string& fragm
 }
 
 ShaderManager::ShaderManager() {
+    // All shaders have to be prepared (only active ones) before rendering
+    prepareShaders();
+}
 
+void ShaderManager::prepareShaders() {
     string vertex_source;
     string fragment_source;
 
@@ -132,7 +136,7 @@ ShaderManager::ShaderManager() {
                 return;
             }
 
-            // If both of them exist we start creating our shader program 
+            // If both of them exist we start creating our shader program
             string line;
             string final_line;
             while (getline(vert_file, line)) {

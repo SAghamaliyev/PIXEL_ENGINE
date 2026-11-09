@@ -13,17 +13,6 @@
 #include "Systems/Scene/TransformManager/TransformManager.h"
 
 class SceneSystem {
-private:
-    EntityManager m_entityManager;
-    TransformManager m_transformManager;
-    CameraManager m_cameraManager;
-
-    // Holds references to the maps inside the managers above,
-    // so it must be declared after them and initialized in the constructor
-    SceneInfo m_sceneInfo;
-
-    int m_viewportWidth;
-    int m_viewportHeight;
 public:
     // SceneSystem 
     SceneSystem(int viewportWidth, int viewportHeight);
@@ -32,9 +21,12 @@ public:
 
     // EntityManager functions
         void sceneClearEntities();
-        void sceneCreateEntity(uint64_t  meshID = DEFAULT_MESH_ID,
-                               MaterialType materialType = MaterialType::Default,
-                               const std::string& name = "Object");
+
+        void sceneCreateEntity();
+        void sceneCreateEntity(uint64_t  meshID,
+                               MaterialType materialType,
+                               const std::string& name
+        );
 
         void sceneDeleteEntity(long entityID);
         void sceneDuplicateEntity(long entityID);
@@ -68,4 +60,16 @@ public:
         void changeSpeedCamera(long cameraID, float speed);
         void changePositionCamera(long cameraID, Movement direction);
         void changeRotationCamera(long cameraID, float xOffset, float yOffset);
+
+private:
+    EntityManager m_entityManager;
+    TransformManager m_transformManager;
+    CameraManager m_cameraManager;
+
+    // Holds references to the maps inside the managers above,
+    // so it must be declared after them and initialized in the constructor
+    SceneInfo m_sceneInfo;
+
+    int m_viewportWidth;
+    int m_viewportHeight;
 };

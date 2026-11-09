@@ -7,7 +7,12 @@
 #include "Systems/UI/UISystem.h"
 
 class Engine {
+public:
+    bool initialize();
+    void run();
+    void terminate();
 
+private:
     // Subsystems and managers of program
     RenderSystem* m_pRenderSystem = nullptr;
     SceneSystem* m_pSceneSystem = nullptr;
@@ -27,8 +32,4 @@ class Engine {
 
     // This function sends necessary information to UI module to visualize and show it
     void visualizeEditorEvents();
-public:
-    bool initialize();
-    void run();
-    void terminate();
 };

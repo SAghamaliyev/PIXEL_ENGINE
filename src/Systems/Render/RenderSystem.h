@@ -6,11 +6,11 @@
 #include "Systems/Render/TextureManager/TextureManager.h"
 
 class RenderSystem {
+public:
+    void initializeRender();
+    void renderScene(const SceneInfo& sceneInfo);
 private:
     ShaderManager m_shaderManager;
     MeshManager m_meshManager;
     TextureManager m_textureManager;
-public:
-    void initializeRender();
-    void renderScene(const SceneInfo& sceneInfo);
 };

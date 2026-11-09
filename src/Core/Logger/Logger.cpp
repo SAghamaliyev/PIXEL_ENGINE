@@ -1,11 +1,11 @@
 #include "Logger.h"
 
-std::queue<LogEntry> Logger::m_logBuffer;
+using namespace std;
 
-void Logger::addLog(const LogType logType, const std::string& message) {
+queue<LogEntry> Logger::m_logBuffer;
 
-    const LogEntry OurLog = { logType, message };
-    m_logBuffer.push(OurLog);
+void Logger::addLog(const LogType logType, std::string message) {
+    m_logBuffer.push(LogEntry{ logType, std::move(message) });
 }
 
 void Logger::clearLogs() {

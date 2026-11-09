@@ -78,6 +78,11 @@ void UISystem::clearSelectedEntityView() {
     m_hierarchy.setSelectedEntityID(-1);
 }
 
+void UISystem::setActiveCameraView(const EditorCameraView& cameraView) {
+    m_cameraView = cameraView;
+    m_hasCameraView = true;
+}
+
 void UISystem::setGizmoOperation(GizmoOperation operation) {
     m_gizmo.setOperation(operation);
 }
@@ -126,10 +131,8 @@ void UISystem::drawPanels() {
         return;
     }
 
-    int screen_w = 0;
-    int screen_h = 0;
-    glfwGetFramebufferSize(m_pWindow, &screen_w, &screen_h);
-    m_gizmo.draw(p_selected, m_layout, screen_h);
+    const EditorCameraView* p_camera = m_hasCameraView ? &m_cameraView : nullptr;
+    m_gizmo.draw(p_selected, p_camera, m_layout);
 }
 
 const EditorEntityView* UISystem::findSelectedEntityView() const {

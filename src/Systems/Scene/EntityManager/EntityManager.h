@@ -8,24 +8,15 @@
 
 #include "Core/Definitions/EntityDefinitions.h"
 #include "Core/Definitions/MaterialDefinitions.h"
-
-constexpr uint64_t DEFAULT_TEXTURE_ID = 1;  // Default texture used for rendering
-constexpr uint64_t DEFAULT_MESH_ID = 2;     // Default cube mesh used for rendering
-constexpr long NO_ENTITY_ID = -1;           // No entity is selected
+#include "Core/Definitions/CommonDefinitions.h"
 
 class EntityManager {
-private:
-    long m_counter = 1;
-    std::unordered_map <long, EntityUnit> m_entityMap;
-
-    // Selected entity is the entity that the user chose by clicking on it
-    long m_selectedEntityID = NO_ENTITY_ID;
-
-    std::vector <long> m_deactivatedEntityIDs;
 public:
-    void createEntity(uint64_t meshID = DEFAULT_MESH_ID,
-                      MaterialType materialType = MaterialType::Default,
-                      const std::string& name = "Object");
+    void createEntity();
+
+    void createEntity(uint64_t meshID,
+                      MaterialType materialType,
+                      const std::string& name);
 
     // Only the ID differs from the original entity
     void duplicateEntity(long entityID);
@@ -64,4 +55,13 @@ public:
 
     const std::unordered_map <long, EntityUnit>& getEntities();
     const Transform& getTransform(long entityID);
+
+private:
+    long m_counter = 1;
+    std::unordered_map <long, EntityUnit> m_entityMap;
+
+    // Selected entity is the entity that the user chose by clicking on it
+    long m_selectedEntityID = NO_ENTITY_ID;
+
+    std::vector <long> m_deactivatedEntityIDs;
 };

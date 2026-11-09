@@ -1,11 +1,32 @@
 #include "EntityManager.h"
 
+#include <cmath>
 #include <cstdint>
 #include <string>
 
 #include "Core/Logger/Logger.h"
+#include "Core/Definitions/CommonDefinitions.h"
 
 using namespace std;
+
+void EntityManager::createEntity() {
+
+    EntityUnit entity;
+    entity.entityID = m_counter;
+    entity.copyCount = 0;
+    entity.meshID = MESH_DEFAULT_ID;
+    entity.textureID = TEXTURE_DEFAULT_ID;
+    entity.materialType = MaterialType::Default;
+    entity.isActive = true;
+    entity.isColorTintEnabled = false;
+
+    entity.name = "Object" + to_string(entity.entityID);
+
+
+    m_entityMap[entity.entityID] = entity;
+
+    ++m_counter;
+}
 
 void EntityManager::createEntity(uint64_t meshID, MaterialType materialType, const string& name) {
 
@@ -14,16 +35,11 @@ void EntityManager::createEntity(uint64_t meshID, MaterialType materialType, con
     entity.copyCount = 0;
     entity.meshID = meshID;
     entity.materialType = materialType;
-    entity.textureID = DEFAULT_TEXTURE_ID;
+    entity.textureID = TEXTURE_DEFAULT_ID;
     entity.isActive = true;
     entity.isColorTintEnabled = false;
 
-    if (name == "Object") {
-        entity.name = "Object" + to_string(entity.entityID);
-    }
-    else {
-        entity.name = name;
-    }
+    entity.name = name;
 
     m_entityMap[entity.entityID] = entity;
 
@@ -173,7 +189,15 @@ void EntityManager::changeScale(long entityID, const glm::vec3& scale) {
         return;
     }
 
-    m_entityMap[entityID].transform.scale = scale;
+    float min_scale = 0.0001f;
+    glm::vec3 clamped_scale = scale;
+    for (int i = 0; i < 3; ++i) {
+        if (!std::isfinite(clamped_scale[i]) || clamped_scale[i] < min_scale) {
+            clamped_scale[i] = min_scale;
+        }
+    }
+
+    m_entityMap[entityID].transform.scale = clamped_scale;
 }
 
 void EntityManager::enableColorTint(long entityID) {

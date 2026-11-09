@@ -6,13 +6,14 @@
 #include "Core/Definitions/MaterialDefinitions.h"
 
 class ShaderManager {
+public:
+    // Create all active shaders during initialization so they are available before rendering begins
+    ShaderManager();
+    ~ShaderManager();
+
+    unsigned int getShader(MaterialType materialType);
 private:
     std::unordered_map <MaterialType, unsigned int> m_shaderMap;
     void createShader(const std::string& vertexSource, const std::string& fragmentSource);
-public:
-    // Create all active shaders during initialization so they are available before rendering begins
-    ShaderManager(); 
-
-    ~ShaderManager();
-    unsigned int getShader(MaterialType materialType);
+    void prepareShaders();
 };

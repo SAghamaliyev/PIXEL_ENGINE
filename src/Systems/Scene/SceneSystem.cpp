@@ -16,9 +16,12 @@ SceneSystem::SceneSystem(int viewportWidth, int viewportHeight)
 }
 
 const SceneInfo& SceneSystem::getSceneInfo() {
+    m_sceneInfo.activeEntityID = m_entityManager.getSelectedEntityID();
+    m_sceneInfo.activeCameraID = m_cameraManager.getActiveCameraID();
     return m_sceneInfo;
 }
 
-void SceneSystem::sceneUpdate(int viewportWidth, int viewportHeigh) {
+void SceneSystem::sceneUpdate(int viewportWidth, int viewportHeight) {
     m_entityManager.update();
+    // m_cameraManager.update(viewportWidth, viewportHeight);
 }
