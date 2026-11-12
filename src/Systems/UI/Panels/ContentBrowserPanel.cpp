@@ -6,12 +6,8 @@
 #include <string>
 #include <vector>
 
-#ifdef _WIN32
-#include <windows.h>
-#pragma comment(lib, "Comdlg32.lib")
-#endif
-
 #include <imgui.h>
+#include "tinyfiledialogs.h"
 
 #include "Core/EventSystem/EventSystem.h"
 #include "Core/Logger/Logger.h"
@@ -150,18 +146,18 @@ void ContentBrowserPanel::drawFolderTree() {
 }
 
 void ContentBrowserPanel::registerObject() {
-#ifdef _WIN32
-    char file_name[MAX_PATH] = {};
-    OPENFILENAMEA dialog = {};
-    dialog.lStructSize = sizeof(dialog);
-    dialog.lpstrFile = file_name;
-    dialog.nMaxFile = sizeof(file_name);
-    dialog.lpstrFilter = "OBJ files (*.obj)\0*.obj\0\0";
-    dialog.nFilterIndex = 1;
-    dialog.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+    const char* filterPatterns[] = { "*.obj" };
+    const char* filePath = tinyfd_openFileDialog(
+        "Select 3D Model",
+        "",
+        1,
+        filterPatterns,
+        "OBJ files (*.obj)",
+        0
+    );
 
-    if (GetOpenFileNameA(&dialog) != 0) {
-        const std::filesystem::path selected_path(file_name);
+    if (filePath != nullptr) {
+        const std::filesystem::path selected_path(filePath);
         if (isObjExtension(selected_path)) {
             EditorEvent register_event;
             register_event.type = EditorEventType::RegisterMesh;
@@ -173,26 +169,21 @@ void ContentBrowserPanel::registerObject() {
                 "Object registration queued for " + register_event.info.name + ".");
         }
     }
-#else
-    Logger::addLog(
-        LogType::LOG_WARNING,
-        "Object registration is supported only on Windows.");
-#endif
 }
 
 void ContentBrowserPanel::registerTexture() {
-#ifdef _WIN32
-    char file_name[MAX_PATH] = {};
-    OPENFILENAMEA dialog = {};
-    dialog.lStructSize = sizeof(dialog);
-    dialog.lpstrFile = file_name;
-    dialog.nMaxFile = sizeof(file_name);
-    dialog.lpstrFilter = "Image files (*.png; *.jpg; *.jpeg)\0*.png;*.jpg;*.jpeg\0PNG files (*.png)\0*.png\0JPG files (*.jpg; *.jpeg)\0*.jpg;*.jpeg\0All files (*.*)\0*.*\0\0";
-    dialog.nFilterIndex = 1;
-    dialog.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+    const char* filterPatterns[] = { "*.png", "*.jpg", "*.jpeg" };
+    const char* filePath = tinyfd_openFileDialog(
+        "Select Texture",
+        "",
+        3,
+        filterPatterns,
+        "Image files (*.png, *.jpg, *.jpeg)",
+        0
+    );
 
-    if (GetOpenFileNameA(&dialog) != 0) {
-        const std::filesystem::path selected_path(file_name);
+    if (filePath != nullptr) {
+        const std::filesystem::path selected_path(filePath);
         if (isTextureExtension(selected_path)) {
             EditorEvent register_event;
             register_event.type = EditorEventType::RegisterTexture;
@@ -204,11 +195,6 @@ void ContentBrowserPanel::registerTexture() {
                 "Texture registration queued for " + register_event.info.name + ".");
         }
     }
-#else
-    Logger::addLog(
-        LogType::LOG_WARNING,
-        "Texture registration is supported only on Windows.");
-#endif
 }
 
 void ContentBrowserPanel::drawFileView() {

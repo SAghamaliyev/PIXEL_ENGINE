@@ -95,7 +95,7 @@ void SceneHierarchyPanel::drawEntityList() {
             if (ImGui::MenuItem("Rename")) {
                 m_openRenamePopup = true;
                 m_renamingEntityID = id;
-                strncpy_s(m_renameBuffer, sizeof(m_renameBuffer), entity_view.name.c_str(), _TRUNCATE);
+                snprintf(m_renameBuffer, sizeof(m_renameBuffer), "%s", entity_view.name.c_str());
             }
 
             if (ImGui::MenuItem("Duplicate")) {

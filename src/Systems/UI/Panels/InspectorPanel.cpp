@@ -185,7 +185,7 @@ void InspectorPanel::draw(const EditorLayout& layout) {
 }
 
 void InspectorPanel::syncSelectedEntityFields(const EditorEntityView& entity) {
-    strncpy_s(m_entityNameBuffer, sizeof(m_entityNameBuffer), entity.name.c_str(), _TRUNCATE);
+    snprintf(m_entityNameBuffer, sizeof(m_entityNameBuffer), "%s", entity.name.c_str());
 
     m_position[0] = entity.position.x;
     m_position[1] = entity.position.y;

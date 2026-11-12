@@ -130,6 +130,8 @@ set(ENGINE_SOURCES
     "${THIRD_PARTY_DIR}/ImGuizmo.h"
     "${THIRD_PARTY_DIR}/ImGuizmo.cpp"
     "${THIRD_PARTY_DIR}/stb_image.h"
+    "${THIRD_PARTY_DIR}/tinyfiledialogs/tinyfiledialogs.h"
+    "${THIRD_PARTY_DIR}/tinyfiledialogs/tinyfiledialogs.c"
 )
 
 # Define executable target
@@ -142,6 +144,7 @@ target_include_directories(PIXEL_ENGINE PRIVATE
     "${THIRD_PARTY_DIR}/include"
     "${THIRD_PARTY_DIR}/glad/include"
     "${THIRD_PARTY_DIR}/glm-1.0.3"
+    "${THIRD_PARTY_DIR}/tinyfiledialogs"
     "${SRC_DIR}/Systems/UI/Materials"
     "${SRC_DIR}/Systems/UI/Materials/Backends"
 )
@@ -159,11 +162,6 @@ set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(third_party/glfw)
 
 target_link_libraries(PIXEL_ENGINE PRIVATE glfw)
-
-# Windows platform libraries
-if(WIN32)
-    target_link_libraries(PIXEL_ENGINE PRIVATE comdlg32)
-endif()
 
 # Debugger working directory for Visual Studio
 set_target_properties(PIXEL_ENGINE PROPERTIES
