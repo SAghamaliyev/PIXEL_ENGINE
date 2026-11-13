@@ -248,6 +248,9 @@ bool Engine::initialize() {
     // Also we must indicate that we want to use only the core profile
     // (fewer functions, no deprecated ones from old OpenGL versions)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
     GLFWmonitor* p_monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* p_video_mode = glfwGetVideoMode(p_monitor);

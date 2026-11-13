@@ -130,8 +130,9 @@ set(ENGINE_SOURCES
     "${THIRD_PARTY_DIR}/ImGuizmo.h"
     "${THIRD_PARTY_DIR}/ImGuizmo.cpp"
     "${THIRD_PARTY_DIR}/stb_image.h"
-    "${THIRD_PARTY_DIR}/tinyfiledialogs/tinyfiledialogs.h"
-    "${THIRD_PARTY_DIR}/tinyfiledialogs/tinyfiledialogs.c"
+    "${THIRD_PARTY_DIR}/ImGuiFileDialog/ImGuiFileDialog.h"
+    "${THIRD_PARTY_DIR}/ImGuiFileDialog/ImGuiFileDialog.cpp"
+    "${THIRD_PARTY_DIR}/ImGuiFileDialog/ImGuiFileDialogConfig.h"
 )
 
 # Define executable target
@@ -144,7 +145,7 @@ target_include_directories(PIXEL_ENGINE PRIVATE
     "${THIRD_PARTY_DIR}/include"
     "${THIRD_PARTY_DIR}/glad/include"
     "${THIRD_PARTY_DIR}/glm-1.0.3"
-    "${THIRD_PARTY_DIR}/tinyfiledialogs"
+    "${THIRD_PARTY_DIR}/ImGuiFileDialog"
     "${SRC_DIR}/Systems/UI/Materials"
     "${SRC_DIR}/Systems/UI/Materials/Backends"
 )

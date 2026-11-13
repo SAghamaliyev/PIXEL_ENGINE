@@ -6,8 +6,9 @@
 #include <string>
 #include <vector>
 
+#include <cctype>
 #include <imgui.h>
-#include "tinyfiledialogs.h"
+#include "ImGuiFileDialog.h"
 
 #include "Core/EventSystem/EventSystem.h"
 #include "Core/Logger/Logger.h"
@@ -15,12 +16,22 @@
 
 namespace {
 
+constexpr const char* OBJECT_DIALOG_KEY = "RegisterObjectDlgKey";
+constexpr const char* TEXTURE_DIALOG_KEY = "RegisterTextureDlgKey";
+
 bool isObjExtension(const std::filesystem::path& path) {
-    return path.extension() == ".obj";
+    std::string ext = path.extension().string();
+    for (char& c : ext) {
+        c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+    }
+    return ext == ".obj";
 }
 
 bool isTextureExtension(const std::filesystem::path& path) {
-    const std::filesystem::path ext = path.extension();
+    std::string ext = path.extension().string();
+    for (char& c : ext) {
+        c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+    }
     return ext == ".png" || ext == ".jpg" || ext == ".jpeg";
 }
 
@@ -41,6 +52,9 @@ void ContentBrowserPanel::setTextureSelectionMode(bool enabled, long entityID) {
 
 void ContentBrowserPanel::draw(const EditorLayout& layout) {
     if (!m_visible) {
+        if (!m_fileDialogKey.empty()) {
+            drawFileDialog();
+        }
         return;
     }
 
@@ -61,6 +75,8 @@ void ContentBrowserPanel::draw(const EditorLayout& layout) {
     drawFileView();
     ImGui::Columns(1);
     ImGui::End();
+
+    drawFileDialog();
 }
 
 void ContentBrowserPanel::drawToolbar() {
@@ -146,54 +162,72 @@ void ContentBrowserPanel::drawFolderTree() {
 }
 
 void ContentBrowserPanel::registerObject() {
-    const char* filterPatterns[] = { "*.obj" };
-    const char* filePath = tinyfd_openFileDialog(
+    m_fileDialogKey = OBJECT_DIALOG_KEY;
+    IGFD::FileDialogConfig config;
+    config.path = ".";
+    config.countSelectionMax = 1;
+    config.flags = ImGuiFileDialogFlags_Modal | ImGuiFileDialogFlags_CaseInsensitiveExtentionFiltering;
+    ImGuiFileDialog::Instance()->OpenDialog(
+        m_fileDialogKey,
         "Select 3D Model",
-        "",
-        1,
-        filterPatterns,
-        "OBJ files (*.obj)",
-        0
+        ".obj",
+        config
     );
-
-    if (filePath != nullptr) {
-        const std::filesystem::path selected_path(filePath);
-        if (isObjExtension(selected_path)) {
-            EditorEvent register_event;
-            register_event.type = EditorEventType::RegisterMesh;
-            register_event.info.path = selected_path.string();
-            register_event.info.name = selected_path.filename().string();
-            EventSystem::pushEvent(register_event);
-            Logger::addLog(
-                LogType::LOG_INFO,
-                "Object registration queued for " + register_event.info.name + ".");
-        }
-    }
 }
 
 void ContentBrowserPanel::registerTexture() {
-    const char* filterPatterns[] = { "*.png", "*.jpg", "*.jpeg" };
-    const char* filePath = tinyfd_openFileDialog(
+    m_fileDialogKey = TEXTURE_DIALOG_KEY;
+    IGFD::FileDialogConfig config;
+    config.path = ".";
+    config.countSelectionMax = 1;
+    config.flags = ImGuiFileDialogFlags_Modal | ImGuiFileDialogFlags_CaseInsensitiveExtentionFiltering;
+    ImGuiFileDialog::Instance()->OpenDialog(
+        m_fileDialogKey,
         "Select Texture",
-        "",
-        3,
-        filterPatterns,
-        "Image files (*.png, *.jpg, *.jpeg)",
-        0
+        ".png,.jpg,.jpeg",
+        config
     );
+}
 
-    if (filePath != nullptr) {
-        const std::filesystem::path selected_path(filePath);
-        if (isTextureExtension(selected_path)) {
-            EditorEvent register_event;
-            register_event.type = EditorEventType::RegisterTexture;
-            register_event.info.path = selected_path.string();
-            register_event.info.name = selected_path.filename().string();
-            EventSystem::pushEvent(register_event);
-            Logger::addLog(
-                LogType::LOG_INFO,
-                "Texture registration queued for " + register_event.info.name + ".");
+void ContentBrowserPanel::drawFileDialog() {
+    if (m_fileDialogKey.empty()) {
+        return;
+    }
+
+    const ImVec2 min_size(600.0f, 350.0f);
+
+    if (ImGuiFileDialog::Instance()->Display(m_fileDialogKey, ImGuiWindowFlags_NoCollapse, min_size)) {
+        if (ImGuiFileDialog::Instance()->IsOk()) {
+            const std::string selected_file_path = ImGuiFileDialog::Instance()->GetFilePathName();
+            const std::filesystem::path selected_path(selected_file_path);
+
+            if (m_fileDialogKey == OBJECT_DIALOG_KEY) {
+                if (isObjExtension(selected_path)) {
+                    EditorEvent register_event;
+                    register_event.type = EditorEventType::RegisterMesh;
+                    register_event.info.path = selected_path.string();
+                    register_event.info.name = selected_path.filename().string();
+                    EventSystem::pushEvent(register_event);
+                    Logger::addLog(
+                        LogType::LOG_INFO,
+                        "Object registration queued for " + register_event.info.name + ".");
+                }
+            }
+            else if (m_fileDialogKey == TEXTURE_DIALOG_KEY) {
+                if (isTextureExtension(selected_path)) {
+                    EditorEvent register_event;
+                    register_event.type = EditorEventType::RegisterTexture;
+                    register_event.info.path = selected_path.string();
+                    register_event.info.name = selected_path.filename().string();
+                    EventSystem::pushEvent(register_event);
+                    Logger::addLog(
+                        LogType::LOG_INFO,
+                        "Texture registration queued for " + register_event.info.name + ".");
+                }
+            }
         }
+        ImGuiFileDialog::Instance()->Close();
+        m_fileDialogKey.clear();
     }
 }
 

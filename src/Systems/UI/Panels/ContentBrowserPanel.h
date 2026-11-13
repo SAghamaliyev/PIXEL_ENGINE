@@ -26,10 +26,12 @@ private:
     char m_searchBuffer[256] = "";
     std::string m_currentDirectory = "assets/Objects";
     std::string m_selectedFilePath;
+    std::string m_fileDialogKey;
 
     void drawToolbar();
     void drawFolderTree();
     void drawFileView();
+    void drawFileDialog();
     void registerObject();
     void registerTexture();
     void queueAddObjectEvent(const std::string& metaPath, const std::string& filename, const std::string& stem);
