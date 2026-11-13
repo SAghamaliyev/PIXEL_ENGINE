@@ -149,17 +149,17 @@ void MeshManager::makeMesh(uint64_t meshID) {
 
 void MeshManager::makeDefaultMesh() {
     std::vector<float> vertices = {
-        // Задняя грань
+        // Back face
         -0.5f, -0.5f, -0.5f,   0.5f, -0.5f, -0.5f,   0.5f,  0.5f, -0.5f,  -0.5f,  0.5f, -0.5f,
-        // Передняя грань
+        // Front face
         -0.5f, -0.5f,  0.5f,   0.5f, -0.5f,  0.5f,   0.5f,  0.5f,  0.5f,  -0.5f,  0.5f,  0.5f,
-        // Левая грань
+        // Left face
         -0.5f,  0.5f,  0.5f,  -0.5f,  0.5f, -0.5f,  -0.5f, -0.5f, -0.5f,  -0.5f, -0.5f,  0.5f,
-        // Правая грань
+        // Right face
          0.5f,  0.5f,  0.5f,   0.5f,  0.5f, -0.5f,   0.5f, -0.5f, -0.5f,   0.5f, -0.5f,  0.5f,
-        // Нижняя грань
+        // Down face
         -0.5f, -0.5f, -0.5f,   0.5f, -0.5f, -0.5f,   0.5f, -0.5f,  0.5f,  -0.5f, -0.5f,  0.5f,
-        // Верхняя грань
+        // Up face
         -0.5f,  0.5f, -0.5f,   0.5f,  0.5f, -0.5f,   0.5f,  0.5f,  0.5f,  -0.5f,  0.5f,  0.5f
     };
     std::vector<float> textures = {

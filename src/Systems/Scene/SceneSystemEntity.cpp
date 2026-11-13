@@ -16,7 +16,7 @@ void SceneSystem::sceneCreateEntity() {
     m_entityManager.createEntity();
 }
 
-void SceneSystem::sceneCreateEntity(unsigned long long int meshID, 
+void SceneSystem::sceneCreateEntity(uint64_t meshID,
                                     MaterialType materialType, 
                                     const string& name) {
 
