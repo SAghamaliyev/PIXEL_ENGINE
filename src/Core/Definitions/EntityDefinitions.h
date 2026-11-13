@@ -9,8 +9,8 @@
 
 struct Transform {
     glm::mat4 matrix = glm::mat4(1.0f);      // Combined model transformation matrix
-    glm::vec3 rotation = glm::vec3(0.0f);    // Euler rotation angles (in degrees)
-    glm::vec3 translation = glm::vec3(0.0f); // Position in scene
+    glm::vec3 rotation = glm::vec3(1.0f);    // Euler rotation angles (in degrees)
+    glm::vec3 translation = glm::vec3(1.0f); // Position in scene
     glm::vec3 scale = glm::vec3(1.0f);       // Scale factors along X, Y, Z axes
 };
 
